@@ -1,0 +1,3 @@
+rootProject.name = 'wwdcfamily'
+
+include ':app'
