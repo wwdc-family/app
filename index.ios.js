@@ -16,6 +16,38 @@ firebase.initializeApp({
 });
 
 export default class NavigatorIOSApp extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      lastPosition: 'unknown'
+    }
+  }
+
+  watchID: ?number = null;
+
+  componentDidMount() {
+    console.log("starting location listening")
+
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      console.log(position)
+      this.setState({lastPosition});
+
+      let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
+      Database.setUserLocation(userId, 
+          position.coords.latitude + "", 
+          position.coords.longitude + "", 
+          position.timestamp + "")
+    },
+    (error) => alert(JSON.stringify(error)),
+    {enableHighAccuracy: true});
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
   render() {
     return (
       <NavigatorIOS
@@ -42,12 +74,16 @@ export class mapview extends Component {
   }
 
   onOtherUserUpdatedLocation = (lat, lng, timestamp) => {
-    this.state.markers = [{
+    console.log(lat)
+    console.log(lng)
+    console.log("gonna render")
+    this.state.markers.push({
       coordinate: {latitude: parseFloat(lat), longitude: parseFloat(lng)},
-      key: "123",
+      id: lat,
       title: "KrauseFx",
       description: "fastlane guy" + timestamp
-    }]
+    })
+    console.log(this.state.markers)
   }
 
   render() {
@@ -57,8 +93,8 @@ export class mapview extends Component {
           initialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 1.322,
+            longitudeDelta: 0.721,
           }}
           style={styles.map}
         >
@@ -67,7 +103,6 @@ export class mapview extends Component {
               coordinate={marker.coordinate}
               title={marker.title}
               description={marker.description}
-              key={marker.key}
             />
           ))}
         </MapView>
@@ -103,9 +138,6 @@ export class login extends Component {
           .signInWithEmailAndPassword(email, pass);
 
       console.log("Logged In!");
-
-      let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
-      Database.setUserLocation(userId, "37.78825", "-122.4324", "23.03.2019")
 
       this.props.navigator.push({
         component: mapview,
