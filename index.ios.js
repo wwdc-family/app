@@ -42,14 +42,12 @@ export class mapview extends Component {
   }
 
   onOtherUserUpdatedLocation = (lat, lng, timestamp) => {
-    console.log(lat)
-    console.log(lng)
     this.state.markers = [{
-        coordinate: {latitude: parseFloat(lat), longitude: parseFloat(lng)},
-        key: "123",
-        title: "KrauseFx",
-        description: "fastlane guy" + timestamp
-      }]
+      coordinate: {latitude: parseFloat(lat), longitude: parseFloat(lng)},
+      key: "123",
+      title: "KrauseFx",
+      description: "fastlane guy" + timestamp
+    }]
   }
 
   render() {
@@ -222,6 +220,8 @@ class Database {
 
     firebase.database().ref(userDetailsPath).on('value', (snapshot) => {
       var lat = "";
+      var lng = "";
+      var timestamp = "";
 
       if (snapshot.val()) {
         lat = snapshot.val().lat
@@ -229,7 +229,6 @@ class Database {
         timestamp = snapshot.val().timestamp
       }
 
-      console.log("Yolooo")
       console.log(snapshot.val())
 
       callback(lat, lng, timestamp)
