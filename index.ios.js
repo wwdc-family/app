@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 firebase.initializeApp({
-  
 });
 
 export default class wwdcfamily extends Component {
@@ -22,6 +21,15 @@ export default class wwdcfamily extends Component {
       email: 'email@krausefx.com',
       password: 'abcdefg123',
     }
+
+    firebase.auth()
+    let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
+    Database.listenUserDetails(userId, function(lat, lng, timestamp) {
+      console.log("Yeah: ")
+      console.log(lat)
+      console.log(lng)
+      console.log(timestamp)
+    })
   }
 
   async signup(email, pass) {
@@ -30,16 +38,39 @@ export default class wwdcfamily extends Component {
       await firebase.auth().createUserWithEmailAndPassword(email, pass);
 
       console.log("Account created");
-      // Navigate to the Home page, the user is auto logged in
     } catch (error) {
       console.log(error.toString())
     }
   }
 
+  async login(email, pass) {
+    try {
+      await firebase.auth()
+          .signInWithEmailAndPassword(email, pass);
+
+      console.log("Logged In!");
+
+      let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
+      Database.setUserLocation(userId, "123.123123", "84534.32423", "23.03.2019")
+    } catch (error) {
+      console.log(error.toString())
+    }
+  }
+
+  async logout() {
+    try {
+      await firebase.auth().signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   onPressRegister = () => {
-    console.log("Pressed register")
-    console.log(this.state.email)
     this.signup(this.state.email, this.state.password)
+  }
+
+  onPressLogin = () => {
+    this.login(this.state.email, this.state.password)
   }
 
   render() {
@@ -63,6 +94,12 @@ export default class wwdcfamily extends Component {
           title="Register"
           color="#841584"
           accessibilityLabel="Signup"
+        />
+        <Button
+          onPress={this.onPressLogin}
+          title="Login"
+          color="#841584"
+          accessibilityLabel="Login"
         />
       </View>
     );
@@ -89,3 +126,49 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('wwdcfamily', () => wwdcfamily);
+
+class Database {
+  /**
+   * Sets a user location
+   * @param userId
+   * @param lat
+   * @param lng
+   * @param timestamp
+   * @returns {firebase.Promise<any>|!firebase.Promise.<void>}
+   */
+  static setUserLocation(userId, lat, lng, timestamp) {
+    let userLocationPath = "/user/" + userId + "/details";
+
+    return firebase.database().ref(userLocationPath).set({
+      lat: lat,
+      lng: lng,
+      timestamp: timestamp
+    })
+  }
+
+  /**
+   * Listen for changes to a users location
+   * @param userId
+   * @param callback Users details
+   */
+  static listenUserDetails(userId, callback) {
+    let userDetailsPath = "/user/" + userId + "/details";
+
+    firebase.database().ref(userDetailsPath).on('value', (snapshot) => {
+      var lat = "";
+
+      if (snapshot.val()) {
+        lat = snapshot.val().lat
+        lng = snapshot.val().lng
+        timestamp = snapshot.val().timestamp
+      }
+
+      console.log("Yolooo")
+      console.log(snapshot.val())
+
+      callback(lat, lng, timestamp)
+    });
+  }
+}
+
+module.exports = Database;
