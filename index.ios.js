@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from "firebase";
+import MapView from 'react-native-maps';
 
 import {
   AppRegistry,
@@ -7,29 +8,84 @@ import {
   Text,
   View,
   Button,
-  TextInput
+  TextInput,
+  NavigatorIOS
 } from 'react-native';
 
 firebase.initializeApp({
 });
 
-export default class wwdcfamily extends Component {
+export default class NavigatorIOSApp extends Component {
+  render() {
+    return (
+      <NavigatorIOS
+        initialRoute={{
+          component: login,
+          title: 'Login'
+        }}
+        style={{flex: 1}}
+      />
+    );
+  }
+}
+
+export class mapview extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      markers: []
+    }
+
+    let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
+    Database.listenUserDetails(userId, this.onOtherUserUpdatedLocation)
+  }
+
+  onOtherUserUpdatedLocation = (lat, lng, timestamp) => {
+    console.log(lat)
+    console.log(lng)
+    this.state.markers = [{
+        coordinate: {latitude: parseFloat(lat), longitude: parseFloat(lng)},
+        key: "123",
+        title: "KrauseFx",
+        description: "fastlane guy" + timestamp
+      }]
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <MapView
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          style={styles.map}
+        >
+          {this.state.markers.map(marker => (
+            <MapView.Marker
+              coordinate={marker.coordinate}
+              title={marker.title}
+              description={marker.description}
+              key={marker.key}
+            />
+          ))}
+        </MapView>
+      </View>
+    );
+  }
+}
+
+export class login extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       email: 'email@krausefx.com',
-      password: 'abcdefg123',
+      password: 'abcdefg123'
     }
-
-    firebase.auth()
-    let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
-    Database.listenUserDetails(userId, function(lat, lng, timestamp) {
-      console.log("Yeah: ")
-      console.log(lat)
-      console.log(lng)
-      console.log(timestamp)
-    })
   }
 
   async signup(email, pass) {
@@ -51,7 +107,13 @@ export default class wwdcfamily extends Component {
       console.log("Logged In!");
 
       let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
-      Database.setUserLocation(userId, "123.123123", "84534.32423", "23.03.2019")
+      Database.setUserLocation(userId, "37.78825", "-122.4324", "23.03.2019")
+
+      this.props.navigator.push({
+        component: mapview,
+        title: 'Map'
+      });
+
     } catch (error) {
       console.log(error.toString())
     }
@@ -114,7 +176,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 30,
     marginBottom: 0,
-    marginTop: 60
+    marginTop: 100
   },
   password: {
     textAlign: 'center',
@@ -122,10 +184,14 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     margin: 30
+  },
+  map: {
+    height: "100%",
+    width: "100%"
   }
 });
 
-AppRegistry.registerComponent('wwdcfamily', () => wwdcfamily);
+AppRegistry.registerComponent('wwdcfamily', () => NavigatorIOSApp);
 
 class Database {
   /**
