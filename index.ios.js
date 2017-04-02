@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from "firebase";
 import MapView from 'react-native-maps';
+const styles = require('./styles.js')
 
 import {
   AppRegistry,
@@ -208,29 +209,6 @@ export class login extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  email: {
-    textAlign: 'center',
-    height: 50,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    margin: 30,
-    marginBottom: 0,
-    marginTop: 100
-  },
-  password: {
-    textAlign: 'center',
-    height: 50,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    margin: 30
-  },
-  map: {
-    height: "100%",
-    width: "100%"
-  }
-});
 
 AppRegistry.registerComponent('wwdcfamily', () => NavigatorIOSApp);
 
