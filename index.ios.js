@@ -45,7 +45,8 @@ export class mapview extends Component {
 
     this.state = {
       markers: [],
-      lastPosition: 'unknown'
+      lastPosition: 'unknown',
+      gpsTrackingActive: false
     }
   }
 
@@ -58,7 +59,7 @@ export class mapview extends Component {
 
   // viewDidUnload
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    this.stopTrackingLocation()
   }
 
   _handleAppStateChange = (appState) => {    
@@ -99,12 +100,14 @@ export class mapview extends Component {
   // Location tracking
   watchID: ?number = null;
 
-  startTrackingLocation() {
+  startTrackingLocation = () => {
     console.log("starting location listening")
+    this.state.gpsTrackingActive = true
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var lastPosition = JSON.stringify(position);
-      this.setState({lastPosition});
+      this.state.gpsTrackingActive = true
+      this.state.lastPosition = lastPosition
 
       let userId = this.props.route.userId
 
@@ -115,6 +118,21 @@ export class mapview extends Component {
     },
     (error) => console.log(error),
     {enableHighAccuracy: true});
+  }
+
+  stopTrackingLocation = () => {
+    console.log("Stop tracking location")
+    this.state.gpsTrackingActive = false
+    navigator.geolocation.clearWatch(this.watchID);
+    this.forceUpdate() // Not sure why this is needed
+  }
+
+  toggleLocationTracking = () => {
+    if (this.state.gpsTrackingActive) {
+      this.stopTrackingLocation()
+    } else {
+      this.startTrackingLocation()
+    }
   }
 
   render() {
@@ -138,6 +156,9 @@ export class mapview extends Component {
             />
           ))}
         </MapView>
+        <Text style={styles.gpsSender} onPress={this.toggleLocationTracking}>
+          {(this.state.gpsTrackingActive?"📡":"👻")}
+        </Text>
       </View>
     );
   }
