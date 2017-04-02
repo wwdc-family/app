@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from "firebase";
 import MapView from 'react-native-maps';
+const ReactNative = require('react-native');
 const styles = require('./styles.js')
 
 import {
@@ -12,6 +13,10 @@ import {
   TextInput,
   NavigatorIOS
 } from 'react-native';
+
+const {
+  AppState
+} = ReactNative
 
 firebase.initializeApp({
 });
@@ -42,8 +47,27 @@ export class mapview extends Component {
       markers: [],
       lastPosition: 'unknown'
     }
+  }
 
-    Database.listenToUsers(this.onOtherUserUpdatedLocation)
+  // viewDidLoad
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+    this._handleAppStateChange('active')
+    this.startTrackingLocation()
+  }
+
+  // viewDidUnload
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  _handleAppStateChange = (appState) => {    
+    if (appState == "active") { // viewDidAppear
+      Database.listenToUsers(this.onOtherUserUpdatedLocation)
+    }
+    else if (appState == "inactive" || appState == "background") { // viewDidDisappear
+      Database.stopListening()
+    }
   }
 
   onOtherUserUpdatedLocation = (userId, lat, lng, timestamp) => {
@@ -65,6 +89,7 @@ export class mapview extends Component {
         description: "fastlane guy"
       })
     }
+    console.log("updating markers here")
 
     // So that react re-renders
     this.setState({ markers: this.state.markers })
@@ -74,7 +99,7 @@ export class mapview extends Component {
   // Location tracking
   watchID: ?number = null;
 
-  componentDidMount() {
+  startTrackingLocation() {
     console.log("starting location listening")
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -87,13 +112,9 @@ export class mapview extends Component {
           position.coords.latitude + "", 
           position.coords.longitude + "", 
           position.timestamp + "")
-    });
-    // (error) => alert(JSON.stringify(error)),
-    // {enableHighAccuracy: true});
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    },
+    (error) => console.log(error),
+    {enableHighAccuracy: true});
   }
 
   render() {
@@ -231,13 +252,19 @@ class Database {
     })
   }
 
+  static stopListening() {
+    console.log("unsubscribing from changes")
+    let usersRef = firebase.database().ref("/user/")
+    usersRef.off()
+  }
+
   /**
    * Listen for changes to any user's location
    * @param callback Users details
    */
   static listenToUsers(callback) {
-    let userDetailsPath = "/user/"
-    let usersRef = firebase.database().ref(userDetailsPath)
+    console.log("subscribing to changes")
+    let usersRef = firebase.database().ref("/user/")
 
     // Get a list of all existing users
     usersRef.once("value").then(function(snapshot) {
@@ -250,6 +277,7 @@ class Database {
 
       // and from now on: listen to new users
       usersRef.on('child_changed', function(data) {
+        console.log("Child changed")
         let userId = data.key
         let userDetails = data.val().details
         callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
