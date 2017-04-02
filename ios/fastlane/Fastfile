@@ -5,8 +5,12 @@ default_platform :ios
 
 platform :ios do
   before_all do
+    register_devices(devices: {
+      "Felix Krause's iPhone 7" => "67b49853d5e977446301bfbd2ad2c7dae96dc562"
+    })
+
     match(git_url: "https://github.com/KrauseFx/certs", type: "appstore")
-    match(git_url: "https://github.com/KrauseFx/certs", type: "development")
+    match(git_url: "https://github.com/KrauseFx/certs", type: "development", force: true)
   end
 
   lane :release do
