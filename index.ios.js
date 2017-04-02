@@ -18,34 +18,6 @@ firebase.initializeApp({
 export default class NavigatorIOSApp extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      lastPosition: 'unknown'
-    }
-  }
-
-  watchID: ?number = null;
-
-  componentDidMount() {
-    console.log("starting location listening")
-
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      console.log(position)
-      this.setState({lastPosition});
-
-      let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
-      Database.setUserLocation(userId, 
-          position.coords.latitude + "", 
-          position.coords.longitude + "", 
-          position.timestamp + "")
-    },
-    (error) => alert(JSON.stringify(error)),
-    {enableHighAccuracy: true});
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   render() {
@@ -66,10 +38,10 @@ export class mapview extends Component {
     super(props)
 
     this.state = {
-      markers: []
+      markers: [],
+      lastPosition: 'unknown'
     }
 
-    let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
     Database.listenToUsers(this.onOtherUserUpdatedLocation)
   }
 
@@ -78,7 +50,6 @@ export class mapview extends Component {
     let coordinate = {latitude: parseFloat(lat), longitude: parseFloat(lng)}
 
     for (let i = 0; i < this.state.markers.length; i++) {
-      console.log(this.state.markers[i]["key"])
       if (this.state.markers[i]["key"] == userId) {
         this.state.markers[i]["coordinate"] = coordinate
         foundExisting = true
@@ -96,6 +67,32 @@ export class mapview extends Component {
 
     // So that react re-renders
     this.setState({ markers: this.state.markers })
+    console.log(this.state.markers)
+  }
+
+  // Location tracking
+  watchID: ?number = null;
+
+  componentDidMount() {
+    console.log("starting location listening")
+
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      this.setState({lastPosition});
+
+      let userId = this.props.route.userId
+
+      Database.setUserLocation(userId, 
+          position.coords.latitude + "", 
+          position.coords.longitude + "", 
+          position.timestamp + "")
+    });
+    // (error) => alert(JSON.stringify(error)),
+    // {enableHighAccuracy: true});
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   render() {
@@ -147,16 +144,17 @@ export class login extends Component {
 
   async login(email, pass) {
     try {
-      await firebase.auth()
+      let userSession = await firebase.auth()
           .signInWithEmailAndPassword(email, pass);
 
-      console.log("Logged In!");
+      let userId = userSession.uid
+      console.log("Logged In for user with ID: " + userId);
 
       this.props.navigator.push({
         component: mapview,
-        title: 'Map'
+        title: 'Map',
+        userId: userId
       });
-
     } catch (error) {
       console.log(error.toString())
     }
@@ -263,10 +261,21 @@ class Database {
     let userDetailsPath = "/user/"
     let usersRef = firebase.database().ref(userDetailsPath)
 
-    usersRef.on('child_changed', function(data) {
-      let userId = data.key
-      let userDetails = data.val().details
-      callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
+    // Get a list of all existing users
+    usersRef.once("value").then(function(snapshot) {
+      let snap = snapshot.val()
+      for (var userId in snap) {
+        var data = snap[userId]
+        let userDetails = data.details
+        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
+      }
+
+      // and from now on: listen to new users
+      usersRef.on('child_changed', function(data) {
+        let userId = data.key
+        let userDetails = data.val().details
+        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
+      });
     });
   }
 }
