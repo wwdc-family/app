@@ -66,12 +66,7 @@ export class mapview extends Component {
     super(props)
 
     this.state = {
-      markers: [{
-        coordinate: {latitude: parseFloat(37.78825), longitude: parseFloat(-122.4324)},
-        key: "yolo",
-        title: "userId",
-        description: "fastlane guy manual"
-      }]
+      markers: []
     }
 
     let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
