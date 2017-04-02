@@ -71,18 +71,33 @@ export class mapview extends Component {
     }
   }
 
+  // This is called with lat & lng being nil if a marker gets removed
   onOtherUserUpdatedLocation = (userId, lat, lng, timestamp) => {
-    let foundExisting = false
-    let coordinate = {latitude: parseFloat(lat), longitude: parseFloat(lng)}
+    let foundExisting = -1
+    let coordinatesProvided = !(lat == null && lng == null)
+    let coordinate = null
+
+    if (coordinatesProvided) {
+      coordinate = {latitude: parseFloat(lat), longitude: parseFloat(lng)}
+    }
 
     for (let i = 0; i < this.state.markers.length; i++) {
       if (this.state.markers[i]["key"] == userId) {
-        this.state.markers[i]["coordinate"] = coordinate
-        foundExisting = true
+        if (coordinatesProvided) {
+          this.state.markers[i]["coordinate"] = coordinate
+        }
+        foundExisting = i
       }
     }
 
-    if (!foundExisting) {
+    if (foundExisting > 0 && !coordinatesProvided) {
+      // we have to remove this marker from our list
+      // as the user disabled their location sharing
+      console.log("Removing the marker here")
+      this.state.markers.splice(foundExisting, 1)
+    }
+
+    if (coordinatesProvided && foundExisting == -1) {
       this.state.markers.push({
         coordinate: coordinate,
         key: userId,
@@ -124,6 +139,8 @@ export class mapview extends Component {
     console.log("Stop tracking location")
     this.state.gpsTrackingActive = false
     navigator.geolocation.clearWatch(this.watchID);
+    let userId = this.props.route.userId
+    Database.hideUser(userId)
     this.forceUpdate() // Not sure why this is needed
   }
 
@@ -269,8 +286,15 @@ class Database {
     return firebase.database().ref(userLocationPath).set({
       lat: lat,
       lng: lng,
-      timestamp: timestamp
+      timestamp: timestamp,
+      hidden: false
     })
+  }
+
+  static hideUser(userId) {
+    let userLocationPath = "/user/" + userId + "/details";
+
+    firebase.database().ref(userLocationPath).remove()
   }
 
   static stopListening() {
@@ -303,6 +327,11 @@ class Database {
         let userDetails = data.val().details
         callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
       });
+
+      usersRef.on('child_removed', function(data) {
+        let userId = data.key
+        callback(userId, null, null, null)
+      })
     });
   }
 }
