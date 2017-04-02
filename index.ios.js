@@ -66,24 +66,41 @@ export class mapview extends Component {
     super(props)
 
     this.state = {
-      markers: []
+      markers: [{
+        coordinate: {latitude: parseFloat(37.78825), longitude: parseFloat(-122.4324)},
+        key: "yolo",
+        title: "userId",
+        description: "fastlane guy manual"
+      }]
     }
 
     let userId = "N0RmyPovlLZYOvnxhhT1JnwZXrH3"
-    Database.listenUserDetails(userId, this.onOtherUserUpdatedLocation)
+    Database.listenToUsers(this.onOtherUserUpdatedLocation)
   }
 
-  onOtherUserUpdatedLocation = (lat, lng, timestamp) => {
-    console.log(lat)
-    console.log(lng)
-    console.log("gonna render")
-    this.state.markers.push({
-      coordinate: {latitude: parseFloat(lat), longitude: parseFloat(lng)},
-      id: lat,
-      title: "KrauseFx",
-      description: "fastlane guy" + timestamp
-    })
-    console.log(this.state.markers)
+  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp) => {
+    let foundExisting = false
+    let coordinate = {latitude: parseFloat(lat), longitude: parseFloat(lng)}
+
+    for (let i = 0; i < this.state.markers.length; i++) {
+      console.log(this.state.markers[i]["key"])
+      if (this.state.markers[i]["key"] == userId) {
+        this.state.markers[i]["coordinate"] = coordinate
+        foundExisting = true
+      }
+    }
+
+    if (!foundExisting) {
+      this.state.markers.push({
+        coordinate: coordinate,
+        key: userId,
+        title: userId,
+        description: "fastlane guy"
+      })
+    }
+
+    // So that react re-renders
+    this.setState({ markers: this.state.markers })
   }
 
   render() {
@@ -103,6 +120,7 @@ export class mapview extends Component {
               coordinate={marker.coordinate}
               title={marker.title}
               description={marker.description}
+              key={marker.key}
             />
           ))}
         </MapView>
@@ -243,27 +261,17 @@ class Database {
   }
 
   /**
-   * Listen for changes to a users location
-   * @param userId
+   * Listen for changes to any user's location
    * @param callback Users details
    */
-  static listenUserDetails(userId, callback) {
-    let userDetailsPath = "/user/" + userId + "/details";
+  static listenToUsers(callback) {
+    let userDetailsPath = "/user/"
+    let usersRef = firebase.database().ref(userDetailsPath)
 
-    firebase.database().ref(userDetailsPath).on('value', (snapshot) => {
-      var lat = "";
-      var lng = "";
-      var timestamp = "";
-
-      if (snapshot.val()) {
-        lat = snapshot.val().lat
-        lng = snapshot.val().lng
-        timestamp = snapshot.val().timestamp
-      }
-
-      console.log(snapshot.val())
-
-      callback(lat, lng, timestamp)
+    usersRef.on('child_changed', function(data) {
+      let userId = data.key
+      let userDetails = data.val().details
+      callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
     });
   }
 }
