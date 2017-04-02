@@ -592,6 +592,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = N8X438SEU2;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1051,9 +1052,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N8X438SEU2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
@@ -1067,7 +1069,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3d5871b6-b90c-4ffe-b616-3b18838bac6c";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1076,8 +1079,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N8X438SEU2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
@@ -1091,7 +1095,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3d5871b6-b90c-4ffe-b616-3b18838bac6c";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
