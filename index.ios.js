@@ -117,11 +117,11 @@ export class mapview extends Component {
 
   startTrackingLocation = () => {
     console.log("starting location listening")
-    this.state.gpsTrackingActive = true
+    this.setState({gpsTrackingActive: true })
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var lastPosition = JSON.stringify(position);
-      this.state.gpsTrackingActive = true
+      this.setState({gpsTrackingActive: true })
       this.state.lastPosition = lastPosition
 
       let userId = this.props.route.userId
@@ -137,11 +137,10 @@ export class mapview extends Component {
 
   stopTrackingLocation = () => {
     console.log("Stop tracking location")
-    this.state.gpsTrackingActive = false
+    this.setState({gpsTrackingActive: false })
     navigator.geolocation.clearWatch(this.watchID);
     let userId = this.props.route.userId
     Database.hideUser(userId)
-    this.forceUpdate() // Not sure why this is needed
   }
 
   toggleLocationTracking = () => {
