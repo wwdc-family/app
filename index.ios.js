@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 const ReactNative = require('react-native');
 const styles = require('./styles.js')
 const Database = require('./database.js')
+const FileUpload = require('./fileUpload.js')
 
 import {
   AppRegistry,
@@ -15,7 +16,8 @@ import {
   NavigatorIOS,
   ActivityIndicator,
   Alert,
-  Image
+  Image,
+  ImagePickerIOS
 } from 'react-native';
 
 const {
@@ -76,7 +78,7 @@ export class mapview extends Component {
   }
 
   // This is called with lat & lng being nil if a marker gets removed
-  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp) => {
+  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp, profilePicture) => {
     let foundExisting = -1
     let coordinatesProvided = !(lat == null && lng == null)
     let coordinate = null
@@ -107,7 +109,7 @@ export class mapview extends Component {
         key: userId,
         title: userId,
         description: "fastlane guy",
-        profilePicture: "https://twitter.com/krausefx/profile_image?size=bigger"
+        profilePicture: profilePicture
       })
     }
     console.log("updating markers here")
@@ -203,17 +205,22 @@ export class login extends Component {
 
   async signup(email, pass) {
     this.setState({loading: true})
+    ref = this
     try {
       console.log("start")
       let userSession = await firebase.auth().createUserWithEmailAndPassword(email, pass);
       let userId = userSession.uid
       console.log("Account created with ID: " + userId);
-      this.props.navigator.push({
-        component: mapview,
-        title: 'Map',
-        userId: userId
-      });
-      this.setState({loading: false})
+
+      let nav = this.props.navigator
+      this.askForProfilePicture(userId, function() {
+        reffinishLoading()
+        nav.push({
+          component: mapview,
+          title: 'Map',
+          userId: userId
+        });
+      })
     } catch (error) {
       this.setState({loading: false})
       Alert.alert("Registration error", error.message)
@@ -222,6 +229,7 @@ export class login extends Component {
 
   async login(email, pass) {
     this.setState({loading: true})
+    ref = this
     try {
       let userSession = await firebase.auth()
           .signInWithEmailAndPassword(email, pass);
@@ -229,12 +237,15 @@ export class login extends Component {
       let userId = userSession.uid
       console.log("Logged In for user with ID: " + userId);
 
-      this.props.navigator.push({
-        component: mapview,
-        title: 'Map',
-        userId: userId
-      });
-      this.setState({loading: false})
+      let nav = this.props.navigator
+      this.askForProfilePicture(userId, function() {
+        ref.finishLoading()
+        nav.push({
+          component: mapview,
+          title: 'Map',
+          userId: userId
+        });
+      })
     } catch (error) {
       this.setState({loading: false})
       Alert.alert("Login error", error.message)

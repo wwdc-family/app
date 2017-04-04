@@ -1,14 +1,6 @@
 import * as firebase from "firebase";
 
 class Database {
-  /**
-   * Sets a user location
-   * @param userId
-   * @param lat
-   * @param lng
-   * @param timestamp
-   * @returns {firebase.Promise<any>|!firebase.Promise.<void>}
-   */
   static setUserLocation(userId, lat, lng, timestamp) {
     console.log("got user location")
     let userLocationPath = "/user/" + userId + "/details";
@@ -18,6 +10,12 @@ class Database {
       lng: lng,
       timestamp: timestamp
     })
+  }
+
+  static setUserProfilePicture(userId, profilePictureUrl) {
+    let userLocationPath = "/user/" + userId + "/profilePicture";
+
+    return firebase.database().ref(userLocationPath).set(profilePictureUrl)
   }
 
   static hideUser(userId) {
@@ -32,10 +30,14 @@ class Database {
     usersRef.off()
   }
 
-  /**
-   * Listen for changes to any user's location
-   * @param callback Users details
-   */
+  static getUser(userId, callback) {
+    let userLocationRef = firebase.database().ref("/user/" + userId)
+    userLocationRef.once("value").then(function(snapshot) {
+      let snap = snapshot.val()
+      callback(snap)
+    })
+  }
+
   static listenToUsers(callback) {
     console.log("subscribing to changes")
     let usersRef = firebase.database().ref("/user/")
@@ -46,7 +48,7 @@ class Database {
       for (var userId in snap) {
         var data = snap[userId]
         let userDetails = data.details
-        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
+        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
       }
 
       // and from now on: listen to new users
@@ -54,12 +56,12 @@ class Database {
         console.log("Child changed")
         let userId = data.key
         let userDetails = data.val().details
-        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp)
+        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
       });
 
       usersRef.on('child_removed', function(data) {
         let userId = data.key
-        callback(userId, null, null, null)
+        callback(userId, null, null, null, null)
       })
     });
   }
