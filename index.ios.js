@@ -11,7 +11,9 @@ import {
   View,
   Button,
   TextInput,
-  NavigatorIOS
+  NavigatorIOS,
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 
 const {
@@ -185,23 +187,33 @@ export class login extends Component {
     super(props)
 
     this.state = {
-      email: 'email@krausefx.com',
-      password: 'abcdefg123'
+      email: 'email@kdrausefx.com', // TODO: remove
+      password: 'abcdefg123',
+      loading: false
     }
   }
 
   async signup(email, pass) {
+    this.setState({loading: true})
     try {
       console.log("start")
-      await firebase.auth().createUserWithEmailAndPassword(email, pass);
-
-      console.log("Account created");
+      let userSession = await firebase.auth().createUserWithEmailAndPassword(email, pass);
+      let userId = userSession.uid
+      console.log("Account created with ID: " + userId);
+      this.props.navigator.push({
+        component: mapview,
+        title: 'Map',
+        userId: userId
+      });
+      this.setState({loading: false})
     } catch (error) {
-      console.log(error.toString())
+      this.setState({loading: false})
+      Alert.alert("Registration error", error.message)
     }
   }
 
   async login(email, pass) {
+    this.setState({loading: true})
     try {
       let userSession = await firebase.auth()
           .signInWithEmailAndPassword(email, pass);
@@ -214,8 +226,10 @@ export class login extends Component {
         title: 'Map',
         userId: userId
       });
+      this.setState({loading: false})
     } catch (error) {
-      console.log(error.toString())
+      this.setState({loading: false})
+      Alert.alert("Login error", error.message)
     }
   }
 
@@ -252,16 +266,23 @@ export class login extends Component {
           value={this.state.password}
         />
         <Button
-          onPress={this.onPressRegister}
-          title="Register"
-          color="#841584"
-          accessibilityLabel="Signup"
-        />
-        <Button
+          style={styles.button}
+          disabled={this.state.loading}
           onPress={this.onPressLogin}
           title="Login"
-          color="#841584"
           accessibilityLabel="Login"
+        />
+        <Button
+          style={styles.button}
+          disabled={this.state.loading}
+          onPress={this.onPressRegister}
+          title="Register"
+          accessibilityLabel="Signup"
+        />
+        <ActivityIndicator
+          animating={this.state.loading}
+          style={[styles.centering, {height: 80}]}
+          size="large"
         />
       </View>
     );
