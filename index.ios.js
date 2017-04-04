@@ -4,7 +4,6 @@ import MapView from 'react-native-maps';
 const ReactNative = require('react-native');
 const styles = require('./styles.js')
 const Database = require('./database.js')
-const FileUpload = require('./fileUpload.js')
 
 import {
   AppRegistry,
@@ -16,8 +15,10 @@ import {
   NavigatorIOS,
   ActivityIndicator,
   Alert,
+  AlertIOS,
   Image,
-  ImagePickerIOS
+  ImagePickerIOS,
+  Linking
 } from 'react-native';
 
 const {
@@ -79,7 +80,7 @@ export class mapview extends Component {
   }
 
   // This is called with lat & lng being nil if a marker gets removed
-  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp, profilePicture) => {
+  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp, twitterUsername) => {
     let foundExisting = -1
     let coordinatesProvided = !(lat == null && lng == null)
     let coordinate = null
@@ -105,12 +106,16 @@ export class mapview extends Component {
     }
 
     if (coordinatesProvided && foundExisting == -1) {
+      let profilePictureUrl = "https://twitter.com/" + twitterUsername + "/profile_image?size=bigger"
+      if (profilePictureUrl) {
+        profilePictureUrl = profilePictureUrl.replace(" ", "") // with no space, we at least get a nice profile picture
+      }
       this.state.markers.push({
         coordinate: coordinate,
         key: userId,
-        title: userId,
+        title: twitterUsername,
         description: "fastlane guy",
-        profilePicture: profilePicture
+        profilePicture: profilePictureUrl
       })
     }
     console.log("updating markers here")
@@ -159,6 +164,24 @@ export class mapview extends Component {
     }
   }
 
+  openTwitterProfile = (twitterUsername) => {
+    console.log("Open Twitter profile: " + twitterUsername)
+    // This will open up the Twitter profile
+
+    urls = [
+      "tweetbot://" + twitterUsername + "/user_profile/" + twitterUsername, // always prefer Tweetbot
+      "https://twitter.com/" + twitterUsername
+    ]
+    for (let i = 0; i < urls.length; i++) {
+      let url = urls[i]
+      Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          return Linking.openURL(url);
+        }
+      }).catch(err => console.error('An error occurred', err));
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -176,6 +199,7 @@ export class mapview extends Component {
               coordinate={marker.coordinate}
               title={marker.title}
               description={marker.description}
+              onCalloutPress={() => this.openTwitterProfile(marker.title)}
               key={marker.key}
             >
               <Image
@@ -214,8 +238,8 @@ export class login extends Component {
       console.log("Account created with ID: " + userId);
 
       let nav = this.props.navigator
-      this.askForProfilePicture(userId, function() {
-        reffinishLoading()
+      this.askForTwitterUser(userId, function() {
+        ref.finishLoading()
         nav.push({
           component: mapview,
           title: 'Map',
@@ -239,7 +263,7 @@ export class login extends Component {
       console.log("Logged In for user with ID: " + userId);
 
       let nav = this.props.navigator
-      this.askForProfilePicture(userId, function() {
+      this.askForTwitterUser(userId, function() {
         ref.finishLoading()
         nav.push({
           component: mapview,
@@ -265,32 +289,25 @@ export class login extends Component {
     this.setState({loading: false})
   }
 
-  askForProfilePicture(userId, successCallback) {
-    let email = this.state.email
-
+  askForTwitterUser(userId, successCallback) {
     Database.getUser(userId, function(value) {
-      // First, check if there is an existing profile picture
-      if (value != null && value.profilePicture != null) {
+      // First, check if there is an existing twitter username
+      if (value != null && value.twitterUsername != null) {
         successCallback()
         return
       }
-      Alert.alert(
-        "Profile picture required", 
-        "Please provide a profile picture. This will be shown on the map for other iOS developers to see. Ideally use your Twitter profile picture.",
+
+      AlertIOS.prompt(
+        "Twitter username", 
+        "Please provide your Twitter username. This is required to fetch your profile picture, and a username that will be shown to other users\nIf you don't have one, please just enter your name",
         [
-          {text: 'OK', onPress: function() {
-            ImagePickerIOS.openSelectDialog({
-              showImages: true,
-              showVideos: false
-            }, imageUri => {
-              FileUpload.uploadImage(imageUri, email + ".jpg").then(url => {
-                console.log("Got the URL: " + url)
-                Database.setUserProfilePicture(userId, url)
-                successCallback()
-              }).catch(error => Alert.alert("Error uploading picture", error))
-            }, error => console.log(error));
-          }},
-        ])
+          {text: 'OK', onPress: function(twitterUsername) {
+            twitterUsername = twitterUsername.replace("@", "")
+            Database.setUserTwitterName(userId, twitterUsername)
+            successCallback()
+          }}
+        ], "plain-text"
+      )
     })
   }
 

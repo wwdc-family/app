@@ -12,10 +12,10 @@ class Database {
     })
   }
 
-  static setUserProfilePicture(userId, profilePictureUrl) {
-    let userLocationPath = "/user/" + userId + "/profilePicture";
+  static setUserTwitterName(userId, twitterUsername) {
+    let userLocationPath = "/user/" + userId + "/twitterUsername";
 
-    return firebase.database().ref(userLocationPath).set(profilePictureUrl)
+    return firebase.database().ref(userLocationPath).set(twitterUsername)
   }
 
   static hideUser(userId) {
@@ -49,7 +49,7 @@ class Database {
         var data = snap[userId]
         let userLocation = data.location
         if (userLocation) {
-          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.profilePicture)
+          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.twitterUsername)
         }
       }
 
@@ -59,7 +59,7 @@ class Database {
         let userId = data.key
         let userLocation = data.val().location
         if (userLocation) {
-          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.val().profilePicture)
+          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.val().twitterUsername)
         } else {
           // This happens when the user stopped sharing their location
           callback(userId, null, null, null, null)
