@@ -3,7 +3,7 @@ import * as firebase from "firebase";
 class Database {
   static setUserLocation(userId, lat, lng, timestamp) {
     console.log("got user location")
-    let userLocationPath = "/user/" + userId + "/details";
+    let userLocationPath = "/user/" + userId + "/location";
 
     return firebase.database().ref(userLocationPath).set({
       lat: lat,
@@ -19,7 +19,7 @@ class Database {
   }
 
   static hideUser(userId) {
-    let userLocationPath = "/user/" + userId + "/details";
+    let userLocationPath = "/user/" + userId + "/location";
 
     firebase.database().ref(userLocationPath).remove()
   }
@@ -47,7 +47,7 @@ class Database {
       let snap = snapshot.val()
       for (var userId in snap) {
         var data = snap[userId]
-        let userDetails = data.details
+        let userDetails = data.location
         callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
       }
 
@@ -55,7 +55,7 @@ class Database {
       usersRef.on('child_changed', function(data) {
         console.log("Child changed")
         let userId = data.key
-        let userDetails = data.val().details
+        let userDetails = data.val().location
         if (userDetails) {
           callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
         } else {
