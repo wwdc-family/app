@@ -62,6 +62,6 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
     <string>tweetbot</string>
-</array>
+  </array>
 </dict>
 </plist>
