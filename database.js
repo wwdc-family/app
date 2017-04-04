@@ -47,17 +47,19 @@ class Database {
       let snap = snapshot.val()
       for (var userId in snap) {
         var data = snap[userId]
-        let userDetails = data.location
-        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
+        let userLocation = data.location
+        if (userLocation) {
+          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.profilePicture)
+        }
       }
 
       // and from now on: listen to new users
       usersRef.on('child_changed', function(data) {
         console.log("Child changed")
         let userId = data.key
-        let userDetails = data.val().location
-        if (userDetails) {
-          callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
+        let userLocation = data.val().location
+        if (userLocation) {
+          callback(userId, userLocation.lat, userLocation.lng, userLocation.timestamp, data.val().profilePicture)
         } else {
           // This happens when the user stopped sharing their location
           callback(userId, null, null, null, null)
