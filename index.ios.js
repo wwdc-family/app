@@ -285,8 +285,7 @@ class Database {
     return firebase.database().ref(userLocationPath).set({
       lat: lat,
       lng: lng,
-      timestamp: timestamp,
-      hidden: false
+      timestamp: timestamp
     })
   }
 
