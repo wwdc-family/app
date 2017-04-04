@@ -66,6 +66,7 @@ export class mapview extends Component {
   // viewDidUnload
   componentWillUnmount() {
     this.stopTrackingLocation()
+    Database.stopListening()
   }
 
   _handleAppStateChange = (appState) => {    
@@ -258,6 +259,39 @@ export class login extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  finishLoading() {
+    this.setState({loading: false})
+  }
+
+  askForProfilePicture(userId, successCallback) {
+    let email = this.state.email
+
+    Database.getUser(userId, function(value) {
+      // First, check if there is an existing profile picture
+      if (value != null && value.profilePicture != null) {
+        successCallback()
+        return
+      }
+      Alert.alert(
+        "Profile picture required", 
+        "Please provide a profile picture. This will be shown on the map for other iOS developers to see. Ideally use your Twitter profile picture.",
+        [
+          {text: 'OK', onPress: function() {
+            ImagePickerIOS.openSelectDialog({
+              showImages: true,
+              showVideos: false
+            }, imageUri => {
+              FileUpload.uploadImage(imageUri, email + ".jpg").then(url => {
+                console.log("Got the URL: " + url)
+                Database.setUserProfilePicture(userId, url)
+                successCallback()
+              }).catch(error => Alert.alert("Error uploading picture", error))
+            }, error => console.log(error));
+          }},
+        ])
+    })
   }
 
   onPressRegister = () => {

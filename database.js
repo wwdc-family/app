@@ -56,13 +56,13 @@ class Database {
         console.log("Child changed")
         let userId = data.key
         let userDetails = data.val().details
-        callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
+        if (userDetails) {
+          callback(userId, userDetails.lat, userDetails.lng, userDetails.timestamp, data.profilePicture)
+        } else {
+          // This happens when the user stopped sharing their location
+          callback(userId, null, null, null, null)
+        }
       });
-
-      usersRef.on('child_removed', function(data) {
-        let userId = data.key
-        callback(userId, null, null, null, null)
-      })
     });
   }
 }
