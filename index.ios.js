@@ -14,7 +14,8 @@ import {
   TextInput,
   NavigatorIOS,
   ActivityIndicator,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 
 const {
@@ -105,7 +106,8 @@ export class mapview extends Component {
         coordinate: coordinate,
         key: userId,
         title: userId,
-        description: "fastlane guy"
+        description: "fastlane guy",
+        profilePicture: "https://twitter.com/krausefx/profile_image?size=bigger"
       })
     }
     console.log("updating markers here")
@@ -172,7 +174,12 @@ export class mapview extends Component {
               title={marker.title}
               description={marker.description}
               key={marker.key}
-            />
+            >
+              <Image
+                source={{uri: marker.profilePicture}}
+                style={styles.mapMarker}
+              />
+            </MapView.Marker>
           ))}
         </MapView>
         <Text style={styles.gpsSender} onPress={this.toggleLocationTracking}>

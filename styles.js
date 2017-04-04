@@ -2,7 +2,8 @@ const React = require('react-native')
 const {StyleSheet} = React
 const constants = {
   navBarHeight: 60, // not good
-  gpsPadding: 10
+  gpsPadding: 10,
+  mapMarkerSize: 40
 };
 
 const styles = StyleSheet.create({
@@ -33,6 +34,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     transform: [{scaleX: -1}], // GPS should point inwards
     fontSize: 40
+  },
+  mapMarker: {
+    height: constants.mapMarkerSize, 
+    width: constants.mapMarkerSize,
+    borderRadius: constants.mapMarkerSize / 2.0,
+    borderColor: "white",
+    borderWidth: 2
   }
 });
 
