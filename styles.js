@@ -2,7 +2,7 @@ const React = require('react-native')
 const {StyleSheet} = React
 const constants = {
   navBarHeight: 10,
-  gpsPadding: 10,
+  gpsPadding: 20,
   mapMarkerSize: 40,
 };
 
@@ -46,6 +46,15 @@ const styles = StyleSheet.create({
     borderRadius: constants.mapMarkerSize / 2.0,
     borderColor: "white",
     borderWidth: 2
+  },
+  statusBarBackground: {
+    backgroundColor: "#4E6896",
+    height: 20,
+    opacity: 0.8,
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0
   }
 });
 

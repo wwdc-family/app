@@ -238,6 +238,7 @@ export class MapViewComponent extends Component {
         <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
           {(this.state.gpsTrackingActive?"📡":"👻")}
         </Text>
+        <View style={styles.statusBarBackground} />
       </View>
     );
   }
