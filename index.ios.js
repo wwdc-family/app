@@ -17,7 +17,8 @@ import {
   Alert,
   AlertIOS,
   Image,
-  Linking
+  Linking,
+  ActionSheetIOS
 } from 'react-native';
 
 const {
@@ -162,6 +163,33 @@ export class MapViewComponent extends Component {
     }
   }
 
+  didTapMoreButton = () => {
+    let buttons = [
+      (this.state.gpsTrackingActive ? "Stop sharing location" : "Start sharing location"), 
+      "Logout", 
+      "Cancel"
+    ]
+
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: buttons,
+      cancelButtonIndex: buttons.length - 1
+    },
+    (buttonIndex) => {
+      this.setState({ clicked: buttons[buttonIndex] });
+      switch (buttonIndex) {
+        case 0:
+          this.toggleLocationTracking()
+          break
+        case 1:
+          this.props.navigator.pop()
+          break
+        case 2:
+          // Cancel, nothing to do here
+          break
+      }
+    });
+  }
+
   openTwitterProfile = (twitterUsername) => {
     console.log("Open Twitter profile: " + twitterUsername)
     // This will open up the Twitter profile
@@ -207,7 +235,7 @@ export class MapViewComponent extends Component {
             </MapView.Marker>
           ))}
         </MapView>
-        <Text style={styles.gpsSender} onPress={this.toggleLocationTracking}>
+        <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
           {(this.state.gpsTrackingActive?"📡":"👻")}
         </Text>
       </View>
