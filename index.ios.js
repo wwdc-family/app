@@ -12,12 +12,11 @@ import {
   View,
   Button,
   TextInput,
-  NavigatorIOS,
+  Navigator,
   ActivityIndicator,
   Alert,
   AlertIOS,
   Image,
-  ImagePickerIOS,
   Linking
 } from 'react-native';
 
@@ -28,25 +27,24 @@ const {
 firebase.initializeApp({
 });
 
-export default class NavigatorIOSApp extends Component {
+export default class MainNavigator extends Component {
   constructor(props) {
     super(props)
   }
 
   render() {
     return (
-      <NavigatorIOS
-        initialRoute={{
-          component: login,
-          title: 'Login'
+      <Navigator
+        initialRoute={{component: LoginComponent}}
+        renderScene={(route, navigator) => {
+          return React.createElement(route.component, { ...this.props, ...route.passProps, navigator, route } );
         }}
-        style={{flex: 1}}
       />
     );
   }
 }
 
-export class mapview extends Component {
+export class MapViewComponent extends Component {
   constructor(props) {
     super(props)
 
@@ -137,7 +135,7 @@ export class mapview extends Component {
       this.setState({gpsTrackingActive: true })
       this.state.lastPosition = lastPosition
 
-      let userId = this.props.route.userId
+      let userId = this.props.userId
 
       Database.setUserLocation(userId, 
           position.coords.latitude + "", 
@@ -152,7 +150,7 @@ export class mapview extends Component {
     console.log("Stop tracking location")
     this.setState({gpsTrackingActive: false })
     navigator.geolocation.clearWatch(this.watchID);
-    let userId = this.props.route.userId
+    let userId = this.props.userId
     Database.hideUser(userId)
   }
 
@@ -217,7 +215,7 @@ export class mapview extends Component {
   }
 }
 
-export class login extends Component {
+export class LoginComponent extends Component {
   constructor(props) {
     super(props)
 
@@ -241,9 +239,11 @@ export class login extends Component {
       this.askForTwitterUser(userId, function() {
         ref.finishLoading()
         nav.push({
-          component: mapview,
-          title: 'Map',
-          userId: userId
+          component: MapViewComponent,
+          passProps: {
+            title: 'Map',
+            userId: userId
+          }
         });
       })
     } catch (error) {
@@ -266,9 +266,11 @@ export class login extends Component {
       this.askForTwitterUser(userId, function() {
         ref.finishLoading()
         nav.push({
-          component: mapview,
-          title: 'Map',
-          userId: userId
+          component: MapViewComponent,
+          passProps: {
+            title: 'Map',
+            userId: userId
+          }
         });
       })
     } catch (error) {
@@ -359,4 +361,4 @@ export class login extends Component {
   }
 }
 
-AppRegistry.registerComponent('wwdcfamily', () => NavigatorIOSApp);
+AppRegistry.registerComponent('wwdcfamily', () => MainNavigator);

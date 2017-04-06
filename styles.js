@@ -1,7 +1,7 @@
 const React = require('react-native')
 const {StyleSheet} = React
 const constants = {
-  navBarHeight: 60, // not good
+  navBarHeight: 10,
   gpsPadding: 10,
   mapMarkerSize: 40
 };
