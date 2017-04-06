@@ -18,7 +18,7 @@ import {
   AlertIOS,
   Image,
   Linking,
-  ActionSheetIOS
+  ActionSheetIOS,
 } from 'react-native';
 
 const {
@@ -352,6 +352,10 @@ export class LoginComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image
+          source={require("./assets/headerImage.jpg")}
+          style={styles.loginHeaderImage}
+        />
         <TextInput
           style={styles.email}
           placeholder="Email"

@@ -3,10 +3,15 @@ const {StyleSheet} = React
 const constants = {
   navBarHeight: 10,
   gpsPadding: 10,
-  mapMarkerSize: 40
+  mapMarkerSize: 40,
 };
 
 const styles = StyleSheet.create({
+  loginHeaderImage: {
+    width: "100%",
+    top: 0,
+    height: 170
+  },
   email: {
     textAlign: 'center',
     height: 50,
