@@ -14,5 +14,6 @@ platform :ios do
 
   lane :beta do
     gym
+    testflight
   end
 end
