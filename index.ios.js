@@ -27,6 +27,12 @@ const {
 } = ReactNative
 
 firebase.initializeApp({
+  apiKey: "AIzaSyDzt9p5P0olqMo6ISBXKLGAk8mTYVYhbWM",
+  authDomain: "wwdc-family.firebaseapp.com",
+  databaseURL: "https://wwdc-family.firebaseio.com",
+  projectId: "wwdc-family",
+  storageBucket: "wwdc-family.appspot.com",
+  messagingSenderId: "48956287355"
 });
 
 export default class MainNavigator extends Component {
