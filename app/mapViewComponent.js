@@ -86,7 +86,7 @@ class MapViewComponent extends Component {
         coordinate: coordinate,
         key: userId,
         title: twitterUsername,
-        description: "fastlane guy",
+        description: "Tap to open Twitter profile",
         profilePicture: profilePictureUrl
       })
     }
