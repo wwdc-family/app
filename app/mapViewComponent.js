@@ -18,9 +18,14 @@ class MapViewComponent extends Component {
 
     this.state = {
       markers: [],
-      lastPosition: "unknown",
+      lastPosition: null,
       gpsTrackingActive: false,
-      followsUserLocation: false
+      region: {
+        latitude: 37.537431,
+        longitude: -122.216034,
+        latitudeDelta: 1.3,
+        longitudeDelta: 0.71
+      }
     };
   }
 
@@ -110,9 +115,9 @@ class MapViewComponent extends Component {
 
     this.watchID = navigator.geolocation.watchPosition(
       position => {
+        this.setState({ lastPosition: position });
         var lastPosition = JSON.stringify(position);
         this.setState({ gpsTrackingActive: true });
-        this.state.lastPosition = lastPosition;
 
         let userId = this.props.userId;
 
@@ -166,7 +171,7 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
-            this.setState({ followsUserLocation: true });
+            this.moveToUsersLocation();
             break;
           case 2:
             this.stopTrackingLocation();
@@ -180,6 +185,17 @@ class MapViewComponent extends Component {
         }
       }
     );
+  };
+
+  moveToUsersLocation = () => {
+    let region = this.state.region;
+    let newRegion = {
+      latitude: this.state.lastPosition.coords.latitude,
+      longitude: this.state.lastPosition.coords.longitude,
+      latitudeDelta: region["latitudeDelta"],
+      longitudeDelta: region["longitudeDelta"]
+    };
+    this.map.animateToRegion(newRegion);
   };
 
   async logout() {
@@ -210,24 +226,21 @@ class MapViewComponent extends Component {
     }
   };
 
-  unfollowUserLocation = () => {
-    this.setState({ followsUserLocation: false });
-  };
+  onRegionChange(region) {
+    this.setState({ region });
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <MapView
-          initialRegion={{
-            latitude: 37.537431,
-            longitude: -122.216034,
-            latitudeDelta: 1.3,
-            longitudeDelta: 0.71
-          }}
-          onRegionChange={this.unfollowUserLocation}
+          ref={ref => {
+            this.map = ref;
+          }} // so we can reference it via this.map
+          initialRegion={this.state.region}
+          onRegionChange={region => this.onRegionChange(region)}
           showsMyLocationButton={false} // setting this to true doesn't work
           showsUserLocation={this.state.gpsTrackingActive}
-          followsUserLocation={this.state.followsUserLocation}
           style={styles.map}
         >
           {this.state.markers.map(marker => (
@@ -247,6 +260,9 @@ class MapViewComponent extends Component {
         </MapView>
         <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
           {this.state.gpsTrackingActive ? "📡" : "👻"}
+        </Text>
+        <Text style={styles.locationButton} onPress={this.moveToUsersLocation}>
+          🎛
         </Text>
         <View style={styles.statusBarBackground} />
       </View>

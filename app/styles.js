@@ -39,6 +39,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontSize: 40
   },
+  locationButton: {
+    right: constants.gpsPadding,
+    bottom: constants.gpsPadding,
+    backgroundColor: "transparent",
+    position: "absolute",
+    fontSize: 40
+  },
   mapMarker: {
     height: constants.mapMarkerSize,
     width: constants.mapMarkerSize,
