@@ -887,7 +887,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "df512680-6f88-463b-a013-b54419810e6b";
+				PROVISIONING_PROFILE = "05da6eda-1f7f-42fe-b752-cde3851a9b0c";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -920,7 +920,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "4cb8d16b-2b1f-48ab-aec0-867fcc3dcc98";
+				PROVISIONING_PROFILE = "9a9239a0-ed92-4428-af34-edc5bc2e7d64";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
