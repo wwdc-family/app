@@ -54,6 +54,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0
+  },
+  buttonPadding: {
+    marginTop: 10
+  },
+  loginHeaderTitle: {
+    color: "white",
+    opacity: 0.93,
+    fontSize: 50,
+    textAlign: "center",
+    marginTop: 90
   }
 });
 

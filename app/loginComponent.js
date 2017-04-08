@@ -12,7 +12,8 @@ import {
   Button,
   ActivityIndicator,
   Alert,
-  AlertIOS
+  AlertIOS,
+  Text
 } from "react-native";
 
 class LoginComponent extends React.Component {
@@ -160,7 +161,11 @@ class LoginComponent extends React.Component {
         <Image
           source={require("./assets/headerImage.jpg")}
           style={styles.loginHeaderImage}
-        />
+        >
+          <Text style={styles.loginHeaderTitle}>
+            wwdc.family
+          </Text>
+        </Image>
         <TextInput
           style={styles.email}
           placeholder="Email"
@@ -175,14 +180,13 @@ class LoginComponent extends React.Component {
           value={this.state.password}
         />
         <Button
-          style={styles.button}
           disabled={this.state.loading}
           onPress={this.onPressLogin}
           title="Login"
           accessibilityLabel="Login"
         />
+        <View style={styles.buttonPadding} />
         <Button
-          style={styles.button}
           disabled={this.state.loading}
           onPress={this.onPressRegister}
           title="Register"
