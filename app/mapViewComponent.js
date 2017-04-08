@@ -209,21 +209,8 @@ class MapViewComponent extends Component {
   openTwitterProfile = twitterUsername => {
     console.log("Open Twitter profile: " + twitterUsername);
     // This will open up the Twitter profile
-
-    urls = [
-      "tweetbot://" + twitterUsername + "/user_profile/" + twitterUsername, // always prefer Tweetbot
-      "https://twitter.com/" + twitterUsername
-    ];
-    for (let i = 0; i < urls.length; i++) {
-      let url = urls[i];
-      Linking.canOpenURL(url)
-        .then(supported => {
-          if (supported) {
-            return Linking.openURL(url);
-          }
-        })
-        .catch(err => console.error("An error occurred", err));
-    }
+    url = "https://twitter.com/" + twitterUsername;
+    Linking.openURL(url);
   };
 
   onRegionChange(region) {
