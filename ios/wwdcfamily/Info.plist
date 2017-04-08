@@ -39,6 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select your profile picture which will be visble on the map</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>To share the location with other people even when the app doesn't run</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
