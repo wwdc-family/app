@@ -39,8 +39,6 @@
 	<string>To share the location with other people even when the app doesn't run</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To share your location with other people</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Select your profile picture which will be visble on the map</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -61,7 +59,7 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-    <string>tweetbot</string>
-  </array>
+		<string>tweetbot</string>
+	</array>
 </dict>
 </plist>
