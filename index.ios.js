@@ -36,10 +36,6 @@ firebase.initializeApp({
 });
 
 export default class MainNavigator extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <View style={{width: "100%", height: "100%"}}>
@@ -160,7 +156,7 @@ export class MapViewComponent extends Component {
   stopTrackingLocation = () => {
     console.log("Stop tracking location")
     this.setState({gpsTrackingActive: false })
-    navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.clearWatch(this.watchID)
     let userId = this.props.userId
     Database.hideUser(userId)
   }
@@ -191,6 +187,9 @@ export class MapViewComponent extends Component {
           this.toggleLocationTracking()
           break
         case 1:
+          this.stopTrackingLocation()
+          Database.stopListening()
+          this.logout()
           this.props.navigator.pop()
           break
         case 2:
@@ -198,6 +197,14 @@ export class MapViewComponent extends Component {
           break
       }
     });
+  }
+
+  async logout() {
+    try {
+      await firebase.auth().signOut();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   openTwitterProfile = (twitterUsername) => {
@@ -261,8 +268,36 @@ export class LoginComponent extends Component {
     this.state = {
       email: 'email@kdrausefx.com', // TODO: remove
       password: 'abcdefg123',
-      loading: false
+      loading: true,
+      waitingForFirebase: true
     }
+  }
+
+  componentWillMount() {
+    // Check if the user is already logged in
+    ref = this
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log("true")
+      if (ref.state.waitingForFirebase) {
+        ref.setState({waitingForFirebase: false})
+        if (user) {
+          let userId = user.uid
+          ref.props.navigator.push({
+            component: MapViewComponent,
+            passProps: {
+              title: 'Map',
+              userId: userId
+            }
+          });
+          ref.finishLoading()
+        } else {
+          ref.setState({loading: false})
+          // No user is signed in - show the login dialog
+        }
+      } else {
+        // We don't care about this, the user manually logged in
+      }
+    });
   }
 
   async signup(email, pass) {
@@ -291,7 +326,7 @@ export class LoginComponent extends Component {
     }
   }
 
-  async login(email, pass) {
+  async login(email, pass) {    
     this.setState({loading: true})
     ref = this
     try {
@@ -318,16 +353,11 @@ export class LoginComponent extends Component {
     }
   }
 
-  async logout() {
-    try {
-      await firebase.auth().signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+  // This method will add a delay, call it only on success
   finishLoading() {
-    this.setState({loading: false})
+    setTimeout(function() {
+      ref.setState({loading: false}) 
+    }, 500) // enable the buttons later for a smoother animation
   }
 
   askForTwitterUser(userId, successCallback) {
