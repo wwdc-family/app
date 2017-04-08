@@ -29,9 +29,9 @@ xcode-select --install
 </table>
 # Available Actions
 ## iOS
-### ios release
+### ios beta
 ```
-fastlane ios release
+fastlane ios beta
 ```
 
 

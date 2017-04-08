@@ -887,7 +887,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "3a515da5-e46b-47b5-aa29-f8f971d003eb";
+				PROVISIONING_PROFILE = "df512680-6f88-463b-a013-b54419810e6b";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -897,7 +897,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N8X438SEU2;
 				HEADER_SEARCH_PATHS = (
@@ -920,8 +920,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "3a515da5-e46b-47b5-aa29-f8f971d003eb";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development family.wwdc.app";
+				PROVISIONING_PROFILE = "4cb8d16b-2b1f-48ab-aec0-867fcc3dcc98";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
