@@ -33,11 +33,10 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   gpsSender: {
-    right: constants.gpsPadding,
+    left: constants.gpsPadding,
     top: constants.navBarHeight + constants.gpsPadding,
     backgroundColor: "transparent",
     position: "absolute",
-    transform: [{scaleX: -1}], // GPS should point inwards
     fontSize: 40
   },
   mapMarker: {
