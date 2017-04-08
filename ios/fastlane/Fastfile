@@ -9,7 +9,7 @@ platform :ios do
     })
 
     match(type: "appstore", readonly: is_ci)
-    match(type: "development", readonly: is_ci, force: true)
+    match(type: "development", readonly: is_ci)
   end
 
   lane :beta do
