@@ -13,7 +13,7 @@ platform :ios do
   end
 
   lane :beta do
-    gym
+    gym(scheme: "wwdcfamily")
     testflight
   end
 end
