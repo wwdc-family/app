@@ -2,6 +2,7 @@ language: objective-c
 osx_image: xcode8.3
 install:
   - npm install
+  - bundle install
 script:
   - cd ios && fastlane beta
 env:
