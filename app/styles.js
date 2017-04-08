@@ -10,23 +10,43 @@ const styles = StyleSheet.create({
   loginHeaderImage: {
     width: "100%",
     top: 0,
-    height: 170
+    height: "30%"
+  },
+  loginHeaderTitle: {
+    color: "white",
+    opacity: 0.93,
+    fontSize: 50,
+    textAlign: "center",
+    marginTop: 80
   },
   email: {
     textAlign: "center",
-    height: 50,
+    height: 44,
     borderStyle: "solid",
+    borderColor: "gray",
     borderWidth: 1,
     margin: 30,
-    marginBottom: 0,
-    marginTop: constants.navBarHeight + 50
+    marginBottom: 0
   },
   password: {
     textAlign: "center",
-    height: 50,
+    height: 44,
     borderStyle: "solid",
+    borderColor: "gray",
     borderWidth: 1,
-    margin: 30
+    margin: 30,
+    marginBottom: 15
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems:'center', 
+    justifyContent:'center'
+  },
+  dismissKeyboardView: {
+    backgroundColor: "transparent",
+    position: "absolute",
+    width: "100%",
+    height: "100%"
   },
   map: {
     height: "100%",
@@ -61,16 +81,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0
-  },
-  buttonPadding: {
-    marginTop: 10
-  },
-  loginHeaderTitle: {
-    color: "white",
-    opacity: 0.93,
-    fontSize: 50,
-    textAlign: "center",
-    marginTop: 90
   }
 });
 

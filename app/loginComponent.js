@@ -13,7 +13,9 @@ import {
   ActivityIndicator,
   Alert,
   AlertIOS,
-  Text
+  Text,
+  TouchableOpacity,
+  Keyboard
 } from "react-native";
 
 class LoginComponent extends React.Component {
@@ -155,9 +157,13 @@ class LoginComponent extends React.Component {
     this.login(this.state.email, this.state.password);
   };
 
+  dismissKeyboard = () => {
+    Keyboard.dismiss()
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onPress={this.dismissKeyboard}>
         <Image
           source={require("./assets/headerImage.jpg")}
           style={styles.loginHeaderImage}
@@ -166,9 +172,11 @@ class LoginComponent extends React.Component {
             wwdc.family
           </Text>
         </Image>
+        <TouchableOpacity onPress={this.dismissKeyboard} style={styles.dismissKeyboardView} />
         <TextInput
           style={styles.email}
           placeholder="Email"
+          keyboardType="email-address"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
@@ -179,19 +187,23 @@ class LoginComponent extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button
-          disabled={this.state.loading}
-          onPress={this.onPressLogin}
-          title="Login"
-          accessibilityLabel="Login"
-        />
-        <View style={styles.buttonPadding} />
-        <Button
-          disabled={this.state.loading}
-          onPress={this.onPressRegister}
-          title="Register"
-          accessibilityLabel="Signup"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            disabled={this.state.loading}
+            onPress={this.onPressLogin}
+            title="Login"
+            style={styles.button}
+            accessibilityLabel="Login"
+          />
+          <View style={{marginLeft: 40}} />
+          <Button
+            disabled={this.state.loading}
+            onPress={this.onPressRegister}
+            title="Register"
+            style={styles.button}
+            accessibilityLabel="Signup"
+          />
+        </View>
         <ActivityIndicator
           animating={this.state.loading}
           style={[styles.centering, { height: 80 }]}
