@@ -58,7 +58,8 @@ export class MapViewComponent extends Component {
     this.state = {
       markers: [],
       lastPosition: 'unknown',
-      gpsTrackingActive: false
+      gpsTrackingActive: false,
+      followsUserLocation: false
     }
   }
 
@@ -172,6 +173,7 @@ export class MapViewComponent extends Component {
   didTapMoreButton = () => {
     let buttons = [
       (this.state.gpsTrackingActive ? "Stop sharing location" : "Start sharing location"), 
+      "Jump to my location",
       "Logout", 
       "Cancel"
     ]
@@ -187,12 +189,15 @@ export class MapViewComponent extends Component {
           this.toggleLocationTracking()
           break
         case 1:
+          this.setState({followsUserLocation: true})
+          break
+        case 2:
           this.stopTrackingLocation()
           Database.stopListening()
           this.logout()
           this.props.navigator.pop()
           break
-        case 2:
+        case 3:
           // Cancel, nothing to do here
           break
       }
@@ -225,6 +230,10 @@ export class MapViewComponent extends Component {
     }
   }
 
+  unfollowUserLocation = () => {
+    this.setState({followsUserLocation: false})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -235,6 +244,10 @@ export class MapViewComponent extends Component {
             latitudeDelta: 1.322,
             longitudeDelta: 0.721,
           }}
+          onRegionChange={this.unfollowUserLocation}
+          showsMyLocationButton={false} // setting this to true doesn't work
+          showsUserLocation={this.state.gpsTrackingActive}
+          followsUserLocation={this.state.followsUserLocation}
           style={styles.map}
         >
           {this.state.markers.map(marker => (
