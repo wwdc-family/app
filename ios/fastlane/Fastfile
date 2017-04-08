@@ -29,7 +29,7 @@ platform :ios do
   end
 
   lane :beta do
-    gym(scheme: "wwdcfamily")
+    gym(scheme: "wwdcfamily", export_method: "app-store")
     testflight
   end
 end
