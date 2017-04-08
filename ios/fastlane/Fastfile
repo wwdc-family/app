@@ -8,8 +8,8 @@ platform :ios do
       "Felix Krause's iPhone 7" => "67b49853d5e977446301bfbd2ad2c7dae96dc562"
     })
 
-    match(type: "appstore")
-    match(type: "development", force: true)
+    match(type: "appstore", readonly: is_ci)
+    match(type: "development", readonly: is_ci, force: true)
   end
 
   lane :beta do
