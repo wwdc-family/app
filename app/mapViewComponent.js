@@ -10,7 +10,8 @@ import {
   View,
   Text,
   Image,
-  ActionSheetIOS
+  ActionSheetIOS,
+  Linking
 } from 'react-native';
 
 const {

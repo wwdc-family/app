@@ -3,13 +3,16 @@ import * as firebase from "firebase";
 const styles = require('./styles.js')
 
 const MapViewComponent = require('./mapViewComponent')
+const Database = require('./database.js')
 
 import {
   View,
   Image,
   TextInput,
   Button,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert,
+  AlertIOS
 } from 'react-native';
 
 class LoginComponent extends React.Component {
