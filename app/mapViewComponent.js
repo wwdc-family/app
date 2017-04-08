@@ -1,87 +1,90 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import * as firebase from "firebase";
-import MapView from 'react-native-maps';
+import MapView from "react-native-maps";
 
-const Database = require('./database.js')
-const styles = require('./styles.js')
-const ReactNative = require('react-native');
+const Database = require("./database.js");
+const styles = require("./styles.js");
+const ReactNative = require("react-native");
 
-import {
-  View,
-  Text,
-  Image,
-  ActionSheetIOS,
-  Linking
-} from 'react-native';
+import { View, Text, Image, ActionSheetIOS, Linking } from "react-native";
 
 const {
   AppState
-} = ReactNative
+} = ReactNative;
 
 class MapViewComponent extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       markers: [],
-      lastPosition: 'unknown',
+      lastPosition: "unknown",
       gpsTrackingActive: false,
       followsUserLocation: false
-    }
+    };
   }
 
   // viewDidLoad
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
-    this._handleAppStateChange('active')
-    this.startTrackingLocation()
+    AppState.addEventListener("change", this._handleAppStateChange);
+    this._handleAppStateChange("active");
+    this.startTrackingLocation();
   }
 
   // viewDidUnload
   componentWillUnmount() {
-    this.stopTrackingLocation()
-    Database.stopListening()
+    this.stopTrackingLocation();
+    Database.stopListening();
   }
 
-  _handleAppStateChange = (appState) => {    
-    if (appState == "active") { // viewDidAppear
-      Database.listenToUsers(this.onOtherUserUpdatedLocation)
+  _handleAppStateChange = appState => {
+    if (appState == "active") {
+      // viewDidAppear
+      Database.listenToUsers(this.onOtherUserUpdatedLocation);
+    } else if (appState == "inactive" || appState == "background") {
+      // viewDidDisappear
+      Database.stopListening();
     }
-    else if (appState == "inactive" || appState == "background") { // viewDidDisappear
-      Database.stopListening()
-    }
-  }
+  };
 
   // This is called with lat & lng being nil if a marker gets removed
-  onOtherUserUpdatedLocation = (userId, lat, lng, timestamp, twitterUsername) => {
-    let foundExisting = -1
-    let coordinatesProvided = !(lat == null && lng == null)
-    let coordinate = null
+  onOtherUserUpdatedLocation = (
+    userId,
+    lat,
+    lng,
+    timestamp,
+    twitterUsername
+  ) => {
+    let foundExisting = -1;
+    let coordinatesProvided = !(lat == null && lng == null);
+    let coordinate = null;
 
     if (coordinatesProvided) {
-      coordinate = {latitude: parseFloat(lat), longitude: parseFloat(lng)}
+      coordinate = { latitude: parseFloat(lat), longitude: parseFloat(lng) };
     }
 
     for (let i = 0; i < this.state.markers.length; i++) {
       if (this.state.markers[i]["key"] == userId) {
         if (coordinatesProvided) {
-          this.state.markers[i]["coordinate"] = coordinate
+          this.state.markers[i]["coordinate"] = coordinate;
         }
-        foundExisting = i
+        foundExisting = i;
       }
     }
 
     if (foundExisting > 0 && !coordinatesProvided) {
       // we have to remove this marker from our list
       // as the user disabled their location sharing
-      console.log("Removing the marker here")
-      this.state.markers.splice(foundExisting, 1)
+      console.log("Removing the marker here");
+      this.state.markers.splice(foundExisting, 1);
     }
 
     if (coordinatesProvided && foundExisting == -1) {
-      let profilePictureUrl = "https://twitter.com/" + twitterUsername + "/profile_image?size=bigger"
+      let profilePictureUrl = "https://twitter.com/" +
+        twitterUsername +
+        "/profile_image?size=bigger";
       if (profilePictureUrl) {
-        profilePictureUrl = profilePictureUrl.replace(" ", "") // with no space, we at least get a nice profile picture
+        profilePictureUrl = profilePictureUrl.replace(" ", ""); // with no space, we at least get a nice profile picture
       }
       this.state.markers.push({
         coordinate: coordinate,
@@ -89,87 +92,95 @@ class MapViewComponent extends Component {
         title: twitterUsername,
         description: "Tap to open Twitter profile",
         profilePicture: profilePictureUrl
-      })
+      });
     }
-    console.log("updating markers here")
+    console.log("updating markers here");
 
     // So that react re-renders
-    this.setState({ markers: this.state.markers })
-    console.log(this.state.markers)
-  }
+    this.setState({ markers: this.state.markers });
+    console.log(this.state.markers);
+  };
 
   // Location tracking
   watchID: ?number = null;
 
   startTrackingLocation = () => {
-    console.log("starting location listening")
-    this.setState({gpsTrackingActive: true })
+    console.log("starting location listening");
+    this.setState({ gpsTrackingActive: true });
 
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      this.setState({gpsTrackingActive: true })
-      this.state.lastPosition = lastPosition
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        var lastPosition = JSON.stringify(position);
+        this.setState({ gpsTrackingActive: true });
+        this.state.lastPosition = lastPosition;
 
-      let userId = this.props.userId
+        let userId = this.props.userId;
 
-      Database.setUserLocation(userId, 
-          position.coords.latitude + "", 
-          position.coords.longitude + "", 
-          position.timestamp + "")
-    },
-    (error) => console.log(error),
-    {enableHighAccuracy: true});
-  }
+        Database.setUserLocation(
+          userId,
+          position.coords.latitude + "",
+          position.coords.longitude + "",
+          position.timestamp + ""
+        );
+      },
+      error => console.log(error),
+      { enableHighAccuracy: true }
+    );
+  };
 
   stopTrackingLocation = () => {
-    console.log("Stop tracking location")
-    this.setState({gpsTrackingActive: false })
-    navigator.geolocation.clearWatch(this.watchID)
-    let userId = this.props.userId
-    Database.hideUser(userId)
-  }
+    console.log("Stop tracking location");
+    this.setState({ gpsTrackingActive: false });
+    navigator.geolocation.clearWatch(this.watchID);
+    let userId = this.props.userId;
+    Database.hideUser(userId);
+  };
 
   toggleLocationTracking = () => {
     if (this.state.gpsTrackingActive) {
-      this.stopTrackingLocation()
+      this.stopTrackingLocation();
     } else {
-      this.startTrackingLocation()
+      this.startTrackingLocation();
     }
-  }
+  };
 
   didTapMoreButton = () => {
     let buttons = [
-      (this.state.gpsTrackingActive ? "Stop sharing location" : "Start sharing location"), 
+      this.state.gpsTrackingActive
+        ? "Stop sharing location"
+        : "Start sharing location",
       "Jump to my location",
-      "Logout", 
+      "Logout",
       "Cancel"
-    ]
+    ];
 
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: buttons,
-      cancelButtonIndex: buttons.length - 1
-    },
-    (buttonIndex) => {
-      this.setState({ clicked: buttons[buttonIndex] });
-      switch (buttonIndex) {
-        case 0:
-          this.toggleLocationTracking()
-          break
-        case 1:
-          this.setState({followsUserLocation: true})
-          break
-        case 2:
-          this.stopTrackingLocation()
-          Database.stopListening()
-          this.logout()
-          this.props.navigator.pop()
-          break
-        case 3:
-          // Cancel, nothing to do here
-          break
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: buttons,
+        cancelButtonIndex: buttons.length - 1
+      },
+      buttonIndex => {
+        this.setState({ clicked: buttons[buttonIndex] });
+        switch (buttonIndex) {
+          case 0:
+            this.toggleLocationTracking();
+            break;
+          case 1:
+            this.setState({ followsUserLocation: true });
+            break;
+          case 2:
+            this.stopTrackingLocation();
+            Database.stopListening();
+            this.logout();
+            this.props.navigator.pop();
+            break;
+          case 3:
+            // Cancel, nothing to do here
+            break;
+        }
       }
-    });
-  }
+    );
+  };
 
   async logout() {
     try {
@@ -179,27 +190,29 @@ class MapViewComponent extends Component {
     }
   }
 
-  openTwitterProfile = (twitterUsername) => {
-    console.log("Open Twitter profile: " + twitterUsername)
+  openTwitterProfile = twitterUsername => {
+    console.log("Open Twitter profile: " + twitterUsername);
     // This will open up the Twitter profile
 
     urls = [
       "tweetbot://" + twitterUsername + "/user_profile/" + twitterUsername, // always prefer Tweetbot
       "https://twitter.com/" + twitterUsername
-    ]
+    ];
     for (let i = 0; i < urls.length; i++) {
-      let url = urls[i]
-      Linking.canOpenURL(url).then(supported => {
-        if (supported) {
-          return Linking.openURL(url);
-        }
-      }).catch(err => console.error('An error occurred', err));
+      let url = urls[i];
+      Linking.canOpenURL(url)
+        .then(supported => {
+          if (supported) {
+            return Linking.openURL(url);
+          }
+        })
+        .catch(err => console.error("An error occurred", err));
     }
-  }
+  };
 
   unfollowUserLocation = () => {
-    this.setState({followsUserLocation: false})
-  }
+    this.setState({ followsUserLocation: false });
+  };
 
   render() {
     return (
@@ -226,14 +239,14 @@ class MapViewComponent extends Component {
               key={marker.key}
             >
               <Image
-                source={{uri: marker.profilePicture}}
+                source={{ uri: marker.profilePicture }}
                 style={styles.mapMarker}
               />
             </MapView.Marker>
           ))}
         </MapView>
         <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
-          {(this.state.gpsTrackingActive?"📡":"👻")}
+          {this.state.gpsTrackingActive ? "📡" : "👻"}
         </Text>
         <View style={styles.statusBarBackground} />
       </View>
@@ -241,4 +254,4 @@ class MapViewComponent extends Component {
   }
 }
 
-module.exports = MapViewComponent
+module.exports = MapViewComponent;

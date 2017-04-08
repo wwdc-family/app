@@ -1,9 +1,9 @@
-const React = require('react-native')
-const {StyleSheet} = React
+const React = require("react-native");
+const { StyleSheet } = React;
 const constants = {
   navBarHeight: 10,
   gpsPadding: 20,
-  mapMarkerSize: 40,
+  mapMarkerSize: 40
 };
 
 const styles = StyleSheet.create({
@@ -13,18 +13,18 @@ const styles = StyleSheet.create({
     height: 170
   },
   email: {
-    textAlign: 'center',
+    textAlign: "center",
     height: 50,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 1,
     margin: 30,
     marginBottom: 0,
     marginTop: constants.navBarHeight + 50
   },
   password: {
-    textAlign: 'center',
+    textAlign: "center",
     height: 50,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 1,
     margin: 30
   },
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     fontSize: 40
   },
   mapMarker: {
-    height: constants.mapMarkerSize, 
+    height: constants.mapMarkerSize,
     width: constants.mapMarkerSize,
     borderRadius: constants.mapMarkerSize / 2.0,
     borderColor: "white",
@@ -57,5 +57,5 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = styles
+module.exports = styles;
 module.exports.constants = constants;
