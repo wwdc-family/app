@@ -21,8 +21,8 @@ class LoginComponent extends React.Component {
     super(props);
 
     this.state = {
-      email: "email@kdrausefx.com", // TODO: remove
-      password: "abcdefg123",
+      email: "",
+      password: "",
       loading: true,
       waitingForFirebase: true
     };
