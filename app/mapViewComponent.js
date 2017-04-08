@@ -205,10 +205,10 @@ class MapViewComponent extends Component {
       <View style={styles.container}>
         <MapView
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 1.322,
-            longitudeDelta: 0.721,
+            latitude: 37.537431,
+            longitude: -122.216034,
+            latitudeDelta: 1.3,
+            longitudeDelta: 0.71
           }}
           onRegionChange={this.unfollowUserLocation}
           showsMyLocationButton={false} // setting this to true doesn't work
