@@ -19,6 +19,7 @@ import {
   Image,
   Linking,
   ActionSheetIOS,
+  StatusBar
 } from 'react-native';
 
 const {
@@ -35,12 +36,15 @@ export default class MainNavigator extends Component {
 
   render() {
     return (
-      <Navigator
-        initialRoute={{component: LoginComponent}}
-        renderScene={(route, navigator) => {
-          return React.createElement(route.component, { ...this.props, ...route.passProps, navigator, route } );
-        }}
-      />
+      <View style={{width: "100%", height: "100%"}}>
+        <StatusBar barStyle="light-content" />
+        <Navigator
+          initialRoute={{component: LoginComponent}}
+          renderScene={(route, navigator) => {
+            return React.createElement(route.component, { ...this.props, ...route.passProps, navigator, route } );
+          }}
+        />
+      </View>
     );
   }
 }
