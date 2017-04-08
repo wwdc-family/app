@@ -887,7 +887,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "eaca8c1a-a74d-4ec4-9cf8-f5b22178bcdf";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -897,6 +896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N8X438SEU2;
@@ -920,7 +920,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "4aaaa407-6085-4857-a2c0-88ef666b81bc";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
