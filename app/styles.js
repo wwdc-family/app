@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   buttonContainer: {
-    flexDirection: 'row',
-    alignItems:'center', 
-    justifyContent:'center'
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   dismissKeyboardView: {
     backgroundColor: "transparent",

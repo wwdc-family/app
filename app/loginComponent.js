@@ -158,8 +158,8 @@ class LoginComponent extends React.Component {
   };
 
   dismissKeyboard = () => {
-    Keyboard.dismiss()
-  }
+    Keyboard.dismiss();
+  };
 
   render() {
     return (
@@ -172,7 +172,10 @@ class LoginComponent extends React.Component {
             wwdc.family
           </Text>
         </Image>
-        <TouchableOpacity onPress={this.dismissKeyboard} style={styles.dismissKeyboardView} />
+        <TouchableOpacity
+          onPress={this.dismissKeyboard}
+          style={styles.dismissKeyboardView}
+        />
         <TextInput
           style={styles.email}
           placeholder="Email"
@@ -195,7 +198,7 @@ class LoginComponent extends React.Component {
             style={styles.button}
             accessibilityLabel="Login"
           />
-          <View style={{marginLeft: 40}} />
+          <View style={{ marginLeft: 40 }} />
           <Button
             disabled={this.state.loading}
             onPress={this.onPressRegister}
