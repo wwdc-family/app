@@ -132,8 +132,8 @@ class LoginComponent extends React.Component {
       }
 
       AlertIOS.prompt(
-        "Twitter username",
-        "Please provide your Twitter username. This is required to fetch your profile picture, and a username that will be shown to other users\nIf you don't have one, please just enter your name",
+        "Twitter username or your name",
+        "The name will be shown next to your marker. Please use your Twitter username if you have one, as it will be used to fetch your profile picture.\n\nIf you don't have a Twitter account, just enter your real name",
         [
           {
             text: "OK",
