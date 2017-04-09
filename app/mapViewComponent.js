@@ -129,7 +129,11 @@ class MapViewComponent extends Component {
         );
       },
       error => console.log(error),
-      { enableHighAccuracy: true }
+      { 
+        enableHighAccuracy: true,
+        distanceFilter: 1,
+        maximumAge: 15000
+      }
     );
   };
 
