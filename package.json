@@ -12,6 +12,7 @@
     "react": "15.4.2",
     "react-native": "0.42.3",
     "react-native-fetch-blob": "^0.10.4",
+    "react-native-firestack": "^2.3.9",
     "react-native-image-picker": "^0.26.2",
     "react-native-maps": "^0.13.1"
   },

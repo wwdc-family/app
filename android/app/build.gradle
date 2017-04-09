@@ -126,6 +126,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-firestack')
     compile project(':react-native-maps')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile project(':react-native-maps')
