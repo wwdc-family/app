@@ -37,15 +37,17 @@ class MapViewComponent extends Component {
     AppState.addEventListener("change", this._handleAppStateChange);
     this._handleAppStateChange("active");
     this.startTrackingLocation();
+
+    firestack.analytics.logEventWithName("pageView", {
+      'screen': 'MapViewComponent'
+    })
+    firestack.analytics.logEventWithName("openMapView")
   }
 
   // viewDidUnload
   componentWillUnmount() {
     this.stopTrackingLocation();
     Database.stopListening();
-    firestack.analytics.logEventWithName("pageView", {
-      'screen': 'MainNavigator'
-    })
   }
 
   _handleAppStateChange = appState => {

@@ -59,8 +59,9 @@ class LoginComponent extends React.Component {
       }
     });
     firestack.analytics.logEventWithName("pageView", {
-      'screen': 'MainNavigator'
+      'screen': 'LoginComponent'
     })
+    firestack.analytics.logEventWithName("openLoginView")
   }
 
   async signup(email, pass) {
