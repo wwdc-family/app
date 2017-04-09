@@ -25,6 +25,11 @@ platform :ios do
     })
 
     match(type: "appstore", readonly: is_ci)
+
+    appicon(
+      appicon_path: 'wwdcfamily/Images.xcassets',
+      appicon_devices: [:iphone]
+    )
   end
 
   lane :beta do
