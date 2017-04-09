@@ -68,6 +68,9 @@ class MapViewComponent extends Component {
     timestamp,
     twitterUsername
   ) => {
+    if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
+      return; // Hide all profiles where the last update was over 1 hour ago
+    }
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
