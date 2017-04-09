@@ -74,6 +74,7 @@ class MapViewComponent extends Component {
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
+    let description = timeDifference(new Date(), timestamp) + " (Tap to open profile)"
 
     if (coordinatesProvided) {
       coordinate = { latitude: parseFloat(lat), longitude: parseFloat(lng) };
@@ -83,6 +84,7 @@ class MapViewComponent extends Component {
       if (this.state.markers[i]["key"] == userId) {
         if (coordinatesProvided) {
           this.state.markers[i]["coordinate"] = coordinate;
+          this.state.markers[i]["description"] = description;
         }
         foundExisting = i;
       }
@@ -106,7 +108,7 @@ class MapViewComponent extends Component {
         coordinate: coordinate,
         key: userId,
         title: twitterUsername,
-        description: "Tap to open Twitter profile",
+        description: description,
         profilePicture: profilePictureUrl
       });
     }
@@ -272,6 +274,30 @@ class MapViewComponent extends Component {
         <View style={styles.statusBarBackground} />
       </View>
     );
+  }
+}
+
+// Taken from https://stackoverflow.com/questions/6108819/javascript-timestamp-to-relative-time-eg-2-seconds-ago-one-week-ago-etc-best
+
+function timeDifference(current, previous) {
+  var msPerMinute = 60 * 1000;
+  var msPerHour = msPerMinute * 60;
+  var msPerDay = msPerHour * 24;
+  var msPerMonth = msPerDay * 30;
+  var msPerYear = msPerDay * 365;
+
+  var elapsed = current - previous;
+
+  if (elapsed < msPerMinute) {
+       return "Just now" // less than a minute
+  }
+
+  else if (elapsed < msPerHour) {
+       return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+  }
+
+  else if (elapsed < msPerDay ) {
+       return Math.round(elapsed/msPerHour ) + ' hours ago';   
   }
 }
 
