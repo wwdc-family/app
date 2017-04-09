@@ -3,6 +3,9 @@ import * as firebase from "firebase";
 
 const LoginComponent = require('./app/loginComponent')
 
+import Firestack from 'react-native-firestack'
+const firestack = new Firestack();
+
 import {
   AppRegistry,
   View,
@@ -20,6 +23,12 @@ firebase.initializeApp({
 });
 
 export default class MainNavigator extends Component {
+  componentDidMount() {
+    firestack.analytics.logEventWithName("launch")
+    firestack.analytics.logEventWithName("pageView", {
+      'screen': 'MainNavigator'
+    })
+  }
   render() {
     return (
       <View style={{width: "100%", height: "100%"}}>

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import * as firebase from "firebase";
 import MapView from "react-native-maps";
 
+import Firestack from 'react-native-firestack'
+const firestack = new Firestack();
+
 const Database = require("./database.js");
 const styles = require("./styles.js");
 const ReactNative = require("react-native");
@@ -40,6 +43,9 @@ class MapViewComponent extends Component {
   componentWillUnmount() {
     this.stopTrackingLocation();
     Database.stopListening();
+    firestack.analytics.logEventWithName("pageView", {
+      'screen': 'MainNavigator'
+    })
   }
 
   _handleAppStateChange = appState => {
@@ -103,13 +109,13 @@ class MapViewComponent extends Component {
 
     // So that react re-renders
     this.setState({ markers: this.state.markers });
-    console.log(this.state.markers);
   };
 
   // Location tracking
   watchID: ?number = null;
 
   startTrackingLocation = () => {
+    firestack.analytics.logEventWithName("startTracking")
     console.log("starting location listening");
     this.setState({ gpsTrackingActive: true });
 
@@ -139,6 +145,7 @@ class MapViewComponent extends Component {
 
   stopTrackingLocation = () => {
     console.log("Stop tracking location");
+    firestack.analytics.logEventWithName("stopTracking")
     this.setState({ gpsTrackingActive: false });
     navigator.geolocation.clearWatch(this.watchID);
     let userId = this.props.userId;
@@ -204,6 +211,8 @@ class MapViewComponent extends Component {
 
   async logout() {
     try {
+      firestack.analytics.logEventWithName("logout")
+      firestack.analytics.setUser(null)
       await firebase.auth().signOut();
     } catch (error) {
       console.log(error);

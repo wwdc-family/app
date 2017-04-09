@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import * as firebase from "firebase";
 const styles = require("./styles.js");
 
+import Firestack from 'react-native-firestack'
+const firestack = new Firestack();
+
 const MapViewComponent = require("./mapViewComponent");
 const Database = require("./database.js");
 
@@ -34,11 +37,11 @@ class LoginComponent extends React.Component {
     // Check if the user is already logged in
     ref = this;
     firebase.auth().onAuthStateChanged(function(user) {
-      console.log("true");
       if (ref.state.waitingForFirebase) {
         ref.setState({ waitingForFirebase: false });
         if (user) {
           let userId = user.uid;
+          firestack.analytics.setUser(userId)
           ref.props.navigator.push({
             component: MapViewComponent,
             passProps: {
@@ -55,13 +58,15 @@ class LoginComponent extends React.Component {
         // We don't care about this, the user manually logged in
       }
     });
+    firestack.analytics.logEventWithName("pageView", {
+      'screen': 'MainNavigator'
+    })
   }
 
   async signup(email, pass) {
     this.setState({ loading: true });
     ref = this;
     try {
-      console.log("start");
       let userSession = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, pass);
@@ -71,6 +76,7 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
+        firestack.analytics.setUser(userId)
         nav.push({
           component: MapViewComponent,
           passProps: {
@@ -99,6 +105,7 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
+        firestack.analytics.setUser(userId)
         nav.push({
           component: MapViewComponent,
           passProps: {
