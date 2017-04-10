@@ -48,9 +48,9 @@ class MapViewComponent extends Component {
     this.startTrackingLocation();
 
     firestack.analytics.logEventWithName("pageView", {
-      'screen': 'MapViewComponent'
-    })
-    firestack.analytics.logEventWithName("openMapView")
+      screen: "MapViewComponent"
+    });
+    firestack.analytics.logEventWithName("openMapView");
   }
 
   // viewDidUnload
@@ -83,7 +83,8 @@ class MapViewComponent extends Component {
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
-    let description = timeDifference(new Date(), timestamp) + " (Tap to open profile)"
+    let description = timeDifference(new Date(), timestamp) +
+      " (Tap to open profile)";
 
     if (coordinatesProvided) {
       coordinate = { latitude: parseFloat(lat), longitude: parseFloat(lng) };
@@ -131,7 +132,7 @@ class MapViewComponent extends Component {
   watchID: ?number = null;
 
   startTrackingLocation = () => {
-    firestack.analytics.logEventWithName("startTracking")
+    firestack.analytics.logEventWithName("startTracking");
     console.log("starting location listening");
     this.setState({ gpsTrackingActive: true });
 
@@ -161,7 +162,7 @@ class MapViewComponent extends Component {
 
   stopTrackingLocation = () => {
     console.log("Stop tracking location");
-    firestack.analytics.logEventWithName("stopTracking")
+    firestack.analytics.logEventWithName("stopTracking");
     this.setState({ gpsTrackingActive: false });
     navigator.geolocation.clearWatch(this.watchID);
     let userId = this.props.userId;
@@ -215,7 +216,7 @@ class MapViewComponent extends Component {
   };
 
   showAboutThisApp = () => {
-    firestack.analytics.logEventWithName("openAboutScreen")
+    firestack.analytics.logEventWithName("openAboutScreen");
     this.setState({ aboutThisAppModalVisible: true });
   };
 
@@ -232,8 +233,8 @@ class MapViewComponent extends Component {
 
   async logout() {
     try {
-      firestack.analytics.logEventWithName("logout")
-      firestack.analytics.setUser(null)
+      firestack.analytics.logEventWithName("logout");
+      firestack.analytics.setUser(null);
       await firebase.auth().signOut();
     } catch (error) {
       console.log(error);
@@ -334,15 +335,11 @@ function timeDifference(current, previous) {
   var elapsed = current - previous;
 
   if (elapsed < msPerMinute) {
-       return "Just now" // less than a minute
-  }
-
-  else if (elapsed < msPerHour) {
-       return Math.round(elapsed/msPerMinute) + ' minutes ago';   
-  }
-
-  else if (elapsed < msPerDay ) {
-       return Math.round(elapsed/msPerHour ) + ' hours ago';   
+    return "Just now"; // less than a minute
+  } else if (elapsed < msPerHour) {
+    return Math.round(elapsed / msPerMinute) + " minutes ago";
+  } else if (elapsed < msPerDay) {
+    return Math.round(elapsed / msPerHour) + " hours ago";
   }
 }
 

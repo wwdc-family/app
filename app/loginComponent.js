@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as firebase from "firebase";
 const styles = require("./styles.js");
 
-import Firestack from 'react-native-firestack'
+import Firestack from "react-native-firestack";
 const firestack = new Firestack();
 
 const MapViewComponent = require("./mapViewComponent");
@@ -41,7 +41,7 @@ class LoginComponent extends React.Component {
         ref.setState({ waitingForFirebase: false });
         if (user) {
           let userId = user.uid;
-          firestack.analytics.setUser(userId)
+          firestack.analytics.setUser(userId);
           ref.props.navigator.push({
             component: MapViewComponent,
             passProps: {
@@ -59,9 +59,9 @@ class LoginComponent extends React.Component {
       }
     });
     firestack.analytics.logEventWithName("pageView", {
-      'screen': 'LoginComponent'
-    })
-    firestack.analytics.logEventWithName("openLoginView")
+      screen: "LoginComponent"
+    });
+    firestack.analytics.logEventWithName("openLoginView");
   }
 
   async signup(email, pass) {
@@ -77,7 +77,7 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
-        firestack.analytics.setUser(userId)
+        firestack.analytics.setUser(userId);
         nav.push({
           component: MapViewComponent,
           passProps: {
@@ -106,7 +106,7 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
-        firestack.analytics.setUser(userId)
+        firestack.analytics.setUser(userId);
         nav.push({
           component: MapViewComponent,
           passProps: {
