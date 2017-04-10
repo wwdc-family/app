@@ -49,5 +49,5 @@ buck-out/
 # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
 */fastlane/report.xml
-*/fastlane/Preview.html
+*/**/Preview.html
 */fastlane/screenshots
