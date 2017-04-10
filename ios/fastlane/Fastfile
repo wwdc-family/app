@@ -38,6 +38,6 @@ platform :ios do
       xcodeproj: "wwdcfamily.xcodeproj"
     )
     gym(scheme: "wwdcfamily", export_method: "app-store")
-    testflight
+    testflight(distribute_external: true)
   end
 end
