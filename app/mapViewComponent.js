@@ -2,14 +2,22 @@ import React, { Component } from "react";
 import * as firebase from "firebase";
 import MapView from "react-native-maps";
 
-import Firestack from 'react-native-firestack'
+import Firestack from "react-native-firestack";
 const firestack = new Firestack();
 
 const Database = require("./database.js");
 const styles = require("./styles.js");
 const ReactNative = require("react-native");
 
-import { View, Text, Image, ActionSheetIOS, Linking } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ActionSheetIOS,
+  Linking,
+  Modal,
+  WebView
+} from "react-native";
 
 const {
   AppState
@@ -23,6 +31,7 @@ class MapViewComponent extends Component {
       markers: [],
       lastPosition: null,
       gpsTrackingActive: false,
+      aboutThisAppModalVisible: false,
       region: {
         latitude: 37.537431,
         longitude: -122.216034,
@@ -172,7 +181,7 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
-      "Jump to my location",
+      "About this app",
       "Logout",
       "Cancel"
     ];
@@ -189,7 +198,7 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
-            this.moveToUsersLocation();
+            this.showAboutThisApp();
             break;
           case 2:
             this.stopTrackingLocation();
@@ -203,6 +212,11 @@ class MapViewComponent extends Component {
         }
       }
     );
+  };
+
+  showAboutThisApp = () => {
+    firestack.analytics.logEventWithName("openAboutScreen")
+    this.setState({ aboutThisAppModalVisible: true });
   };
 
   moveToUsersLocation = () => {
@@ -240,6 +254,37 @@ class MapViewComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.aboutThisAppModalVisible}
+        >
+          <WebView
+            style={{
+              height: "100%",
+              width: "100%",
+              backgroundColor: "#444"
+            }}
+            ref={ref => {
+              this.webview = ref;
+            }}
+            source={require("./about.html")}
+            scalesPageToFit={false}
+            onNavigationStateChange={event => {
+              if (
+                event.url.includes("http") && !event.url.includes("localhost")
+              ) {
+                this.webview.stopLoading();
+                Linking.openURL(event.url);
+              }
+
+              if (event.url == "close://") {
+                this.webview.stopLoading();
+                this.setState({ aboutThisAppModalVisible: false });
+              }
+            }}
+          />
+        </Modal>
         <MapView
           ref={ref => {
             this.map = ref;
