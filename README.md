@@ -26,3 +26,9 @@ brew update && brew install node watchman
 npm install
 react-native run-ios
 ```
+
+## Logo License
+
+The app icon is released under [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en). You are free to adapt and use it for commercial purposes without attributing the original author or source. Although not required, a link back to this project is appreciated.
+
+
