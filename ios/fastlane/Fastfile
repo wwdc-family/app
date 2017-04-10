@@ -38,6 +38,6 @@ platform :ios do
       xcodeproj: "wwdcfamily.xcodeproj"
     )
     gym(scheme: "wwdcfamily", export_method: "app-store")
-    testflight(distribute_external: true)
+    testflight(distribute_external: true, changelog: "Automatically generated build by fastlane")
   end
 end
