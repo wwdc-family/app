@@ -5,3 +5,5 @@ Features:
 - Tap marker to open the Twitter profile to easily tweet or DM to a specific person
 - Automatic fetching of latest profile pictures from Twitter
 - Toggle your location sharing with one easy tap, allows you to easily stop sharing when you're heading to the hotel
+
+Please note that this app was created by Felix Krause - It is no way affiliated with Apple Inc. or Google Inc.
