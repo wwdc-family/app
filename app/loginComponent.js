@@ -159,11 +159,20 @@ class LoginComponent extends React.Component {
     });
   }
 
+  onEmailSubmit = () => {
+    this.refs.password.focus();
+  };
+
   onPressRegister = async () => {
     try {
       await this.signup(this.state.email, this.state.password);
     } catch (error) {
-      Alert.alert("Registration error", error.message);
+      if (error.code === "auth/email-already-in-use") {
+        // Already signed up, try to log them in
+        await this.onPressLogin();
+      } else {
+        Alert.alert("Registration error", error.message);
+      }
     }
   };
 
@@ -173,27 +182,7 @@ class LoginComponent extends React.Component {
     } catch (error) {
       Alert.alert("Login error", error.message);
     }
-  };
-
-  onEmailSubmit = () => {
-    this.refs.password.focus();
-  };
-
-  onPasswordSubmit = async () => {
-    try {
-      await this.login(this.state.email, this.state.password);
-    } catch (error) {
-      if (error.code !== 'auth/user-not-found') {
-        return Alert.alert("Login error", error.message);
-      }
-    }
-
-    try {
-      await this.signup(this.state.email, this.state.password);
-    } catch (error) {
-      Alert.alert("Registration error", error.message);
-    }
-  };
+  }
 
   dismissKeyboard = () => {
     Keyboard.dismiss();
@@ -230,9 +219,8 @@ class LoginComponent extends React.Component {
           style={styles.password}
           placeholder="Password"
           secureTextEntry={true}
-          returnKeyType="go"
+          returnKeyType="done"
           onChangeText={password => this.setState({ password })}
-          onSubmitEditing={this.onPasswordSubmit}
           value={this.state.password}
         />
         <View style={styles.buttonContainer}>
