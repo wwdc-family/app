@@ -500,6 +500,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				4C4A334E1078EA038CDD6AD4 /* [CP] Embed Pods Frameworks */,
 				AC0DE1A2858E5118F3D12508 /* [CP] Copy Pods Resources */,
+				CA489C6C1E9B237D004E9D67 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -878,6 +879,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CA489C6C1E9B237D004E9D67 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 6c157b320e690abeede5ad9997fca8f5e7da4bf8 51839729053047a59555b3a9f039f8bae40a0edac43e6eef3e32e6d846c872b7";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -930,11 +944,6 @@
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
 				PROVISIONING_PROFILE = "eaca8c1a-a74d-4ec4-9cf8-f5b22178bcdf";
@@ -967,15 +976,10 @@
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "4aaaa407-6085-4857-a2c0-88ef666b81bc";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
+				PROVISIONING_PROFILE = "54beb9ea-1171-4446-879b-1e8d618d2956";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

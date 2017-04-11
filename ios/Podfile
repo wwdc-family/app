@@ -13,7 +13,9 @@ platform :ios, '8.0'
   'Firebase/Storage',
   'Firebase/Database',
   'Firebase/RemoteConfig',
-  'Firebase/Messaging'
+  'Firebase/Messaging',
+  'Fabric',
+  'Crashlytics'
 ].each do |lib|
   pod lib
 end
