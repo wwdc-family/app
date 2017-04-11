@@ -182,7 +182,7 @@ class LoginComponent extends React.Component {
     } catch (error) {
       Alert.alert("Login error", error.message);
     }
-  }
+  };
 
   dismissKeyboard = () => {
     Keyboard.dismiss();
