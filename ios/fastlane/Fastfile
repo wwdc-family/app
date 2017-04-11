@@ -26,10 +26,10 @@ platform :ios do
 
     match(type: "appstore", readonly: is_ci)
 
-    appicon(
-      appicon_path: 'wwdcfamily/Images.xcassets',
-      appicon_devices: [:iphone]
-    )
+    #appicon(
+    #  appicon_path: 'wwdcfamily/Images.xcassets',
+    #  appicon_devices: [:iphone]
+    #)
   end
 
   lane :beta do
@@ -38,6 +38,6 @@ platform :ios do
       xcodeproj: "wwdcfamily.xcodeproj"
     )
     gym(scheme: "wwdcfamily", export_method: "app-store")
-    testflight
+    testflight(distribute_external: true, changelog: "Automatically generated build by fastlane")
   end
 end
