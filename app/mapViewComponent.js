@@ -80,6 +80,10 @@ class MapViewComponent extends Component {
     if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
       return; // Hide all profiles where the last update was over 1 hour ago
     }
+    if (userId == this.props.userId) {
+      return; // We don't want to show ourselve, as it might cover other people
+    }
+
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
