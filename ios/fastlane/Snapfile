@@ -1,0 +1,6 @@
+languages([
+  "en-US"
+])
+
+scheme "wwdcfamily"
+reinstall_app true

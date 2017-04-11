@@ -39,6 +39,10 @@ platform :ios do
                          changelog: "Automatically generated build by fastlane")
   end
 
+  lane :screenshots do
+    snapshot
+  end
+
   lane :update_app_icon do
     appicon(
       appicon_path: 'wwdcfamily/Images.xcassets',

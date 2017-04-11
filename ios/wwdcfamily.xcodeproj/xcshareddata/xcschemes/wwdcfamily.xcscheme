@@ -66,6 +66,16 @@
                ReferencedContainer = "container:wwdcfamily.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CA489D341E9C80BF004E9D67"
+               BuildableName = "wwdcfamilyUITests.xctest"
+               BlueprintName = "wwdcfamilyUITests"
+               ReferencedContainer = "container:wwdcfamily.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

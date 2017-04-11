@@ -26,6 +26,8 @@
 		B8E7344150EC4F15962D7C98 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8F9B16A63D4855837A9567 /* libRNFetchBlob.a */; };
 		BBD143E51DE54912800F43B5 /* libFirestack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8D2E3DCF5C4316B71AAFB5 /* libFirestack.a */; };
 		CA489C071E99CF70004E9D67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */; };
+		CA489D381E9C80BF004E9D67 /* wwdcfamilyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */; };
+		CA489D5C1E9C80DF004E9D67 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */; };
 		CC00514ADBE5463E94EC0607 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BFD04FDD1843D494C4D672 /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
@@ -212,6 +214,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = Firestack;
 		};
+		CA489D3A1E9C80BF004E9D67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = wwdcfamily;
+		};
 		CA4C12021E8F70C2002649A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */;
@@ -256,6 +265,10 @@
 		8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CA489D351E9C80BF004E9D67 /* wwdcfamilyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wwdcfamilyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wwdcfamilyUITests.swift; sourceTree = "<group>"; };
+		CA489D391E9C80BF004E9D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Firestack.xcodeproj; path = "../node_modules/react-native-firestack/ios/Firestack.xcodeproj"; sourceTree = "<group>"; };
 		DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamily.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -280,6 +293,13 @@
 				B8E7344150EC4F15962D7C98 /* libRNFetchBlob.a in Frameworks */,
 				BBD143E51DE54912800F43B5 /* libFirestack.a in Frameworks */,
 				86EDF7A4B30796FA5FB70E0A /* Pods_wwdcfamily.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA489D321E9C80BF004E9D67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +457,7 @@
 				CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* wwdcfamily */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				CA489D361E9C80BF004E9D67 /* wwdcfamilyUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				B5EFE903E3B7525E360EFECA /* Pods */,
 				0EA341A83E1736C9D096A294 /* Frameworks */,
@@ -449,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* wwdcfamily.app */,
+				CA489D351E9C80BF004E9D67 /* wwdcfamilyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -468,6 +490,16 @@
 				CA489BEB1E99CF43004E9D67 /* libFirestack.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CA489D361E9C80BF004E9D67 /* wwdcfamilyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */,
+				CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */,
+				CA489D391E9C80BF004E9D67 /* Info.plist */,
+			);
+			path = wwdcfamilyUITests;
 			sourceTree = "<group>";
 		};
 		CA4C11FF1E8F70C2002649A3 /* Products */ = {
@@ -511,12 +543,31 @@
 			productReference = 13B07F961A680F5B00A75B9A /* wwdcfamily.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CA489D341E9C80BF004E9D67 /* wwdcfamilyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA489D5A1E9C80BF004E9D67 /* Build configuration list for PBXNativeTarget "wwdcfamilyUITests" */;
+			buildPhases = (
+				CA489D311E9C80BF004E9D67 /* Sources */,
+				CA489D321E9C80BF004E9D67 /* Frameworks */,
+				CA489D331E9C80BF004E9D67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA489D3B1E9C80BF004E9D67 /* PBXTargetDependency */,
+			);
+			name = wwdcfamilyUITests;
+			productName = wwdcfamilyUITests;
+			productReference = CA489D351E9C80BF004E9D67 /* wwdcfamilyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -528,6 +579,12 @@
 								enabled = 1;
 							};
 						};
+					};
+					CA489D341E9C80BF004E9D67 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = N8X438SEU2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -603,6 +660,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* wwdcfamily */,
+				CA489D341E9C80BF004E9D67 /* wwdcfamilyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -817,6 +875,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CA489D331E9C80BF004E9D67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -904,7 +969,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CA489D311E9C80BF004E9D67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA489D381E9C80BF004E9D67 /* wwdcfamilyUITests.swift in Sources */,
+				CA489D5C1E9C80DF004E9D67 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CA489D3B1E9C80BF004E9D67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* wwdcfamily */;
+			targetProxy = CA489D3A1E9C80BF004E9D67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
@@ -1064,6 +1146,55 @@
 			};
 			name = Release;
 		};
+		CA489D3C1E9C80BF004E9D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8X438SEU2;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = wwdcfamilyUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tools.fastlane.wwdcfamilyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "54beb9ea-1171-4446-879b-1e8d618d2956";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = wwdcfamily;
+			};
+			name = Debug;
+		};
+		CA489D3D1E9C80BF004E9D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N8X438SEU2;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = wwdcfamilyUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tools.fastlane.wwdcfamilyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "54beb9ea-1171-4446-879b-1e8d618d2956";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = wwdcfamily;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1084,6 +1215,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		CA489D5A1E9C80BF004E9D67 /* Build configuration list for PBXNativeTarget "wwdcfamilyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA489D3C1E9C80BF004E9D67 /* Debug */,
+				CA489D3D1E9C80BF004E9D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
