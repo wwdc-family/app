@@ -188,6 +188,8 @@ class LoginComponent extends React.Component {
           style={styles.email}
           placeholder="Email"
           keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
