@@ -34,6 +34,11 @@ xcode-select --install
 fastlane ios beta
 ```
 
+### ios update_app_icon
+```
+fastlane ios update_app_icon
+```
+
 
 ----
 
