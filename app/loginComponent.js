@@ -41,7 +41,6 @@ class LoginComponent extends React.Component {
         ref.setState({ waitingForFirebase: false });
         if (user) {
           let userId = user.uid;
-          firestack.analytics.setUser(userId);
           ref.props.navigator.push({
             component: MapViewComponent,
             passProps: {
@@ -77,7 +76,6 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
-        firestack.analytics.setUser(userId);
         nav.push({
           component: MapViewComponent,
           passProps: {
@@ -106,7 +104,6 @@ class LoginComponent extends React.Component {
       let nav = this.props.navigator;
       this.askForTwitterUser(userId, function() {
         ref.finishLoading();
-        firestack.analytics.setUser(userId);
         nav.push({
           component: MapViewComponent,
           passProps: {

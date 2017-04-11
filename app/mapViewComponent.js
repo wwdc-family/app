@@ -238,7 +238,6 @@ class MapViewComponent extends Component {
   async logout() {
     try {
       firestack.analytics.logEventWithName("logout");
-      firestack.analytics.setUser(null);
       await firebase.auth().signOut();
     } catch (error) {
       console.log(error);
