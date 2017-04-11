@@ -87,8 +87,9 @@ class LoginComponent extends React.Component {
         });
       });
     } catch (error) {
+      throw error;
+    } finally {
       this.setState({ loading: false });
-      Alert.alert("Registration error", error.message);
     }
   }
 
@@ -116,8 +117,9 @@ class LoginComponent extends React.Component {
         });
       });
     } catch (error) {
+      throw error;
+    } finally {
       this.setState({ loading: false });
-      Alert.alert("Login error", error.message);
     }
   }
 
@@ -157,12 +159,40 @@ class LoginComponent extends React.Component {
     });
   }
 
-  onPressRegister = () => {
-    this.signup(this.state.email, this.state.password);
+  onPressRegister = async () => {
+    try {
+      await this.signup(this.state.email, this.state.password);
+    } catch (error) {
+      Alert.alert("Registration error", error.message);
+    }
   };
 
-  onPressLogin = () => {
-    this.login(this.state.email, this.state.password);
+  onPressLogin = async () => {
+    try {
+      await this.login(this.state.email, this.state.password);
+    } catch (error) {
+      Alert.alert("Login error", error.message);
+    }
+  };
+
+  onEmailSubmit = () => {
+    this.refs.password.focus();
+  };
+
+  onPasswordSubmit = async () => {
+    try {
+      await this.login(this.state.email, this.state.password);
+    } catch (error) {
+      if (error.code !== 'auth/user-not-found') {
+        return Alert.alert("Login error", error.message);
+      }
+    }
+
+    try {
+      await this.signup(this.state.email, this.state.password);
+    } catch (error) {
+      Alert.alert("Registration error", error.message);
+    }
   };
 
   dismissKeyboard = () => {
@@ -190,14 +220,19 @@ class LoginComponent extends React.Component {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          returnKeyType="next"
           onChangeText={email => this.setState({ email })}
+          onSubmitEditing={this.onEmailSubmit}
           value={this.state.email}
         />
         <TextInput
+          ref="password"
           style={styles.password}
           placeholder="Password"
           secureTextEntry={true}
+          returnKeyType="go"
           onChangeText={password => this.setState({ password })}
+          onSubmitEditing={this.onPasswordSubmit}
           value={this.state.password}
         />
         <View style={styles.buttonContainer}>
