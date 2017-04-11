@@ -34,7 +34,7 @@ class wwdcfamilyUITests: XCTestCase {
     app.secureTextFields["Password"].typeText("simulatorPassword033")
     app.buttons["Login"].tap()
 
-    sleep(3) // to ensure the map and all markers are loaded
+    sleep(6) // to ensure the map and all markers are loaded
     snapshot("1_Map")
     
     app.staticTexts["📡"].tap()
