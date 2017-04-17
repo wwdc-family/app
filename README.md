@@ -1,4 +1,4 @@
-# [wwdc.family](https://wwdc.family)
+# [wwdc.family](https://wwdc.family) [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58efdeba55bb3d00016b40a6&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58efdeba55bb3d00016b40a6/build/latest?branch=master)
 
 This is an experiment to use Firebase and React Native to build a [wwdc.family](https://wwdc.family) app. 
 
