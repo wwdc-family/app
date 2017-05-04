@@ -64,7 +64,6 @@ class LoginComponent extends React.Component {
       // it contains an `error` key for carrying the
       // error message in case of an error
       // and a `user` key upon successful authentication
-      console.log(evt);
       if (!evt.authenticated) {
         ref.setState({ loading: false });
       } else {
@@ -93,7 +92,6 @@ class LoginComponent extends React.Component {
     firestack.auth
       .createUserWithEmail(email, pass)
       .then(userSession => {
-        console.log(userSession);
         let userId = userSession.uid;
         console.log("Account created with ID: " + userId);
       })
@@ -110,7 +108,6 @@ class LoginComponent extends React.Component {
     firestack.auth
       .signInWithEmail(email, pass)
       .then(userSession => {
-        console.log(userSession);
         let userId = userSession.uid;
         console.log("Logged In for user with ID: " + userId);
         // Loading the map is handled on the listener
