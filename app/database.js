@@ -1,4 +1,4 @@
-import Firestack from 'react-native-firestack'
+import Firestack from "react-native-firestack";
 const firestack = new Firestack();
 
 class Database {
@@ -18,7 +18,7 @@ class Database {
 
     // We have to set it as a hash, as otherwise it sets the string as an array
     return firestack.database.ref(userLocationPath).set({
-      "twitterUsername": twitterUsername
+      twitterUsername: twitterUsername
     });
   }
 

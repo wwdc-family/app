@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import MapView from "react-native-maps";
 
-import { DeviceEventEmitter } from 'react-native'
-import { RNLocation as Location } from 'NativeModules'
+import { DeviceEventEmitter } from "react-native";
+import { RNLocation as Location } from "NativeModules";
 
 import Firestack from "react-native-firestack";
 const firestack = new Firestack();
@@ -42,20 +42,21 @@ class MapViewComponent extends Component {
       }
     };
 
-    this.loadParties()
+    this.loadParties();
   }
 
   loadParties() {
-    let url = 'https://caltrain.okrain.com/parties'
+    let url = "https://caltrain.okrain.com/parties";
     fetch(url)
-      .then((response) => response.json())
-      .then((responseData) => {
+      .then(response => response.json())
+      .then(responseData => {
         try {
-          parties = responseData["parties"]
-          console.log(parties)
+          parties = responseData["parties"];
+          console.log(parties);
           for (let i = 0; i < parties.length; i++) {
-            let current = parties[i]
-            if (new Date(current["endDate"]) > new Date()) { // to hide events that already happened
+            let current = parties[i];
+            // hide events that already happened
+            if (new Date(current["endDate"]) > new Date()) {
               this.state.markers.push({
                 coordinate: {
                   latitude: parseFloat(current["latitude"]),
@@ -71,9 +72,10 @@ class MapViewComponent extends Component {
           }
           this.setState({ markers: this.state.markers }); // So that react re-renders
         } catch (exception) {
-          console.log(exception)
+          console.log(exception);
         }
-      }).done();
+      })
+      .done();
   }
 
   // viewDidLoad
@@ -145,7 +147,7 @@ class MapViewComponent extends Component {
 
     // This has to be done **after** we potentially remove
     // the marker, as there is no timestamp for removed markers
-    let numberOfHours = 24 // TODO: We want to change this to 1 hour once launched
+    let numberOfHours = 24; // TODO: We want to change this to 1 hour once launched
     if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
       this.setState({ markers: this.state.markers }); // So that react re-renders
       return; // Hide all profiles where the last update was over 1 hour ago
@@ -173,7 +175,7 @@ class MapViewComponent extends Component {
     this.setState({ markers: this.state.markers });
   };
 
-  // Location tracking  
+  // Location tracking
 
   startTrackingLocation = () => {
     firestack.analytics.logEventWithName("startTracking");
@@ -186,22 +188,19 @@ class MapViewComponent extends Component {
     Location.setDistanceFilter(5.0);
     Location.startMonitoringSignificantLocationChanges();
 
-    DeviceEventEmitter.addListener(
-      'locationUpdated',
-      (position) => {
-        this.setState({ lastPosition: position });
-        this.setState({ gpsTrackingActive: true });
+    DeviceEventEmitter.addListener("locationUpdated", position => {
+      this.setState({ lastPosition: position });
+      this.setState({ gpsTrackingActive: true });
 
-        let userId = this.props.userId;
+      let userId = this.props.userId;
 
-        Database.setUserLocation(
-          userId,
-          position.coords.latitude + "",
-          position.coords.longitude + "",
-          position.timestamp + ""
-        );
-      }
-    );
+      Database.setUserLocation(
+        userId,
+        position.coords.latitude + "",
+        position.coords.longitude + "",
+        position.timestamp + ""
+      );
+    });
   };
 
   stopTrackingLocation = () => {
@@ -283,9 +282,10 @@ class MapViewComponent extends Component {
   };
 
   async logout() {
-    firestack.auth.signOut()
-    .then(res => console.log('You have been signed out'))
-    .catch(err => console.error('Uh oh... something weird happened'))
+    firestack.auth
+      .signOut()
+      .then(res => console.log("You have been signed out"))
+      .catch(err => console.error("Uh oh... something weird happened"));
   }
 
   openURL = url => {
@@ -360,9 +360,10 @@ class MapViewComponent extends Component {
         <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
           {this.state.gpsTrackingActive ? "📡" : "👻"}
         </Text>
-        { !this.state.gpsTrackingActive && <Text style={styles.notSharingLocationWarning}>
-          You're currently not sharing your location
-        </Text> }
+        {!this.state.gpsTrackingActive &&
+          <Text style={styles.notSharingLocationWarning}>
+            You're currently not sharing your location
+          </Text>}
         <View style={styles.statusBarBackground} />
       </View>
     );

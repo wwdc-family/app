@@ -58,9 +58,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     position: "absolute",
     fontSize: 40,
-    transform: [{
-      rotateY: '-180deg'
-    }]
+    transform: [
+      {
+        rotateY: "-180deg"
+      }
+    ]
   },
   mapMarker: {
     height: constants.mapMarkerSize,
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0
   },
-  "notSharingLocationWarning": {
+  notSharingLocationWarning: {
     position: "absolute",
     left: 0,
     right: 0,
