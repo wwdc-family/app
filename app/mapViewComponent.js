@@ -11,6 +11,8 @@ const Database = require("./database.js");
 const styles = require("./styles.js");
 const ReactNative = require("react-native");
 
+const gpsTrackingActiveKey = "@wwdcfamily:gpsTrackingActive";
+
 import {
   View,
   Text,
@@ -18,7 +20,8 @@ import {
   ActionSheetIOS,
   Linking,
   Modal,
-  WebView
+  WebView,
+  AsyncStorage
 } from "react-native";
 
 const {
@@ -45,44 +48,20 @@ class MapViewComponent extends Component {
     this.loadParties();
   }
 
-  loadParties() {
-    let url = "https://caltrain.okrain.com/parties";
-    fetch(url)
-      .then(response => response.json())
-      .then(responseData => {
-        try {
-          parties = responseData["parties"];
-          console.log(parties);
-          for (let i = 0; i < parties.length; i++) {
-            let current = parties[i];
-            // hide events that already happened
-            if (new Date(current["endDate"]) > new Date()) {
-              this.state.markers.push({
-                coordinate: {
-                  latitude: parseFloat(current["latitude"]),
-                  longitude: parseFloat(current["longitude"])
-                },
-                key: current["objectId"],
-                title: current["title"],
-                description: current["address1"],
-                profilePicture: current["icon"],
-                url: current["url"]
-              });
-            }
-          }
-          this.setState({ markers: this.state.markers }); // So that react re-renders
-        } catch (exception) {
-          console.log(exception);
-        }
-      })
-      .done();
-  }
-
   // viewDidLoad
   componentDidMount() {
     AppState.addEventListener("change", this._handleAppStateChange);
     this._handleAppStateChange("active");
-    this.startTrackingLocation();
+
+    let ref = this;
+    // Don't start tracking the location if the user previously disabled it on the last use
+    AsyncStorage.getItem(gpsTrackingActiveKey)
+      .then(gpsTrackingActive => {
+        if (gpsTrackingActive == "true" || gpsTrackingActive == null) {
+          ref.startTrackingLocation();
+        }
+      })
+      .done();
 
     firestack.analytics.logEventWithName("pageView", {
       screen: "MapViewComponent"
@@ -218,8 +197,10 @@ class MapViewComponent extends Component {
   toggleLocationTracking = () => {
     if (this.state.gpsTrackingActive) {
       this.stopTrackingLocation();
+      AsyncStorage.setItem(gpsTrackingActiveKey, "false");
     } else {
       this.startTrackingLocation();
+      AsyncStorage.setItem(gpsTrackingActiveKey, "true");
     }
   };
 
@@ -264,6 +245,39 @@ class MapViewComponent extends Component {
       }
     );
   };
+
+  loadParties() {
+    let url = "https://caltrain.okrain.com/parties";
+    fetch(url)
+      .then(response => response.json())
+      .then(responseData => {
+        try {
+          parties = responseData["parties"];
+          console.log(parties);
+          for (let i = 0; i < parties.length; i++) {
+            let current = parties[i];
+            // hide events that already happened
+            if (new Date(current["endDate"]) > new Date()) {
+              this.state.markers.push({
+                coordinate: {
+                  latitude: parseFloat(current["latitude"]),
+                  longitude: parseFloat(current["longitude"])
+                },
+                key: current["objectId"],
+                title: current["title"],
+                description: current["address1"],
+                profilePicture: current["icon"],
+                url: current["url"]
+              });
+            }
+          }
+          this.setState({ markers: this.state.markers }); // So that react re-renders
+        } catch (exception) {
+          console.log(exception);
+        }
+      })
+      .done();
+  }
 
   showAboutThisApp = () => {
     firestack.analytics.logEventWithName("openAboutScreen");
