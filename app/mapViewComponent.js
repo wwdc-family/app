@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
 import MapView from "react-native-maps";
+
+import { DeviceEventEmitter } from 'react-native'
+import { RNLocation as Location } from 'NativeModules'
 
 import Firestack from "react-native-firestack";
 const firestack = new Firestack();
@@ -80,9 +82,9 @@ class MapViewComponent extends Component {
     if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
       return; // Hide all profiles where the last update was over 1 hour ago
     }
-    if (userId == this.props.userId) {
-      return; // We don't want to show ourselve, as it might cover other people
-    }
+    // if (userId == this.props.userId) {
+    //   return; // We don't want to show ourselve, as it might cover other people
+    // }
 
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
@@ -132,18 +134,23 @@ class MapViewComponent extends Component {
     this.setState({ markers: this.state.markers });
   };
 
-  // Location tracking
-  watchID: ?number = null;
+  // Location tracking  
 
   startTrackingLocation = () => {
     firestack.analytics.logEventWithName("startTracking");
     console.log("starting location listening");
     this.setState({ gpsTrackingActive: true });
 
-    this.watchID = navigator.geolocation.watchPosition(
-      position => {
+    Location.requestAlwaysAuthorization();
+    Location.setAllowsBackgroundLocationUpdates(true);
+    Location.startUpdatingLocation();
+    Location.setDistanceFilter(5.0);
+    Location.startMonitoringSignificantLocationChanges();
+
+    DeviceEventEmitter.addListener(
+      'locationUpdated',
+      (position) => {
         this.setState({ lastPosition: position });
-        var lastPosition = JSON.stringify(position);
         this.setState({ gpsTrackingActive: true });
 
         let userId = this.props.userId;
@@ -154,12 +161,6 @@ class MapViewComponent extends Component {
           position.coords.longitude + "",
           position.timestamp + ""
         );
-      },
-      error => console.log(error),
-      {
-        enableHighAccuracy: true,
-        distanceFilter: 1,
-        maximumAge: 15000
       }
     );
   };
@@ -168,7 +169,10 @@ class MapViewComponent extends Component {
     console.log("Stop tracking location");
     firestack.analytics.logEventWithName("stopTracking");
     this.setState({ gpsTrackingActive: false });
-    navigator.geolocation.clearWatch(this.watchID);
+
+    Location.stopMonitoringSignificantLocationChanges();
+    Location.stopUpdatingLocation();
+
     let userId = this.props.userId;
     Database.hideUser(userId);
   };
@@ -186,6 +190,7 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
+      "Go to my location",
       "About this app",
       "Logout",
       "Cancel"
@@ -203,15 +208,18 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
-            this.showAboutThisApp();
+            this.moveToUsersLocation();
             break;
           case 2:
+            this.showAboutThisApp();
+            break;
+          case 3:
             this.stopTrackingLocation();
             Database.stopListening();
             this.logout();
             this.props.navigator.pop();
             break;
-          case 3:
+          case 4:
             // Cancel, nothing to do here
             break;
         }
@@ -236,12 +244,9 @@ class MapViewComponent extends Component {
   };
 
   async logout() {
-    try {
-      firestack.analytics.logEventWithName("logout");
-      await firebase.auth().signOut();
-    } catch (error) {
-      console.log(error);
-    }
+    firestack.auth.signOut()
+    .then(res => console.log('You have been signed out'))
+    .catch(err => console.error('Uh oh... something weird happened'))
   }
 
   openTwitterProfile = twitterUsername => {
@@ -317,9 +322,9 @@ class MapViewComponent extends Component {
         <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
           {this.state.gpsTrackingActive ? "📡" : "👻"}
         </Text>
-        <Text style={styles.locationButton} onPress={this.moveToUsersLocation}>
-          🎛
-        </Text>
+        { !this.state.gpsTrackingActive && <Text style={styles.notSharingLocationWarning}>
+          You're currently not sharing your location
+        </Text> }
         <View style={styles.statusBarBackground} />
       </View>
     );

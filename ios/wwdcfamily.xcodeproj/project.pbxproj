@@ -20,6 +20,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		354F8A2DE0864C33B29B4961 /* libRNLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C70F2B99E94B0B950E1104 /* libRNLocation.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		86EDF7A4B30796FA5FB70E0A /* Pods_wwdcfamily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B988DE19C53C60D0B53A043 /* Pods_wwdcfamily.framework */; };
@@ -29,6 +30,8 @@
 		CA489D381E9C80BF004E9D67 /* wwdcfamilyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */; };
 		CA489D5C1E9C80DF004E9D67 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */; };
 		CC00514ADBE5463E94EC0607 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BFD04FDD1843D494C4D672 /* libAirMaps.a */; };
+		E18BA63913A7E1F5199CA21C /* Pods_wwdcfamilyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */; };
+		F939968093AC46F395B8F2D3 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F06601D274933A77CEB53 /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +238,20 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
+		CAAC70E11EBBB6080013C92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
+		CAAC71451EBBB9150013C92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNLocation;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -256,21 +273,28 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		206A70BC65B5FC73362B293E /* Pods-wwdcfamily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily.debug.xcconfig"; sourceTree = "<group>"; };
 		25BFD04FDD1843D494C4D672 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
+		26ED1BBFDD88081903428C89 /* Pods-wwdcfamilyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamilyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamilyUITests/Pods-wwdcfamilyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D8F9B16A63D4855837A9567 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
+		3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wwdcfamilyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B988DE19C53C60D0B53A043 /* Pods_wwdcfamily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wwdcfamily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8D2E3DCF5C4316B71AAFB5 /* libFirestack.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFirestack.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		72C70F2B99E94B0B950E1104 /* libRNLocation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNLocation.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
+		9081BBFC516370BEEB2CACF6 /* Pods-wwdcfamilyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamilyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamilyUITests/Pods-wwdcfamilyUITests.release.xcconfig"; sourceTree = "<group>"; };
+		961F06601D274933A77CEB53 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA489D351E9C80BF004E9D67 /* wwdcfamilyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wwdcfamilyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wwdcfamilyUITests.swift; sourceTree = "<group>"; };
 		CA489D391E9C80BF004E9D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocation.xcodeproj; path = "../node_modules/react-native-location/ios/RNLocation.xcodeproj"; sourceTree = "<group>"; };
 		D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Firestack.xcodeproj; path = "../node_modules/react-native-firestack/ios/Firestack.xcodeproj"; sourceTree = "<group>"; };
 		DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamily.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily.release.xcconfig"; sourceTree = "<group>"; };
+		F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +317,8 @@
 				B8E7344150EC4F15962D7C98 /* libRNFetchBlob.a in Frameworks */,
 				BBD143E51DE54912800F43B5 /* libFirestack.a in Frameworks */,
 				86EDF7A4B30796FA5FB70E0A /* Pods_wwdcfamily.framework in Frameworks */,
+				F939968093AC46F395B8F2D3 /* libRNImagePicker.a in Frameworks */,
+				354F8A2DE0864C33B29B4961 /* libRNLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18BA63913A7E1F5199CA21C /* Pods_wwdcfamilyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				4B988DE19C53C60D0B53A043 /* Pods_wwdcfamily.framework */,
+				3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -424,6 +452,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -438,6 +467,7 @@
 				B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */,
 				8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */,
 				D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */,
+				F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -480,6 +510,8 @@
 			children = (
 				206A70BC65B5FC73362B293E /* Pods-wwdcfamily.debug.xcconfig */,
 				DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */,
+				26ED1BBFDD88081903428C89 /* Pods-wwdcfamilyUITests.debug.xcconfig */,
+				9081BBFC516370BEEB2CACF6 /* Pods-wwdcfamilyUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -518,6 +550,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CAAC70C21EBBB6080013C92D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAAC70E21EBBB6080013C92D /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAAC71421EBBB9150013C92D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAAC71461EBBB9150013C92D /* libRNLocation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -547,9 +595,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA489D5A1E9C80BF004E9D67 /* Build configuration list for PBXNativeTarget "wwdcfamilyUITests" */;
 			buildPhases = (
+				5366256204B78E0542519965 /* [CP] Check Pods Manifest.lock */,
 				CA489D311E9C80BF004E9D67 /* Sources */,
 				CA489D321E9C80BF004E9D67 /* Frameworks */,
 				CA489D331E9C80BF004E9D67 /* Resources */,
+				B532AD7A00961875284B6C26 /* [CP] Embed Pods Frameworks */,
+				285D4D28F6C30968D05248E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -567,7 +618,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 830;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -655,6 +706,14 @@
 				{
 					ProductGroup = CAABDD051E9359C9000F5EE1 /* Products */;
 					ProjectRef = 8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = CAAC70C21EBBB6080013C92D /* Products */;
+					ProjectRef = F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = CAAC71421EBBB9150013C92D /* Products */;
+					ProjectRef = CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -862,6 +921,20 @@
 			remoteRef = CAABDD231E9359C9000F5EE1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CAAC70E21EBBB6080013C92D /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = CAAC70E11EBBB6080013C92D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CAAC71461EBBB9150013C92D /* libRNLocation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNLocation.a;
+			remoteRef = CAAC71451EBBB9150013C92D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -899,6 +972,21 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		285D4D28F6C30968D05248E6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wwdcfamilyUITests/Pods-wwdcfamilyUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4C4A334E1078EA038CDD6AD4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -914,6 +1002,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5366256204B78E0542519965 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		56372577AC34FD8316DF034F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -926,7 +1029,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		AC0DE1A2858E5118F3D12508 /* [CP] Copy Pods Resources */ = {
@@ -942,6 +1045,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B532AD7A00961875284B6C26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wwdcfamilyUITests/Pods-wwdcfamilyUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CA489C6C1E9B237D004E9D67 /* ShellScript */ = {
@@ -1017,11 +1135,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-location",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/wwdcfamily\"",
+					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
@@ -1049,11 +1171,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-location",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/wwdcfamily\"",
+					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
 					"\"$(SRCROOT)/wwdcfamily\"",
@@ -1148,6 +1274,7 @@
 		};
 		CA489D3C1E9C80BF004E9D67 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26ED1BBFDD88081903428C89 /* Pods-wwdcfamilyUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1173,6 +1300,7 @@
 		};
 		CA489D3D1E9C80BF004E9D67 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9081BBFC516370BEEB2CACF6 /* Pods-wwdcfamilyUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1223,6 +1351,7 @@
 				CA489D3D1E9C80BF004E9D67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

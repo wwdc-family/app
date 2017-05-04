@@ -53,18 +53,14 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   gpsSender: {
-    left: constants.gpsPadding,
-    top: constants.navBarHeight + constants.gpsPadding,
-    backgroundColor: "transparent",
-    position: "absolute",
-    fontSize: 40
-  },
-  locationButton: {
     right: constants.gpsPadding,
     bottom: constants.gpsPadding,
     backgroundColor: "transparent",
     position: "absolute",
-    fontSize: 40
+    fontSize: 40,
+    transform: [{
+      rotateY: '-180deg'
+    }]
   },
   mapMarker: {
     height: constants.mapMarkerSize,
@@ -76,11 +72,22 @@ const styles = StyleSheet.create({
   statusBarBackground: {
     backgroundColor: "#4E6896",
     height: 20,
-    opacity: 0.8,
     width: "100%",
     position: "absolute",
     top: 0,
     left: 0
+  },
+  "notSharingLocationWarning": {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 10 + constants.navBarHeight,
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: "center",
+    fontSize: 16,
+    backgroundColor: "#4E6896",
+    color: "white"
   }
 });
 

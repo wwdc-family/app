@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import * as firebase from "firebase";
-const styles = require("./styles.js");
 
-import Firestack from "react-native-firestack";
+import Firestack from 'react-native-firestack'
 const firestack = new Firestack();
+
+const styles = require("./styles.js");
 
 const MapViewComponent = require("./mapViewComponent");
 const Database = require("./database.js");
@@ -36,27 +36,51 @@ class LoginComponent extends React.Component {
   componentWillMount() {
     // Check if the user is already logged in
     ref = this;
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (ref.state.waitingForFirebase) {
-        ref.setState({ waitingForFirebase: false });
-        if (user) {
-          let userId = user.uid;
-          ref.props.navigator.push({
-            component: MapViewComponent,
-            passProps: {
-              title: "Map",
-              userId: userId
-            }
+
+    firestack.auth.listenForAuth(function(evt) {
+      if (!ref.state.waitingForFirebase) {
+        if (evt.authenticated) {
+          let nav = ref.props.navigator
+          let userId = evt.user.uid
+          ref.askForTwitterUser(userId, function() {
+            nav.push({
+              component: MapViewComponent,
+              passProps: {
+                title: "Map",
+                userId: userId
+              }
+            });
           });
           ref.finishLoading();
+          return;
         } else {
-          ref.setState({ loading: false });
-          // No user is signed in - show the login dialog
+          return; // We don't care about this, the user manually logged in
         }
-      } else {
-        // We don't care about this, the user manually logged in
       }
-    });
+
+      ref.setState({ waitingForFirebase: false });
+
+      // evt is the authentication event
+      // it contains an `error` key for carrying the
+      // error message in case of an error
+      // and a `user` key upon successful authentication
+      console.log(evt)
+      if (!evt.authenticated) {
+        ref.setState({ loading: false });
+      } else {
+        let user = evt.user
+        let userId = user.uid;
+        ref.props.navigator.push({
+          component: MapViewComponent,
+          passProps: {
+            title: "Map",
+            userId: userId
+          }
+        });
+        ref.finishLoading();
+      }
+    })
+
     firestack.analytics.logEventWithName("pageView", {
       screen: "LoginComponent"
     });
@@ -66,56 +90,34 @@ class LoginComponent extends React.Component {
   async signup(email, pass) {
     this.setState({ loading: true });
     ref = this;
-    try {
-      let userSession = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, pass);
-      let userId = userSession.uid;
-      console.log("Account created with ID: " + userId);
-
-      let nav = this.props.navigator;
-      this.askForTwitterUser(userId, function() {
-        ref.finishLoading();
-        nav.push({
-          component: MapViewComponent,
-          passProps: {
-            title: "Map",
-            userId: userId
-          }
-        });
-      });
-    } catch (error) {
-      this.setState({ loading: false });
-      Alert.alert("Registration error", error.message);
-    }
+    firestack.auth.createUserWithEmail(email, pass)
+      .then((userSession) => {
+        console.log(userSession)
+        let userId = userSession.uid;
+        console.log("Account created with ID: " + userId);
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+        console.log(error)
+        Alert.alert("Registration error", error.description);
+      })
   }
 
   async login(email, pass) {
     this.setState({ loading: true });
     ref = this;
-    try {
-      let userSession = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, pass);
-
-      let userId = userSession.uid;
-      console.log("Logged In for user with ID: " + userId);
-
-      let nav = this.props.navigator;
-      this.askForTwitterUser(userId, function() {
-        ref.finishLoading();
-        nav.push({
-          component: MapViewComponent,
-          passProps: {
-            title: "Map",
-            userId: userId
-          }
-        });
-      });
-    } catch (error) {
-      this.setState({ loading: false });
-      Alert.alert("Login error", error.message);
-    }
+    firestack.auth.signInWithEmail(email, pass)
+      .then((userSession) => {
+        console.log(userSession)
+        let userId = userSession.uid;
+        console.log("Logged In for user with ID: " + userId);
+        // Loading the map is handled on the listener
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({ loading: false });
+        Alert.alert("Login Error", error.rawDescription);
+      })
   }
 
   // This method will add a delay, call it only on success
