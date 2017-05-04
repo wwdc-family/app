@@ -238,13 +238,6 @@
 			remoteGlobalIDString = A15C300E1CD25C330074CB35;
 			remoteInfo = RNFetchBlob;
 		};
-		CAAC70E11EBBB6080013C92D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
-			remoteInfo = RNImagePicker;
-		};
 		CAAC71451EBBB9150013C92D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */;
@@ -294,7 +287,6 @@
 		CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocation.xcodeproj; path = "../node_modules/react-native-location/ios/RNLocation.xcodeproj"; sourceTree = "<group>"; };
 		D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Firestack.xcodeproj; path = "../node_modules/react-native-firestack/ios/Firestack.xcodeproj"; sourceTree = "<group>"; };
 		DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamily.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily.release.xcconfig"; sourceTree = "<group>"; };
-		F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,7 +459,6 @@
 				B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */,
 				8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */,
 				D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */,
-				F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -546,14 +537,6 @@
 			isa = PBXGroup;
 			children = (
 				CAABDD241E9359C9000F5EE1 /* libRNFetchBlob.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		CAAC70C21EBBB6080013C92D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CAAC70E21EBBB6080013C92D /* libRNImagePicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -706,10 +689,6 @@
 				{
 					ProductGroup = CAABDD051E9359C9000F5EE1 /* Products */;
 					ProjectRef = 8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */;
-				},
-				{
-					ProductGroup = CAAC70C21EBBB6080013C92D /* Products */;
-					ProjectRef = F535DB900A2A492887395124 /* RNImagePicker.xcodeproj */;
 				},
 				{
 					ProductGroup = CAAC71421EBBB9150013C92D /* Products */;
@@ -921,13 +900,6 @@
 			remoteRef = CAABDD231E9359C9000F5EE1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CAAC70E21EBBB6080013C92D /* libRNImagePicker.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNImagePicker.a;
-			remoteRef = CAAC70E11EBBB6080013C92D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		CAAC71461EBBB9150013C92D /* libRNLocation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1133,9 +1105,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-location",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
@@ -1169,9 +1139,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-location",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
