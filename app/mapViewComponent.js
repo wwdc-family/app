@@ -79,9 +79,9 @@ class MapViewComponent extends Component {
     timestamp,
     twitterUsername
   ) => {
-    // if (userId == this.props.userId) {
-    //   return; // We don't want to show ourselve, as it might cover other people
-    // }
+    if (userId == this.props.userId) {
+      return; // We don't want to show ourselve, as it might cover other people
+    }
 
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
