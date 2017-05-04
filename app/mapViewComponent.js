@@ -112,7 +112,9 @@ class MapViewComponent extends Component {
 
     // This has to be done **after** we potentially remove
     // the marker, as there is no timestamp for removed markers
-    if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
+    let numberOfHours = 24 // TODO: We want to change this to 1 hour once launched
+    if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
+      this.setState({ markers: this.state.markers }); // So that react re-renders
       return; // Hide all profiles where the last update was over 1 hour ago
     }
 
