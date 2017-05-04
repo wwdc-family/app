@@ -31,7 +31,6 @@
 		CA489D5C1E9C80DF004E9D67 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */; };
 		CC00514ADBE5463E94EC0607 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BFD04FDD1843D494C4D672 /* libAirMaps.a */; };
 		E18BA63913A7E1F5199CA21C /* Pods_wwdcfamilyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */; };
-		F939968093AC46F395B8F2D3 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F06601D274933A77CEB53 /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,7 +276,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8598A2A1574C4D688B5D953A /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		9081BBFC516370BEEB2CACF6 /* Pods-wwdcfamilyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamilyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamilyUITests/Pods-wwdcfamilyUITests.release.xcconfig"; sourceTree = "<group>"; };
-		961F06601D274933A77CEB53 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA489D351E9C80BF004E9D67 /* wwdcfamilyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wwdcfamilyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -309,7 +307,6 @@
 				B8E7344150EC4F15962D7C98 /* libRNFetchBlob.a in Frameworks */,
 				BBD143E51DE54912800F43B5 /* libFirestack.a in Frameworks */,
 				86EDF7A4B30796FA5FB70E0A /* Pods_wwdcfamily.framework in Frameworks */,
-				F939968093AC46F395B8F2D3 /* libRNImagePicker.a in Frameworks */,
 				354F8A2DE0864C33B29B4961 /* libRNLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1258,7 +1255,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.fastlane.wwdcfamilyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "54beb9ea-1171-4446-879b-1e8d618d2956";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1284,7 +1280,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tools.fastlane.wwdcfamilyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "54beb9ea-1171-4446-879b-1e8d618d2956";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = wwdcfamily;
