@@ -85,8 +85,9 @@ class LoginComponent extends React.Component {
         });
       });
     } catch (error) {
+      throw error;
+    } finally {
       this.setState({ loading: false });
-      Alert.alert("Registration error", error.message);
     }
   }
 
@@ -113,8 +114,9 @@ class LoginComponent extends React.Component {
         });
       });
     } catch (error) {
+      throw error;
+    } finally {
       this.setState({ loading: false });
-      Alert.alert("Login error", error.message);
     }
   }
 
@@ -154,12 +156,29 @@ class LoginComponent extends React.Component {
     });
   }
 
-  onPressRegister = () => {
-    this.signup(this.state.email, this.state.password);
+  onEmailSubmit = () => {
+    this.refs.password.focus();
   };
 
-  onPressLogin = () => {
-    this.login(this.state.email, this.state.password);
+  onPressRegister = async () => {
+    try {
+      await this.signup(this.state.email, this.state.password);
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        // Already signed up, try to log them in
+        await this.onPressLogin();
+      } else {
+        Alert.alert("Registration error", error.message);
+      }
+    }
+  };
+
+  onPressLogin = async () => {
+    try {
+      await this.login(this.state.email, this.state.password);
+    } catch (error) {
+      Alert.alert("Login error", error.message);
+    }
   };
 
   dismissKeyboard = () => {
@@ -187,13 +206,17 @@ class LoginComponent extends React.Component {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          returnKeyType="next"
           onChangeText={email => this.setState({ email })}
+          onSubmitEditing={this.onEmailSubmit}
           value={this.state.email}
         />
         <TextInput
+          ref="password"
           style={styles.password}
           placeholder="Password"
           secureTextEntry={true}
+          returnKeyType="done"
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
