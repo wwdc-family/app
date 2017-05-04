@@ -41,6 +41,39 @@ class MapViewComponent extends Component {
         longitudeDelta: 0.71
       }
     };
+
+    this.loadParties()
+  }
+
+  loadParties() {
+    let url = 'https://caltrain.okrain.com/parties'
+    fetch(url)
+      .then((response) => response.json())
+      .then((responseData) => {
+        try {
+          parties = responseData["parties"]
+          console.log(parties)
+          for (let i = 0; i < parties.length; i++) {
+            let current = parties[i]
+            if (new Date(current["endDate"]) > new Date()) { // to hide events that already happened
+              this.state.markers.push({
+                coordinate: {
+                  latitude: parseFloat(current["latitude"]),
+                  longitude: parseFloat(current["longitude"])
+                },
+                key: current["objectId"],
+                title: current["title"],
+                description: current["address1"],
+                profilePicture: current["icon"],
+                url: current["url"]
+              });
+            }
+          }
+          this.setState({ markers: this.state.markers }); // So that react re-renders
+        } catch (exception) {
+          console.log(exception)
+        }
+      }).done();
   }
 
   // viewDidLoad
@@ -130,7 +163,8 @@ class MapViewComponent extends Component {
         key: userId,
         title: twitterUsername,
         description: description,
-        profilePicture: profilePictureUrl
+        profilePicture: profilePictureUrl,
+        url: "https://twitter.com/" + twitterUsername
       });
     }
     console.log("updating markers here");
@@ -254,10 +288,9 @@ class MapViewComponent extends Component {
     .catch(err => console.error('Uh oh... something weird happened'))
   }
 
-  openTwitterProfile = twitterUsername => {
-    console.log("Open Twitter profile: " + twitterUsername);
+  openURL = url => {
+    console.log("Open Twitter profile: " + url);
     // This will open up the Twitter profile
-    url = "https://twitter.com/" + twitterUsername;
     Linking.openURL(url);
   };
 
@@ -314,7 +347,7 @@ class MapViewComponent extends Component {
               coordinate={marker.coordinate}
               title={marker.title}
               description={marker.description}
-              onCalloutPress={() => this.openTwitterProfile(marker.title)}
+              onCalloutPress={() => this.openURL(marker.url)}
               key={marker.key}
             >
               <Image
