@@ -79,9 +79,6 @@ class MapViewComponent extends Component {
     timestamp,
     twitterUsername
   ) => {
-    if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
-      return; // Hide all profiles where the last update was over 1 hour ago
-    }
     // if (userId == this.props.userId) {
     //   return; // We don't want to show ourselve, as it might cover other people
     // }
@@ -111,6 +108,12 @@ class MapViewComponent extends Component {
       // as the user disabled their location sharing
       console.log("Removing the marker here");
       this.state.markers.splice(foundExisting, 1);
+    }
+
+    // This has to be done **after** we potentially remove
+    // the marker, as there is no timestamp for removed markers
+    if (new Date() - timestamp > 1 * 1000 * 60 * 60) {
+      return; // Hide all profiles where the last update was over 1 hour ago
     }
 
     if (coordinatesProvided && foundExisting == -1) {
