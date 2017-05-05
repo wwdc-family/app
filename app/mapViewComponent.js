@@ -34,7 +34,7 @@ class MapViewComponent extends Component {
     super(props);
 
     this.state = {
-      markers: [],
+      markers: this.defaultMarkers(),
       lastPosition: null,
       gpsTrackingActive: false,
       showParties: false,
@@ -94,6 +94,20 @@ class MapViewComponent extends Component {
       Database.stopListening();
     }
   };
+
+  defaultMarkers() {
+    return [
+      {
+        coordinate: { "latitude": 37.774899, "longitude": -122.425725 },
+        key: "fastlane HQ",
+        title: "fastlane HQ",
+        description: "Where the magic happens 🚀",
+        markerImageSource: require("./assets/fastlane.png"),
+        url: "https://fastlane.tools",
+        type: "poi"
+      }
+    ]
+  }
 
   // This is called with lat & lng being nil if a marker gets removed
   onOtherUserUpdatedLocation = (
@@ -402,10 +416,12 @@ class MapViewComponent extends Component {
               onCalloutPress={() => this.openURL(marker.url)}
               key={marker.key}
             >
-              <Image
-                source={{ uri: marker.profilePicture }}
-                style={styles.mapMarker}
-              />
+              {marker.profilePicture &&
+                <Image source={{ uri: marker.profilePicture }} style={styles.mapMarker} />
+              }
+              {marker.markerImageSource &&
+                <Image source={ marker.markerImageSource } style={styles.mapMarker} />
+              }
             </MapView.Marker>
           ))}
         </MapView>
