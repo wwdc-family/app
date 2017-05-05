@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
   },
   onlineUsers: {
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
+    opacity: 0.95
   },
   gpsSender: {
     backgroundColor: "transparent",
