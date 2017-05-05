@@ -12,6 +12,7 @@ const styles = require("./styles.js");
 const ReactNative = require("react-native");
 
 const gpsTrackingActiveKey = "@wwdcfamily:gpsTrackingActive";
+const showPartiesKey = "@wwdcfamily:showParties";
 
 import {
   View,
@@ -36,6 +37,7 @@ class MapViewComponent extends Component {
       markers: [],
       lastPosition: null,
       gpsTrackingActive: false,
+      showParties: false,
       aboutThisAppModalVisible: false,
       region: {
         latitude: 37.537431,
@@ -45,7 +47,15 @@ class MapViewComponent extends Component {
       }
     };
 
-    this.loadParties();
+    let ref = this;
+    // Don't start tracking the location if the user previously disabled it on the last use
+    AsyncStorage.getItem(showPartiesKey)
+      .then(showParties => {
+        if (showParties == "true" || showParties == null) {
+          ref.toggleParties()
+        }
+      })
+      .done();
   }
 
   // viewDidLoad
@@ -145,7 +155,8 @@ class MapViewComponent extends Component {
         title: twitterUsername,
         description: description,
         profilePicture: profilePictureUrl,
-        url: "https://twitter.com/" + twitterUsername
+        url: "https://twitter.com/" + twitterUsername,
+        type: "user"
       });
     }
     console.log("updating markers here");
@@ -209,6 +220,9 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
+      this.state.showParties
+        ? "Hide parties"
+        : "Show parties",
       "Go to my location",
       "About this app",
       "Logout",
@@ -227,24 +241,49 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
-            this.moveToUsersLocation();
+            this.toggleParties();
             break;
           case 2:
-            this.showAboutThisApp();
+            this.moveToUsersLocation();
             break;
           case 3:
+            this.showAboutThisApp();
+            break;
+          case 4:
             this.stopTrackingLocation();
             Database.stopListening();
             this.logout();
             this.props.navigator.pop();
             break;
-          case 4:
+          case 5:
             // Cancel, nothing to do here
             break;
         }
       }
     );
   };
+
+  toggleParties() {
+    if (this.state.showParties) {
+      this.removeParties()
+      AsyncStorage.setItem(showPartiesKey, "false");
+    } else {
+      this.loadParties()
+      AsyncStorage.setItem(showPartiesKey, "true");
+    }
+    this.setState({showParties: !this.state.showParties})
+  }
+
+  removeParties() {
+    updatedMarkers = []
+    for (let i = 0; i < this.state.markers.length; i++) {
+      let currentMarker = this.state.markers[i]
+      if (currentMarker.type != "party") {
+        updatedMarkers.push(currentMarker)
+      }
+    }
+    this.setState({ markers: updatedMarkers })
+  }
 
   loadParties() {
     let url = "https://caltrain.okrain.com/parties";
@@ -267,7 +306,8 @@ class MapViewComponent extends Component {
                 title: current["title"],
                 description: current["address1"],
                 profilePicture: current["icon"],
-                url: current["url"]
+                url: current["url"],
+                type: "party"
               });
             }
           }
