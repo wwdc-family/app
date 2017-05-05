@@ -28,19 +28,28 @@ platform :ios do
     match(type: "adhoc", readonly: is_ci)
   end
 
-  lane :beta do |options|
+  private_lane :build_app do
     increment_build_number(
       build_number: latest_testflight_build_number + 1,
       xcodeproj: "wwdcfamily.xcodeproj"
     )
 
     gym(scheme: "wwdcfamily", export_method: "app-store")
+  end
+
+  lane :beta do |options|
+    build_app
     testflight(distribute_external: options[:distribute], 
                          changelog: "Automatically generated build by fastlane")
   end
 
   lane :screenshots do
     snapshot
+  end
+
+  lane :appstore do
+    build_app
+    deliver(submit_for_review: true)
   end
 
   lane :update_app_icon do
