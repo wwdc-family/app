@@ -31,55 +31,42 @@ class LoginComponent extends React.Component {
       loading: true,
       waitingForFirebase: true
     };
-  }
 
-  componentWillMount() {
     // Check if the user is already logged in
     ref = this;
 
     firestack.auth.listenForAuth(function(evt) {
-      if (!ref.state.waitingForFirebase) {
-        if (evt.authenticated) {
-          let nav = ref.props.navigator;
-          let userId = evt.user.uid;
-          ref.askForTwitterUser(userId, function() {
-            nav.push({
-              component: MapViewComponent,
-              passProps: {
-                title: "Map",
-                userId: userId
-              }
-            });
-          });
-          ref.finishLoading();
-          return;
-        } else {
-          return; // We don't care about this, the user manually logged in
-        }
-      }
-
-      ref.setState({ waitingForFirebase: false });
-
-      // evt is the authentication event
-      // it contains an `error` key for carrying the
-      // error message in case of an error
-      // and a `user` key upon successful authentication
-      if (!evt.authenticated) {
-        ref.setState({ loading: false });
-      } else {
-        let user = evt.user;
-        let userId = user.uid;
-        ref.props.navigator.push({
+      if (evt.authenticated) {
+        let nav = ref.props.navigator;
+        let userId = evt.user.uid;
+        pushOptions = {
           component: MapViewComponent,
           passProps: {
             title: "Map",
             userId: userId
           }
-        });
-        ref.finishLoading();
-      }
-    });
+        }
 
+        if (ref.state.waitingForFirebase) {
+          // since the user is already logged in, we don't want
+          // to check again if a Twitter account is set
+          // Making the app faster :rocket:
+          nav.push(pushOptions);
+        } else {
+          ref.askForTwitterUser(userId, function() {
+            nav.push(pushOptions);
+          });
+        }
+        ref.finishLoading();
+        return
+      }
+
+      ref.setState({ waitingForFirebase: false });
+      ref.setState({ loading: false });
+    });
+  }
+
+  componentWillMount() {
     firestack.analytics.logEventWithName("pageView", {
       screen: "LoginComponent"
     });
