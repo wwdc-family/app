@@ -106,6 +106,25 @@ class LoginComponent extends React.Component {
       });
   }
 
+  async forgotPassword(email) {
+    if (email.length == 0) {
+      Alert.alert("No email address provided", "Please enter your email address in the 'email' field and press 'Forgot password' again")
+      return;
+    }
+    this.setState({ loading: true });
+    ref = this;
+    firestack.auth.sendPasswordResetWithEmail(email)
+      .then(res => {
+        this.setState({ loading: false });
+        Alert.alert('Success', 'Check your inbox for further instructions, it might take a few minutes until the email arrives.')
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+        console.log(error)
+        Alert.alert("Error", error.description)
+      })
+  }
+
   // This method will add a delay, call it only on success
   finishLoading() {
     setTimeout(
@@ -149,6 +168,10 @@ class LoginComponent extends React.Component {
   onPressLogin = () => {
     this.login(this.state.email, this.state.password);
   };
+
+  onPressForgotPassword = () => {
+    this.forgotPassword(this.state.email)
+  }
 
   dismissKeyboard = () => {
     Keyboard.dismiss();
@@ -202,6 +225,14 @@ class LoginComponent extends React.Component {
             accessibilityLabel="Signup"
           />
         </View>
+        <View style={{ marginTop: 15 }} />
+        <Button
+          disabled={this.state.loading}
+          onPress={this.onPressForgotPassword}
+          title="Forgot password"
+          style={styles.button}
+          accessibilityLabel="Forgot Passowrd"
+        />
         <ActivityIndicator
           animating={this.state.loading}
           style={[styles.centering, { height: 80 }]}
