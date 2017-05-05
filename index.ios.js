@@ -25,6 +25,10 @@ export default class MainNavigator extends Component {
         <StatusBar barStyle="light-content" />
         <Navigator
           initialRoute={{component: LoginComponent}}
+          configureScene={(route) => ({
+            ...Navigator.SceneConfigs.HorizontalSwipeJump,
+            gestures: false
+          })}
           renderScene={(route, navigator) => {
             return React.createElement(route.component, { ...this.props, ...route.passProps, navigator, route } );
           }}
