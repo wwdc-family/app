@@ -45,7 +45,7 @@ class LoginComponent extends React.Component {
             title: "Map",
             userId: userId
           }
-        }
+        };
 
         if (ref.state.waitingForFirebase) {
           // since the user is already logged in, we don't want
@@ -58,7 +58,7 @@ class LoginComponent extends React.Component {
           });
         }
         ref.finishLoading();
-        return
+        return;
       }
 
       ref.setState({ waitingForFirebase: false });

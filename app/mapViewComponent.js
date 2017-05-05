@@ -52,7 +52,7 @@ class MapViewComponent extends Component {
     AsyncStorage.getItem(showPartiesKey)
       .then(showParties => {
         if (showParties == "true" || showParties == null) {
-          ref.toggleParties()
+          ref.toggleParties();
         }
       })
       .done();
@@ -220,9 +220,7 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
-      this.state.showParties
-        ? "Hide parties"
-        : "Show parties",
+      this.state.showParties ? "Hide parties" : "Show parties",
       "Go to my location",
       "About this app",
       "Logout",
@@ -265,24 +263,24 @@ class MapViewComponent extends Component {
 
   toggleParties() {
     if (this.state.showParties) {
-      this.removeParties()
+      this.removeParties();
       AsyncStorage.setItem(showPartiesKey, "false");
     } else {
-      this.loadParties()
+      this.loadParties();
       AsyncStorage.setItem(showPartiesKey, "true");
     }
-    this.setState({showParties: !this.state.showParties})
+    this.setState({ showParties: !this.state.showParties });
   }
 
   removeParties() {
-    updatedMarkers = []
+    updatedMarkers = [];
     for (let i = 0; i < this.state.markers.length; i++) {
-      let currentMarker = this.state.markers[i]
+      let currentMarker = this.state.markers[i];
       if (currentMarker.type != "party") {
-        updatedMarkers.push(currentMarker)
+        updatedMarkers.push(currentMarker);
       }
     }
-    this.setState({ markers: updatedMarkers })
+    this.setState({ markers: updatedMarkers });
   }
 
   loadParties() {
