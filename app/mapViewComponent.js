@@ -38,6 +38,7 @@ class MapViewComponent extends Component {
       lastPosition: null,
       gpsTrackingActive: false,
       showParties: false,
+      numberOfActiveUsers: 0,
       aboutThisAppModalVisible: false,
       region: {
         latitude: 37.537431,
@@ -98,7 +99,7 @@ class MapViewComponent extends Component {
   defaultMarkers() {
     return [
       {
-        coordinate: { "latitude": 37.774899, "longitude": -122.425725 },
+        coordinate: { latitude: 37.774899, longitude: -122.425725 },
         key: "fastlane HQ",
         title: "fastlane HQ",
         description: "Where the magic happens 🚀",
@@ -106,7 +107,7 @@ class MapViewComponent extends Component {
         url: "https://fastlane.tools",
         type: "poi"
       }
-    ]
+    ];
   }
 
   // This is called with lat & lng being nil if a marker gets removed
@@ -145,6 +146,9 @@ class MapViewComponent extends Component {
       // we have to remove this marker from our list
       // as the user disabled their location sharing
       console.log("Removing the marker here");
+      this.setState({
+        numberOfActiveUsers: this.state.numberOfActiveUsers - 1
+      });
       this.state.markers.splice(foundExisting, 1);
     }
 
@@ -171,6 +175,9 @@ class MapViewComponent extends Component {
         profilePicture: profilePictureUrl,
         url: "https://twitter.com/" + twitterUsername,
         type: "user"
+      });
+      this.setState({
+        numberOfActiveUsers: this.state.numberOfActiveUsers + 1
       });
     }
     console.log("updating markers here");
@@ -417,17 +424,26 @@ class MapViewComponent extends Component {
               key={marker.key}
             >
               {marker.profilePicture &&
-                <Image source={{ uri: marker.profilePicture }} style={styles.mapMarker} />
-              }
+                <Image
+                  source={{ uri: marker.profilePicture }}
+                  style={styles.mapMarker}
+                />}
               {marker.markerImageSource &&
-                <Image source={ marker.markerImageSource } style={styles.mapMarker} />
-              }
+                <Image
+                  source={marker.markerImageSource}
+                  style={styles.mapMarker}
+                />}
             </MapView.Marker>
           ))}
         </MapView>
-        <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
-          {this.state.gpsTrackingActive ? "📡" : "👻"}
-        </Text>
+        <View style={styles.bottomBar}>
+          <Text style={styles.onlineUsers} onPress={this.didTapMoreButton}>
+            {this.state.numberOfActiveUsers} active family members
+          </Text>
+          <Text style={styles.gpsSender} onPress={this.didTapMoreButton}>
+            {this.state.gpsTrackingActive ? "📡" : "👻"}
+          </Text>
+        </View>
         {!this.state.gpsTrackingActive &&
           <Text style={styles.notSharingLocationWarning}>
             You're currently not sharing your location

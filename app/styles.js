@@ -52,12 +52,27 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
-  gpsSender: {
-    right: constants.gpsPadding,
-    bottom: constants.gpsPadding,
-    backgroundColor: "transparent",
+  bottomBar: {
+    left: 0,
+    bottom: 0,
+    right: 0,
     position: "absolute",
-    fontSize: 40,
+    backgroundColor: "#4E6896",
+    padding: 10
+  },
+  onlineUsers: {
+    color: "white",
+    textAlign: "center"
+  },
+  gpsSender: {
+    backgroundColor: "transparent",
+    fontSize: 20,
+    width: 40,
+    height: 40,
+    textAlign: "center",
+    position: "absolute",
+    right: 0,
+    bottom: -7,
     transform: [
       {
         rotateY: "-180deg"

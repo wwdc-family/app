@@ -108,21 +108,28 @@ class LoginComponent extends React.Component {
 
   async forgotPassword(email) {
     if (email.length == 0) {
-      Alert.alert("No email address provided", "Please enter your email address in the 'email' field and press 'Forgot password' again")
+      Alert.alert(
+        "No email address provided",
+        "Please enter your email address in the 'email' field and press 'Forgot password' again"
+      );
       return;
     }
     this.setState({ loading: true });
     ref = this;
-    firestack.auth.sendPasswordResetWithEmail(email)
+    firestack.auth
+      .sendPasswordResetWithEmail(email)
       .then(res => {
         this.setState({ loading: false });
-        Alert.alert('Success', 'Check your inbox for further instructions, it might take a few minutes until the email arrives.')
+        Alert.alert(
+          "Success",
+          "Check your inbox for further instructions, it might take a few minutes until the email arrives."
+        );
       })
       .catch(error => {
         this.setState({ loading: false });
-        console.log(error)
-        Alert.alert("Error", error.description)
-      })
+        console.log(error);
+        Alert.alert("Error", error.description);
+      });
   }
 
   // This method will add a delay, call it only on success
@@ -170,8 +177,8 @@ class LoginComponent extends React.Component {
   };
 
   onPressForgotPassword = () => {
-    this.forgotPassword(this.state.email)
-  }
+    this.forgotPassword(this.state.email);
+  };
 
   dismissKeyboard = () => {
     Keyboard.dismiss();
