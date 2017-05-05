@@ -1,1 +1,2 @@
 app_rating_config_path "fastlane/ratings.json"
+automatic_release true
