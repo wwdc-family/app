@@ -43,8 +43,8 @@ class MapViewComponent extends Component {
       region: {
         latitude: 37.537431,
         longitude: -122.216034,
-        latitudeDelta: 1.3,
-        longitudeDelta: 0.71
+        latitudeDelta: 0.08,
+        longitudeDelta: 0.16
       }
     };
 
