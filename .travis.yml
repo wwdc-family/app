@@ -3,8 +3,8 @@ osx_image: xcode8.3
 install:
 - npm install
 - bundle install
-script:
-- cd ios && fastlane beta
+# script:
+# - cd ios && fastlane beta
 env:
   global:
   - secure: JU8IdL7WcCb6lsvjdLI/qSlWRjl4dvsXYGwcBPJRnnxWSs66BKrAavawrNbUJpKqx67lFC+uy7knSVQbeE1ajaua4zxZuMUCch3EG7L1AE3WEDfXAw/BqA5VtM+Zerm/9aXm/HuRMd6G2Q4TWcgK9bARlUk8LtsIO0IfDAwOkly+Lyxnc/B9lYv9d2MJGooosxt7SDc5TBvbu10hU6RuCvfx8/sZta5VmNZt+4Tc1mXdYN5HKLfxjeweBBUSu21jn7GqCP3ZtrV5tAf9/4tTSHmFxVlwkI0P95k/4hXGbUClFhnHYM34C6RoL9kC5hc+uBgTHtgbP0Li7gnRkuusH7Zj0LR0Ayn6NJ6JAovE9aW+ix8Nq14nOrgiTJd/iJNzUVEol1EeX9mXrtf2wiH4VvvpiPla7ajjr5rKLBWOuwy/fLtoURs2n737aXD+PWlamUubvr5M/lSV941Okcv0tAcpQdXQ13RBO0Dp6veWxChWTsYTO19nSfMsFIQtb2d4a7UEBeogb1M/Hbeiq9mvrProWWt6x1V4KJyjVPuKg9XJSmo+ixCpdyHrrejG0Dxhk9pzcFd4ZMC2dNghaEE4w/8kIwAht6tvS404vXoyni+TTY+n167Fa7uMsEwUa8HXDV1RB0xq11VlZiZKosq8AdssTDs31mg226gh+miJspw=
