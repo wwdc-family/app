@@ -29,6 +29,9 @@
 		CA489C071E99CF70004E9D67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA489C061E99CF70004E9D67 /* GoogleService-Info.plist */; };
 		CA489D381E9C80BF004E9D67 /* wwdcfamilyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D371E9C80BF004E9D67 /* wwdcfamilyUITests.swift */; };
 		CA489D5C1E9C80DF004E9D67 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */; };
+		CAC2BA6A1EBDC35200738FDC /* libAppHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC2BA4B1EBDC2F000738FDC /* libAppHub.a */; };
+		CAC2BA6C1EBDC35C00738FDC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC2BA6B1EBDC35C00738FDC /* libz.tbd */; };
+		CAC2BA6E1EBDC36400738FDC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC2BA6D1EBDC36400738FDC /* SystemConfiguration.framework */; };
 		CC00514ADBE5463E94EC0607 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BFD04FDD1843D494C4D672 /* libAirMaps.a */; };
 		E18BA63913A7E1F5199CA21C /* Pods_wwdcfamilyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */; };
 /* End PBXBuildFile section */
@@ -244,6 +247,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNLocation;
 		};
+		CAC2BA4A1EBDC2F000738FDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAC2BA421EBDC2F000738FDC /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3AF1B37AC8D0064F175;
+			remoteInfo = AppHub;
+		};
+		CAC2BA4C1EBDC2F000738FDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAC2BA421EBDC2F000738FDC /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3BA1B37AC8D0064F175;
+			remoteInfo = AppHubTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -283,6 +300,9 @@
 		CA489D391E9C80BF004E9D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA489D5B1E9C80DF004E9D67 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocation.xcodeproj; path = "../node_modules/react-native-location/ios/RNLocation.xcodeproj"; sourceTree = "<group>"; };
+		CAC2BA421EBDC2F000738FDC /* AppHub.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppHub.xcodeproj; path = ../node_modules/apphub/AppHub/AppHub.xcodeproj; sourceTree = "<group>"; };
+		CAC2BA6B1EBDC35C00738FDC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		CAC2BA6D1EBDC36400738FDC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D3B01EE784934791BE7ADA59 /* Firestack.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Firestack.xcodeproj; path = "../node_modules/react-native-firestack/ios/Firestack.xcodeproj"; sourceTree = "<group>"; };
 		DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wwdcfamily.release.xcconfig"; path = "Pods/Target Support Files/Pods-wwdcfamily/Pods-wwdcfamily.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,6 +312,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAC2BA6E1EBDC36400738FDC /* SystemConfiguration.framework in Frameworks */,
+				CAC2BA6C1EBDC35C00738FDC /* libz.tbd in Frameworks */,
+				CAC2BA6A1EBDC35200738FDC /* libAppHub.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -367,6 +390,8 @@
 		0EA341A83E1736C9D096A294 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAC2BA6D1EBDC36400738FDC /* SystemConfiguration.framework */,
+				CAC2BA6B1EBDC35C00738FDC /* libz.tbd */,
 				4B988DE19C53C60D0B53A043 /* Pods_wwdcfamily.framework */,
 				3DD78F48A5AA186987F5A8B1 /* Pods_wwdcfamilyUITests.framework */,
 			);
@@ -441,6 +466,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				CAC2BA421EBDC2F000738FDC /* AppHub.xcodeproj */,
 				CAAC71411EBBB9150013C92D /* RNLocation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -546,6 +572,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CAC2BA431EBDC2F000738FDC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAC2BA4B1EBDC2F000738FDC /* libAppHub.a */,
+				CAC2BA4D1EBDC2F000738FDC /* AppHub.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -634,6 +669,10 @@
 				{
 					ProductGroup = CA4C11FF1E8F70C2002649A3 /* Products */;
 					ProjectRef = B64EDDA9365D4484854BFF55 /* AirMaps.xcodeproj */;
+				},
+				{
+					ProductGroup = CAC2BA431EBDC2F000738FDC /* Products */;
+					ProjectRef = CAC2BA421EBDC2F000738FDC /* AppHub.xcodeproj */;
 				},
 				{
 					ProductGroup = CA489BE61E99CF42004E9D67 /* Products */;
@@ -904,6 +943,20 @@
 			remoteRef = CAAC71451EBBB9150013C92D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CAC2BA4B1EBDC2F000738FDC /* libAppHub.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppHub.a;
+			remoteRef = CAC2BA4A1EBDC2F000738FDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CAC2BA4D1EBDC2F000738FDC /* AppHub.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppHub.xctest;
+			remoteRef = CAC2BA4C1EBDC2F000738FDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1104,6 +1157,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
 					"$(SRCROOT)/../node_modules/react-native-location",
+					"$(SRCROOT)/../node_modules/apphub/AppHub",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1138,6 +1192,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
 					"$(SRCROOT)/../node_modules/react-native-location",
+					"$(SRCROOT)/../node_modules/apphub/AppHub",
 				);
 				INFOPLIST_FILE = wwdcfamily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
