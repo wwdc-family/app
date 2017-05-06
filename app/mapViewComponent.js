@@ -205,7 +205,7 @@ class MapViewComponent extends Component {
     Location.requestAlwaysAuthorization();
     Location.setAllowsBackgroundLocationUpdates(true);
     Location.startUpdatingLocation();
-    Location.setDistanceFilter(15.0);
+    Location.setDistanceFilter(25.0);
     Location.startMonitoringSignificantLocationChanges();
 
     DeviceEventEmitter.addListener("locationUpdated", position => {
