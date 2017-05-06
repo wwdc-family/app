@@ -106,7 +106,16 @@ class MapViewComponent extends Component {
         markerImageSource: require("./assets/fastlane.png"),
         url: "https://fastlane.tools",
         type: "poi"
-      }
+      },
+      {
+        coordinate: { latitude: 37.329008, longitude: -121.888794 },
+        key: "WWDC",
+        title: "WWDC",
+        description: "San Jose McEnery Convention Center",
+        markerImageSource: require("./assets/wwdc.png"),
+        url: "https://developer.apple.com/wwdc/",
+        type: "poi"
+      },
     ];
   }
 
