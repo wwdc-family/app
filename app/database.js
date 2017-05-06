@@ -31,7 +31,7 @@ class Database {
   static stopListening() {
     console.log("unsubscribing from changes");
     let usersRef = firestack.database.ref("/user/");
-    usersRef.off();
+    usersRef.off("value");
   }
 
   static getUser(userId, callback) {
