@@ -4,8 +4,7 @@
 #
 
 # Set up our npm environment again
-npm install
-npm install --global apphubdeploy
+npm install --global apphubdeploy apphub
 
 # Create a .apphub credentials file
 echo "{\"appHubId\":\"ZE2CT3y0RmZayjoMQ8qb\",\"appHubSecret\":\"$APP_HUB_SECRET\"}" > .apphub

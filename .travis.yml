@@ -3,7 +3,8 @@ osx_image: xcode8.3
 install:
 - npm install
 - bundle install
-# script:
+script:
+- ./deploy_apphub.sh
 # - cd ios && fastlane beta
 env:
   global:
@@ -13,12 +14,6 @@ env:
 branches:
   only:
   - master
-deploy:
-  provider: script
-  script: ./deploy_apphub.sh
-  skip_cleanup: true
-  on:
-    branch: master
 cache:
   directories:
     - node_modules
