@@ -13,3 +13,11 @@ env:
 branches:
   only:
   - master
+deploy:
+  provider: script
+  script: scripts/deploy_apphub.sh
+  on:
+    branch: ota-update
+cache:
+  directories:
+    - node_modules
