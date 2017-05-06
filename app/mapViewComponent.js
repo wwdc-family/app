@@ -22,7 +22,8 @@ import {
   Linking,
   Modal,
   WebView,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from "react-native";
 
 const {
@@ -209,6 +210,10 @@ class MapViewComponent extends Component {
     Location.startMonitoringSignificantLocationChanges();
 
     DeviceEventEmitter.addListener("locationUpdated", position => {
+      if (position == null) {
+        console.log("No location returned")
+        return;
+      }
       this.setState({ lastPosition: position });
       this.setState({ gpsTrackingActive: true });
 
@@ -353,6 +358,10 @@ class MapViewComponent extends Component {
   };
 
   moveToUsersLocation = () => {
+    if (this.state.lastPosition == null || this.state.lastPosition.coords == null) {
+      Alert.alert("Couldn't find your current location");
+      return;
+    }
     let region = this.state.region;
     let newRegion = {
       latitude: this.state.lastPosition.coords.latitude,
