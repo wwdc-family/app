@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+#import <AppHub/AppHub.h>
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -21,9 +22,18 @@
 {
   [Fabric with:@[[Crashlytics class]]];
   [Answers logCustomEventWithName:@"AppStarted" customAttributes:nil];
-  NSURL *jsCodeLocation;
+  
+  [AppHub setApplicationID:@"ZE2CT3y0RmZayjoMQ8qb"];
+  [AppHub setLogLevel:AHLogLevelDebug];
+  [AppHub buildManager].debugBuildsEnabled = YES;
+  [AppHub buildManager].cellularDownloadsEnabled = YES;
+  
+  AHBuild *build = [[AppHub buildManager] currentBuild];
+  NSURL *jsCodeLocation = [build.bundle URLForResource:@"main"
+                                  withExtension:@"jsbundle"];
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+
+//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"wwdcfamily"
