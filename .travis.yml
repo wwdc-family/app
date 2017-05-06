@@ -16,6 +16,7 @@ branches:
 deploy:
   provider: script
   script: ./deploy_apphub.sh
+  skip_cleanup: true
   on:
     branch: master
 cache:
