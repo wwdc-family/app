@@ -357,8 +357,8 @@ class MapViewComponent extends Component {
     let newRegion = {
       latitude: this.state.lastPosition.coords.latitude,
       longitude: this.state.lastPosition.coords.longitude,
-      latitudeDelta: region["latitudeDelta"],
-      longitudeDelta: region["longitudeDelta"]
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01
     };
     this.map.animateToRegion(newRegion);
   };
