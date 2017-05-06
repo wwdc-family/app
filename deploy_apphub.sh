@@ -13,5 +13,3 @@ echo "{\"appHubId\":\"ZE2CT3y0RmZayjoMQ8qb\",\"appHubSecret\":\"$APP_HUB_SECRET\
 apphubdeploy --plist-file ./ios/wwdcfamily/Info.plist --target all
 
 rm .apphub
-rm AppHub*
-rm build.zip
