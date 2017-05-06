@@ -1,4 +1,5 @@
 PODS:
+  - Buglife (1.5.3)
   - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
@@ -65,6 +66,7 @@ PODS:
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
+  - Buglife
   - Crashlytics
   - Fabric
   - Firebase
@@ -76,6 +78,7 @@ DEPENDENCIES:
   - Firebase/Storage
 
 SPEC CHECKSUMS:
+  Buglife: 9de44908d4fe8618344f23b2a94d5244cdc27dac
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
@@ -91,6 +94,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 87cb0a4ea63825a66bbb8b4cddbb7b81b6b8dcbd
+PODFILE CHECKSUM: b7c5759243c2f98dabc874da4f8efcd504b3d876
 
 COCOAPODS: 1.2.1

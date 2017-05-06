@@ -28,7 +28,8 @@ platform :ios, '8.0'
   'Firebase/RemoteConfig',
   'Firebase/Messaging',
   'Fabric',
-  'Crashlytics'
+  'Crashlytics',
+  'Buglife'
 ].each do |lib|
   pod lib
 end

@@ -11,6 +11,7 @@
     "prettier": "^0.22.0",
     "react": "15.4.2",
     "react-native": "0.42.3",
+    "react-native-buglife": "0.0.4",
     "react-native-fetch-blob": "^0.10.4",
     "react-native-firestack": "^2.3.9",
     "react-native-location": "https://github.com/timfpark/react-native-location.git#master",

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Firestack from 'react-native-firestack'
 const firestack = new Firestack();
+var Buglife = require('react-native-buglife');
 
 const LoginComponent = require('./app/loginComponent')
 
@@ -13,6 +14,13 @@ import {
 } from 'react-native';
 
 export default class MainNavigator extends Component {
+  constructor(props) {
+    super(props);
+
+    Buglife.startWithAPIKey("QExxQmIHlxkC52QTdJOTjQtt");
+    Buglife.setInvocationOptions(Buglife.invocationOptionsScreenshot);
+  }
+
   componentDidMount() {
     firestack.analytics.logEventWithName("launch")
     firestack.analytics.logEventWithName("pageView", {
