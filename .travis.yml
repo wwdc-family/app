@@ -15,7 +15,7 @@ branches:
   - master
 deploy:
   provider: script
-  script: scripts/deploy_apphub.sh
+  script: ./deploy_apphub.sh
   on:
     branch: master
 cache:
