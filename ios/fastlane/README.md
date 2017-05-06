@@ -40,6 +40,11 @@ fastlane ios beta
 fastlane ios screenshots
 ```
 
+### ios appstore
+```
+fastlane ios appstore
+```
+
 ### ios update_app_icon
 ```
 fastlane ios update_app_icon

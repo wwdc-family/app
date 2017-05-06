@@ -24,8 +24,7 @@ platform :ios do
       "Felix Krause's iPhone 7" => "67b49853d5e977446301bfbd2ad2c7dae96dc562"
     })
 
-    match(type: "appstore", readonly: is_ci)
-    match(type: "adhoc", readonly: is_ci)
+    # match(type: "appstore", readonly: is_ci)
   end
 
   private_lane :build_app do
@@ -48,8 +47,9 @@ platform :ios do
   end
 
   lane :appstore do
+    snapshot
     build_app
-    deliver(submit_for_review: true)
+    deliver(submit_for_review: true, force: true)
   end
 
   lane :update_app_icon do
