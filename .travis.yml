@@ -17,7 +17,7 @@ deploy:
   provider: script
   script: scripts/deploy_apphub.sh
   on:
-    branch: ota-update
+    branch: master
 cache:
   directories:
     - node_modules
