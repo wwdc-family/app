@@ -294,7 +294,6 @@ class MapViewComponent extends Component {
             this.stopTrackingLocation();
             Database.stopListening();
             this.logout();
-            this.props.navigator.pop();
             break;
           case 5:
             // Cancel, nothing to do here
@@ -383,7 +382,10 @@ class MapViewComponent extends Component {
   async logout() {
     firestack.auth
       .signOut()
-      .then(res => console.log("You have been signed out"))
+      .then(res => {
+        console.log("You have been signed out")
+        this.props.navigator.pop();
+      })
       .catch(err => console.error("Uh oh... something weird happened"));
   }
 
