@@ -14,6 +14,8 @@ const ReactNative = require("react-native");
 const gpsTrackingActiveKey = "@wwdcfamily:gpsTrackingActive";
 const showPartiesKey = "@wwdcfamily:showParties";
 
+let locationTracker = null;
+
 import {
   View,
   Text,
@@ -214,7 +216,7 @@ class MapViewComponent extends Component {
     Location.setDistanceFilter(25.0);
     Location.startMonitoringSignificantLocationChanges();
 
-    DeviceEventEmitter.addListener("locationUpdated", position => {
+    locationTracker = DeviceEventEmitter.addListener("locationUpdated", position => {
       if (position == null) {
         console.log("No location returned")
         return;
@@ -235,6 +237,7 @@ class MapViewComponent extends Component {
 
   stopTrackingLocation = () => {
     console.log("Stop tracking location");
+    locationTracker.remove();
     firestack.analytics.logEventWithName("stopTracking");
     this.setState({ gpsTrackingActive: false });
 
