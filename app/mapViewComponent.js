@@ -444,12 +444,12 @@ class MapViewComponent extends Component {
               {marker.profilePicture &&
                 <Image
                   source={{ uri: marker.profilePicture }}
-                  style={styles.mapMarker}
+                  style={marker.type == "user" ? styles.mapMarker : styles.nonPersonMarker}
                 />}
               {marker.markerImageSource &&
                 <Image
                   source={marker.markerImageSource}
-                  style={styles.mapMarker}
+                  style={marker.type == "user" ? styles.mapMarker : styles.nonPersonMarker}
                 />}
             </MapView.Marker>
           ))}

@@ -87,6 +87,13 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 2
   },
+  nonPersonMarker: {
+    height: constants.mapMarkerSize,
+    width: constants.mapMarkerSize,
+    borderRadius: constants.mapMarkerSize / 5.0,
+    borderColor: "#DDD",
+    borderWidth: 2
+  },
   statusBarBackground: {
     backgroundColor: "#4E6896",
     height: 20,
