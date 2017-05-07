@@ -7,6 +7,4 @@ Features:
 - Toggle your location sharing with one easy tap, allows you to easily stop sharing when you're heading to the hotel
 - See all the WWDC Parties right on the map
 
-The app is powered by fastlane, Firebase and Fabric. The app is completely open source under the MIT license, and available on GitHub.
-
-Please note that this app was created by Felix Krause - It is no way affiliated with Apple Inc. or Google Inc.
+Please note that this app was created by Felix Krause - It is no way affiliated with Apple Inc.
