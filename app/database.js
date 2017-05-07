@@ -3,7 +3,7 @@ const firestack = new Firestack();
 
 class Database {
   static setUserLocation(userId, lat, lng, timestamp) {
-    console.log("got user location");
+    console.log("sending new user location");
     let userLocationPath = "/user/" + userId + "/location";
 
     return firestack.database.ref(userLocationPath).set({
@@ -29,9 +29,11 @@ class Database {
   }
 
   static stopListening() {
-    console.log("unsubscribing from changes");
-    let usersRef = firestack.database.ref("/user/");
-    usersRef.off("value");
+    if (this._usersRef) {
+      console.log("unsubscribing from changes");
+      this._usersRef.off();
+      this._usersRef = null;
+    }
   }
 
   static getUser(userId, callback) {
@@ -44,10 +46,13 @@ class Database {
 
   static listenToUsers(callback) {
     console.log("subscribing to changes");
-    let usersRef = firestack.database.ref("/user/");
+    if (this._usersRef == null) {
+      this._usersRef = firestack.database.ref("/user/");
+    }
 
+    let usrRef = this._usersRef
     // Get a list of all existing users
-    usersRef.once("value").then(function(snapshot) {
+    usrRef.once("value").then(function(snapshot) {
       let snap = snapshot.val();
       for (var userId in snap) {
         var data = snap[userId];
@@ -67,7 +72,7 @@ class Database {
       callback(userId, null, null, null, null, true);
 
       // and from now on: listen to new users
-      usersRef.on("child_changed", function(data) {
+      usrRef.on("child_changed", function(data) {
         console.log("Child changed");
         let userId = data.key;
         let userLocation = data.val().location;

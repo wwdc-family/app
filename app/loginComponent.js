@@ -18,7 +18,8 @@ import {
   AlertIOS,
   Text,
   TouchableOpacity,
-  Keyboard
+  Keyboard,
+  AppState
 } from "react-native";
 
 class LoginComponent extends React.Component {
@@ -37,33 +38,42 @@ class LoginComponent extends React.Component {
 
     firestack.auth.listenForAuth(function(evt) {
       if (evt.authenticated) {
-        let nav = ref.props.navigator;
-        let userId = evt.user.uid;
-        pushOptions = {
-          component: MapViewComponent,
-          passProps: {
-            title: "Map",
-            userId: userId
-          }
-        };
-
-        if (ref.state.waitingForFirebase) {
-          // since the user is already logged in, we don't want
-          // to check again if a Twitter account is set
-          // Making the app faster :rocket:
-          nav.push(pushOptions);
-        } else {
-          ref.askForTwitterUser(userId, function() {
-            nav.push(pushOptions);
-          });
-        }
+        ref.pushMapView(ref, evt);
         ref.finishLoading();
-        return;
+      } else {
+        // we can instantly stop loading
+        ref.setState({ loading: false });
+        ref.setState({ waitingForFirebase: false });
       }
-
-      ref.setState({ waitingForFirebase: false });
-      ref.setState({ loading: false });
     });
+  }
+
+  appIsOpen() {
+    return (AppState.currentState == "active")
+  }
+
+  pushMapView(ref, evt) {
+    let nav = ref.props.navigator;
+    let userId = evt.user.uid;
+    pushOptions = {
+      component: MapViewComponent,
+      passProps: {
+        title: "Map",
+        userId: userId
+      }
+    };
+
+    if (ref.state.waitingForFirebase) {
+      // since the user is already logged in, we don't want
+      // to check again if a Twitter account is set
+      // Making the app faster :rocket:
+      nav.push(pushOptions);
+    } else {
+      ref.askForTwitterUser(userId, function() {
+        nav.push(pushOptions);
+      });
+    }
+    ref.finishLoading();
   }
 
   componentWillMount() {
@@ -137,6 +147,7 @@ class LoginComponent extends React.Component {
     setTimeout(
       function() {
         ref.setState({ loading: false });
+        ref.setState({ waitingForFirebase: false });
       },
       500
     ); // enable the buttons later for a smoother animation

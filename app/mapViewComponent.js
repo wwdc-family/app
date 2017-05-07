@@ -65,7 +65,7 @@ class MapViewComponent extends Component {
   // viewDidLoad
   componentDidMount() {
     AppState.addEventListener("change", this._handleAppStateChange);
-    this._handleAppStateChange("active");
+    this._handleAppStateChange(AppState.currentState);
 
     let ref = this;
     // Don't start tracking the location if the user previously disabled it on the last use
@@ -92,9 +92,11 @@ class MapViewComponent extends Component {
   _handleAppStateChange = appState => {
     if (appState == "active") {
       // viewDidAppear
+      console.log("Start listening to other users")
       Database.listenToUsers(this.onOtherUserUpdatedLocation);
     } else if (appState == "inactive" || appState == "background") {
       // viewDidDisappear
+      console.log("Stop listening to other users")
       Database.stopListening();
     }
   };
