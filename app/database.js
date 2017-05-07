@@ -58,10 +58,13 @@ class Database {
             userLocation.lat,
             userLocation.lng,
             userLocation.timestamp,
-            data.twitterUsername
+            data.twitterUsername,
+            false // shouldSetState
           );
         }
       }
+      // to setState and re-render
+      callback(userId, null, null, null, null, true);
 
       // and from now on: listen to new users
       usersRef.on("child_changed", function(data) {
@@ -74,11 +77,12 @@ class Database {
             userLocation.lat,
             userLocation.lng,
             userLocation.timestamp,
-            data.val().twitterUsername
+            data.val().twitterUsername,
+            true // shouldSetState
           );
         } else {
           // This happens when the user stopped sharing their location
-          callback(userId, null, null, null, null);
+          callback(userId, null, null, null, null, true);
         }
       });
     });

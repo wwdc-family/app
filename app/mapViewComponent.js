@@ -126,7 +126,8 @@ class MapViewComponent extends Component {
     lat,
     lng,
     timestamp,
-    twitterUsername
+    twitterUsername,
+    shouldSetState
   ) => {
     // if (userId == this.props.userId) {
     //   return; // We don't want to show ourselve, as it might cover other people
@@ -166,7 +167,10 @@ class MapViewComponent extends Component {
     // the marker, as there is no timestamp for removed markers
     let numberOfHours = 24;
     if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
-      this.setState({ markers: this.state.markers }); // So that react re-renders
+      if (shouldSetState) {
+        // So that react re-renders
+        this.setState({ markers: this.state.markers });
+      }
       return; // Hide all profiles where the last update was over 1 hour ago
     }
 
@@ -192,8 +196,9 @@ class MapViewComponent extends Component {
     }
     console.log("updating markers here");
 
-    // So that react re-renders
-    this.setState({ markers: this.state.markers });
+    if (shouldSetState) {
+      this.setState({ markers: this.state.markers });
+    }
   };
 
   // Location tracking
