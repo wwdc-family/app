@@ -92,11 +92,11 @@ class MapViewComponent extends Component {
   _handleAppStateChange = appState => {
     if (appState == "active") {
       // viewDidAppear
-      console.log("Start listening to other users")
+      console.log("Start listening to other users");
       Database.listenToUsers(this.onOtherUserUpdatedLocation);
     } else if (appState == "inactive" || appState == "background") {
       // viewDidDisappear
-      console.log("Stop listening to other users")
+      console.log("Stop listening to other users");
       Database.stopListening();
     }
   };
@@ -120,7 +120,7 @@ class MapViewComponent extends Component {
         markerImageSource: require("./assets/wwdc.png"),
         url: "https://developer.apple.com/wwdc/",
         type: "poi"
-      },
+      }
     ];
   }
 
@@ -218,23 +218,26 @@ class MapViewComponent extends Component {
     Location.setDistanceFilter(25.0);
     Location.startMonitoringSignificantLocationChanges();
 
-    locationTracker = DeviceEventEmitter.addListener("locationUpdated", position => {
-      if (position == null) {
-        console.log("No location returned")
-        return;
+    locationTracker = DeviceEventEmitter.addListener(
+      "locationUpdated",
+      position => {
+        if (position == null) {
+          console.log("No location returned");
+          return;
+        }
+        this.setState({ lastPosition: position });
+        this.setState({ gpsTrackingActive: true });
+
+        let userId = this.props.userId;
+
+        Database.setUserLocation(
+          userId,
+          position.coords.latitude + "",
+          position.coords.longitude + "",
+          position.timestamp + ""
+        );
       }
-      this.setState({ lastPosition: position });
-      this.setState({ gpsTrackingActive: true });
-
-      let userId = this.props.userId;
-
-      Database.setUserLocation(
-        userId,
-        position.coords.latitude + "",
-        position.coords.longitude + "",
-        position.timestamp + ""
-      );
-    });
+    );
   };
 
   stopTrackingLocation = () => {
@@ -367,7 +370,9 @@ class MapViewComponent extends Component {
   };
 
   moveToUsersLocation = () => {
-    if (this.state.lastPosition == null || this.state.lastPosition.coords == null) {
+    if (
+      this.state.lastPosition == null || this.state.lastPosition.coords == null
+    ) {
       Alert.alert("Couldn't find your current location");
       return;
     }
@@ -385,7 +390,7 @@ class MapViewComponent extends Component {
     firestack.auth
       .signOut()
       .then(res => {
-        console.log("You have been signed out")
+        console.log("You have been signed out");
         this.props.navigator.pop();
       })
       .catch(err => console.error("Uh oh... something weird happened"));
@@ -456,12 +461,20 @@ class MapViewComponent extends Component {
               {marker.profilePicture &&
                 <Image
                   source={{ uri: marker.profilePicture }}
-                  style={marker.type == "user" ? styles.mapMarker : styles.nonPersonMarker}
+                  style={
+                    marker.type == "user"
+                      ? styles.mapMarker
+                      : styles.nonPersonMarker
+                  }
                 />}
               {marker.markerImageSource &&
                 <Image
                   source={marker.markerImageSource}
-                  style={marker.type == "user" ? styles.mapMarker : styles.nonPersonMarker}
+                  style={
+                    marker.type == "user"
+                      ? styles.mapMarker
+                      : styles.nonPersonMarker
+                  }
                 />}
             </MapView.Marker>
           ))}

@@ -49,7 +49,7 @@ class LoginComponent extends React.Component {
   }
 
   appIsOpen() {
-    return (AppState.currentState == "active")
+    return AppState.currentState == "active";
   }
 
   pushMapView(ref, evt) {

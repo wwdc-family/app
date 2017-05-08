@@ -50,7 +50,7 @@ class Database {
       this._usersRef = firestack.database.ref("/user/");
     }
 
-    let usrRef = this._usersRef
+    let usrRef = this._usersRef;
     // Get a list of all existing users
     usrRef.once("value").then(function(snapshot) {
       let snap = snapshot.val();
