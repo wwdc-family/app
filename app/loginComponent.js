@@ -154,9 +154,10 @@ class LoginComponent extends React.Component {
   }
 
   askForTwitterUser(userId, successCallback) {
+    ref = this
     Database.getUser(userId, function(value) {
       // First, check if there is an existing twitter username
-      if (value != null && value.twitterUsername != null) {
+      if (value != null && !!value.twitterUsername) {
         successCallback();
         return;
       }
@@ -170,7 +171,7 @@ class LoginComponent extends React.Component {
             onPress: function(twitterUsername) {
               twitterUsername = twitterUsername.replace("@", "");
               Database.setUserTwitterName(userId, twitterUsername);
-              successCallback();
+              ref.askForTwitterUser(userId, successCallback) // to ensure the input is valid
             }
           }
         ],
