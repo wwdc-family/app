@@ -8,6 +8,8 @@ const styles = require("./styles.js");
 const MapViewComponent = require("./mapViewComponent");
 const Database = require("./database.js");
 
+var Buglife = require('react-native-buglife');
+
 import {
   View,
   Image,
@@ -62,6 +64,9 @@ class LoginComponent extends React.Component {
         userId: userId
       }
     };
+
+    // used to be able to reply to questions
+    Buglife.setUserEmail(evt.user.email);
 
     if (ref.state.waitingForFirebase) {
       // since the user is already logged in, we don't want
