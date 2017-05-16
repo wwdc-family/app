@@ -7,6 +7,8 @@ import { RNLocation as Location } from "NativeModules";
 import Firestack from "react-native-firestack";
 const firestack = new Firestack();
 
+const CachedImage = require('react-native-cached-image');
+
 const Database = require("./database.js");
 const styles = require("./styles.js");
 const ReactNative = require("react-native");
@@ -462,8 +464,8 @@ class MapViewComponent extends Component {
               key={marker.key}
             >
               {marker.profilePicture &&
-                <Image
-                  source={{ uri: marker.profilePicture }}
+                <CachedImage
+                  source={{ uri: marker.profilePicture, cache: 'force-cache' }}
                   style={
                     marker.type == "user"
                       ? styles.mapMarker
@@ -471,7 +473,7 @@ class MapViewComponent extends Component {
                   }
                 />}
               {marker.markerImageSource &&
-                <Image
+                <CachedImage
                   source={marker.markerImageSource}
                   style={
                     marker.type == "user"
