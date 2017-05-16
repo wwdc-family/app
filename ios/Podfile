@@ -8,6 +8,22 @@ target 'wwdcfamily' do
   # use_frameworks!
 
   # Pods for wwdcfamily
+  pod 'React', path: '../node_modules/react-native', :subspecs => [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+  ]
+  pod 'Yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+  pod 'GoogleMaps'
+
 
   target 'wwdcfamilyUITests' do
     inherit! :search_paths

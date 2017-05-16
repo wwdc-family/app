@@ -1,5 +1,5 @@
 PODS:
-  - Buglife (1.5.3)
+  - Buglife (1.5.4)
   - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
@@ -50,6 +50,11 @@ PODS:
   - FirebaseStorage (1.1.0):
     - FirebaseAnalytics (~> 3.7)
     - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
   - GoogleToolboxForMac/DebugUtils (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/Defines (2.1.1)
@@ -64,6 +69,34 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
   - Protobuf (3.3.0)
+  - React/Core (0.42.3):
+    - React/cxxreact
+    - Yoga (= 0.42.3.React)
+  - React/cxxreact (0.42.3):
+    - React/jschelpers
+  - React/jschelpers (0.42.3)
+  - React/RCTActionSheet (0.42.3):
+    - React/Core
+  - React/RCTAnimation (0.42.3):
+    - React/Core
+  - React/RCTGeolocation (0.42.3):
+    - React/Core
+  - React/RCTImage (0.42.3):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.42.3):
+    - React/Core
+  - React/RCTNetwork (0.42.3):
+    - React/Core
+  - React/RCTSettings (0.42.3):
+    - React/Core
+  - React/RCTText (0.42.3):
+    - React/Core
+  - React/RCTVibration (0.42.3):
+    - React/Core
+  - React/RCTWebSocket (0.42.3):
+    - React/Core
+  - Yoga (0.42.3.React)
 
 DEPENDENCIES:
   - Buglife
@@ -76,9 +109,28 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/RemoteConfig
   - Firebase/Storage
+  - GoogleMaps
+  - React/Core (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  Yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Buglife: 9de44908d4fe8618344f23b2a94d5244cdc27dac
+  Buglife: 424810b5c7ab3b75240d32fdbd65c26825ae7247
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
@@ -90,10 +142,13 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   FirebaseRemoteConfig: af3003f4e8daa2bd1d5cf90d3cccc1fe224f8ed9
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
+  React: 35e039680feacd0563677d49ba410112d2748559
+  Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
 
-PODFILE CHECKSUM: b7c5759243c2f98dabc874da4f8efcd504b3d876
+PODFILE CHECKSUM: a21286f661ff830b84e181ad84e79d09954e2785
 
 COCOAPODS: 1.2.1

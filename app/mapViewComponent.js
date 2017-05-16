@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE }  from "react-native-maps";
 
 import { DeviceEventEmitter } from "react-native";
 import { RNLocation as Location } from "NativeModules";
@@ -444,6 +444,7 @@ class MapViewComponent extends Component {
           ref={ref => {
             this.map = ref;
           }} // so we can reference it via this.map
+          provider={PROVIDER_GOOGLE}
           initialRegion={this.state.region}
           onRegionChange={region => this.onRegionChange(region)}
           showsMyLocationButton={false} // setting this to true doesn't work
