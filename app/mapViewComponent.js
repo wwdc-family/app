@@ -161,9 +161,7 @@ class MapViewComponent extends Component {
       // we have to remove this marker from our list
       // as the user disabled their location sharing
       console.log("Removing the marker here");
-      this.setState({
-        numberOfActiveUsers: this.state.numberOfActiveUsers - 1
-      });
+      this.state.numberOfActiveUsers -= 1
       this.state.markers.splice(foundExisting, 1);
     }
 
@@ -173,7 +171,10 @@ class MapViewComponent extends Component {
     if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
       if (shouldSetState) {
         // So that react re-renders
-        this.setState({ markers: this.state.markers });
+        this.setState({
+          markers: this.state.markers,
+          numberOfActiveUsers: this.state.numberOfActiveUsers
+        });
       }
       return; // Hide all profiles where the last update was over 1 hour ago
     }
@@ -194,14 +195,15 @@ class MapViewComponent extends Component {
         url: "https://twitter.com/" + twitterUsername,
         type: "user"
       });
-      this.setState({
-        numberOfActiveUsers: this.state.numberOfActiveUsers + 1
-      });
+      this.state.numberOfActiveUsers += 1
     }
-    console.log("updating markers here");
+    console.log("updating markers here with state boolean: " + shouldSetState.toString());
 
     if (shouldSetState) {
-      this.setState({ markers: this.state.markers });
+      this.setState({
+        markers: this.state.markers,
+        numberOfActiveUsers: this.state.numberOfActiveUsers
+      });
     }
   };
 
@@ -337,7 +339,6 @@ class MapViewComponent extends Component {
       .then(responseData => {
         try {
           parties = responseData["parties"];
-          console.log(parties);
           for (let i = 0; i < parties.length; i++) {
             let current = parties[i];
             // hide events that already happened
