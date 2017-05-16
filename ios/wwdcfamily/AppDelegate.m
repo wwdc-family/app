@@ -16,10 +16,14 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
+@import GoogleMaps;
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyDhI65LrUSTxtcI1inrp-cXQuae-1mr51c"];
+
   [Fabric with:@[[Crashlytics class]]];
   [Answers logCustomEventWithName:@"AppStarted" customAttributes:nil];
   

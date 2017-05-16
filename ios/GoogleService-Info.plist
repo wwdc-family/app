@@ -11,7 +11,7 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.48956287355-78lnq2ha4sqivafg8t3jl98fslsbav2h</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBvKWkhpB3afAQKPsxlSX9HYqku0rJJ8Vo</string>
+	<string>AIzaSyAZ8n9ZlDI_imL16XBYrDKGntrGiksrgVE</string>
 	<key>GCM_SENDER_ID</key>
 	<string>48956287355</string>
 	<key>PLIST_VERSION</key>
@@ -23,9 +23,9 @@
 	<key>STORAGE_BUCKET</key>
 	<string>wwdc-family.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
-	<key>IS_ANALYTICS_ENABLED</key>
 	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
 	<false/>
 	<key>IS_GCM_ENABLED</key>

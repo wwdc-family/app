@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE }  from "react-native-maps";
 
 import { DeviceEventEmitter } from "react-native";
 import { RNLocation as Location } from "NativeModules";
 
 import Firestack from "react-native-firestack";
 const firestack = new Firestack();
+
+const CachedImage = require('react-native-cached-image');
 
 const Database = require("./database.js");
 const styles = require("./styles.js");
@@ -161,9 +163,7 @@ class MapViewComponent extends Component {
       // we have to remove this marker from our list
       // as the user disabled their location sharing
       console.log("Removing the marker here");
-      this.setState({
-        numberOfActiveUsers: this.state.numberOfActiveUsers - 1
-      });
+      this.state.numberOfActiveUsers -= 1
       this.state.markers.splice(foundExisting, 1);
     }
 
@@ -173,7 +173,10 @@ class MapViewComponent extends Component {
     if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
       if (shouldSetState) {
         // So that react re-renders
-        this.setState({ markers: this.state.markers });
+        this.setState({
+          markers: this.state.markers,
+          numberOfActiveUsers: this.state.numberOfActiveUsers
+        });
       }
       return; // Hide all profiles where the last update was over 1 hour ago
     }
@@ -194,14 +197,15 @@ class MapViewComponent extends Component {
         url: "https://twitter.com/" + twitterUsername,
         type: "user"
       });
-      this.setState({
-        numberOfActiveUsers: this.state.numberOfActiveUsers + 1
-      });
+      this.state.numberOfActiveUsers += 1
     }
-    console.log("updating markers here");
+    console.log("updating markers here with state boolean: " + shouldSetState.toString());
 
     if (shouldSetState) {
-      this.setState({ markers: this.state.markers });
+      this.setState({
+        markers: this.state.markers,
+        numberOfActiveUsers: this.state.numberOfActiveUsers
+      });
     }
   };
 
@@ -337,15 +341,15 @@ class MapViewComponent extends Component {
       .then(responseData => {
         try {
           parties = responseData["parties"];
-          console.log(parties);
           for (let i = 0; i < parties.length; i++) {
             let current = parties[i];
             // hide events that already happened
             if (new Date(current["endDate"]) > new Date()) {
+              // The `Math.random` is needed as Google Maps goes crazy if 2 maps have the exact same location
               this.state.markers.push({
                 coordinate: {
-                  latitude: parseFloat(current["latitude"]),
-                  longitude: parseFloat(current["longitude"])
+                  latitude: parseFloat(current["latitude"]) + Math.random() / 10000,
+                  longitude: parseFloat(current["longitude"]) + Math.random() / 10000
                 },
                 key: current["objectId"],
                 title: current["title"],
@@ -444,6 +448,7 @@ class MapViewComponent extends Component {
           ref={ref => {
             this.map = ref;
           }} // so we can reference it via this.map
+          provider={PROVIDER_GOOGLE}
           initialRegion={this.state.region}
           onRegionChange={region => this.onRegionChange(region)}
           showsMyLocationButton={false} // setting this to true doesn't work
@@ -459,8 +464,8 @@ class MapViewComponent extends Component {
               key={marker.key}
             >
               {marker.profilePicture &&
-                <Image
-                  source={{ uri: marker.profilePicture }}
+                <CachedImage
+                  source={{ uri: marker.profilePicture, cache: 'force-cache' }}
                   style={
                     marker.type == "user"
                       ? styles.mapMarker
@@ -468,7 +473,7 @@ class MapViewComponent extends Component {
                   }
                 />}
               {marker.markerImageSource &&
-                <Image
+                <CachedImage
                   source={marker.markerImageSource}
                   style={
                     marker.type == "user"

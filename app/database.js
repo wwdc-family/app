@@ -45,6 +45,7 @@ class Database {
   }
 
   static listenToUsers(callback) {
+    start = new Date()
     console.log("subscribing to changes");
     if (this._usersRef == null) {
       this._usersRef = firestack.database.ref("/user/");
@@ -70,6 +71,8 @@ class Database {
       }
       // to setState and re-render
       callback(userId, null, null, null, null, true);
+
+      console.log("Launch up time: " + (new Date() - start));
 
       // and from now on: listen to new users
       usrRef.on("child_changed", function(data) {
