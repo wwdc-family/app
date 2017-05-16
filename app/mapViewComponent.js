@@ -342,10 +342,11 @@ class MapViewComponent extends Component {
             let current = parties[i];
             // hide events that already happened
             if (new Date(current["endDate"]) > new Date()) {
+              // The `Math.random` is needed as Google Maps goes crazy if 2 maps have the exact same location
               this.state.markers.push({
                 coordinate: {
-                  latitude: parseFloat(current["latitude"]),
-                  longitude: parseFloat(current["longitude"])
+                  latitude: parseFloat(current["latitude"]) + Math.random() / 10000,
+                  longitude: parseFloat(current["longitude"]) + Math.random() / 10000
                 },
                 key: current["objectId"],
                 title: current["title"],
