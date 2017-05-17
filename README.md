@@ -24,6 +24,7 @@ git clone https://github.com/wwdc-family/app
 cd app
 brew update && brew install node watchman
 npm install
+npm install -g react-native-cli
 react-native run-ios
 ```
 
