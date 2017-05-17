@@ -40,7 +40,7 @@ platform :ios do
   lane :beta do |options|
     build_app
     testflight(distribute_external: options[:distribute], 
-                         changelog: "- Fix crash on startup that happened due to caching of user session with a revoked API token, sorry about that\n- Switch to Google Maps\n- Update Firebase API token\n- Enable image caching for Twitter avatars\n- Reduced startup time from 10 seconds to about 1 second\n- Improve fastlane setup")
+                         changelog: File.read("changelog.txt"))
   end
 
   lane :screenshots do
