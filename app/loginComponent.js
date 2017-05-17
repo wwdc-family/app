@@ -8,7 +8,7 @@ const styles = require("./styles.js");
 const MapViewComponent = require("./mapViewComponent");
 const Database = require("./database.js");
 
-var Buglife = require('react-native-buglife');
+var Buglife = require("react-native-buglife");
 
 import {
   View,
@@ -56,6 +56,14 @@ class LoginComponent extends React.Component {
 
   pushMapView(ref, evt) {
     let nav = ref.props.navigator;
+    let numberOfViews = nav.state.routeStack.length;
+
+    if (numberOfViews > 1) {
+      // We already render the map, so we don't want to push a new map
+      // even though the auth change was triggered
+      return;
+    }
+
     let userId = evt.user.uid;
     pushOptions = {
       component: MapViewComponent,

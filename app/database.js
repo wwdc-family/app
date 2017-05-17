@@ -45,7 +45,7 @@ class Database {
   }
 
   static listenToUsers(callback) {
-    start = new Date()
+    start = new Date();
     console.log("subscribing to changes");
     if (this._usersRef == null) {
       this._usersRef = firestack.database.ref("/user/");

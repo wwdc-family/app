@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MapView, { PROVIDER_GOOGLE }  from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 import { DeviceEventEmitter } from "react-native";
 import { RNLocation as Location } from "NativeModules";
@@ -7,7 +7,7 @@ import { RNLocation as Location } from "NativeModules";
 import Firestack from "react-native-firestack";
 const firestack = new Firestack();
 
-const CachedImage = require('react-native-cached-image');
+const CachedImage = require("react-native-cached-image");
 
 const Database = require("./database.js");
 const styles = require("./styles.js");
@@ -163,7 +163,7 @@ class MapViewComponent extends Component {
       // we have to remove this marker from our list
       // as the user disabled their location sharing
       console.log("Removing the marker here");
-      this.state.numberOfActiveUsers -= 1
+      this.state.numberOfActiveUsers -= 1;
       this.state.markers.splice(foundExisting, 1);
     }
 
@@ -197,9 +197,11 @@ class MapViewComponent extends Component {
         url: "https://twitter.com/" + twitterUsername,
         type: "user"
       });
-      this.state.numberOfActiveUsers += 1
+      this.state.numberOfActiveUsers += 1;
     }
-    console.log("updating markers here with state boolean: " + shouldSetState.toString());
+    console.log(
+      "updating markers here with state boolean: " + shouldSetState.toString()
+    );
 
     if (shouldSetState) {
       this.setState({
@@ -348,8 +350,10 @@ class MapViewComponent extends Component {
               // The `Math.random` is needed as Google Maps goes crazy if 2 maps have the exact same location
               this.state.markers.push({
                 coordinate: {
-                  latitude: parseFloat(current["latitude"]) + Math.random() / 10000,
-                  longitude: parseFloat(current["longitude"]) + Math.random() / 10000
+                  latitude: parseFloat(current["latitude"]) +
+                    Math.random() / 10000,
+                  longitude: parseFloat(current["longitude"]) +
+                    Math.random() / 10000
                 },
                 key: current["objectId"],
                 title: current["title"],
@@ -465,7 +469,7 @@ class MapViewComponent extends Component {
             >
               {marker.profilePicture &&
                 <CachedImage
-                  source={{ uri: marker.profilePicture, cache: 'force-cache' }}
+                  source={{ uri: marker.profilePicture, cache: "force-cache" }}
                   style={
                     marker.type == "user"
                       ? styles.mapMarker
