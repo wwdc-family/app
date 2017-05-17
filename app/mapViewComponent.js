@@ -448,7 +448,7 @@ class MapViewComponent extends Component {
           ref={ref => {
             this.map = ref;
           }} // so we can reference it via this.map
-          provider={PROVIDER_GOOGLE}
+          // provider={PROVIDER_GOOGLE}
           initialRegion={this.state.region}
           onRegionChange={region => this.onRegionChange(region)}
           showsMyLocationButton={false} // setting this to true doesn't work
