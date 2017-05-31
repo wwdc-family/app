@@ -16,6 +16,8 @@ const ReactNative = require("react-native");
 const gpsTrackingActiveKey = "@wwdcfamily:gpsTrackingActive";
 const showPartiesKey = "@wwdcfamily:showParties";
 
+const ListViewComponent = require("./listViewComponent");
+
 let locationTracker = null;
 
 import {
@@ -271,6 +273,7 @@ class MapViewComponent extends Component {
 
   didTapMoreButton = () => {
     let buttons = [
+      "WWDC family",
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
@@ -290,23 +293,26 @@ class MapViewComponent extends Component {
         this.setState({ clicked: buttons[buttonIndex] });
         switch (buttonIndex) {
           case 0:
-            this.toggleLocationTracking();
+            this.showFamilyList();
             break;
           case 1:
-            this.toggleParties();
+            this.toggleLocationTracking();
             break;
           case 2:
-            this.moveToUsersLocation();
+            this.toggleParties();
             break;
           case 3:
-            this.showAboutThisApp();
+            this.moveToUsersLocation();
             break;
           case 4:
+            this.showAboutThisApp();
+            break;
+          case 5:
             this.stopTrackingLocation();
             Database.stopListening();
             this.logout();
             break;
-          case 5:
+          case 6:
             // Cancel, nothing to do here
             break;
         }
@@ -402,6 +408,27 @@ class MapViewComponent extends Component {
         this.props.navigator.pop();
       })
       .catch(err => console.error("Uh oh... something weird happened"));
+  }
+
+  showFamilyList() {
+    let nav = ref.props.navigator;
+
+    var latitude = 0;
+    var longitude = 0;
+    if (this.state.lastPosition != null && this.state.lastPosition.coords != null) {
+      latitude = this.state.lastPosition.coords.latitude;
+      longitude = this.state.lastPosition.coords.longitude;
+    }
+
+    pushOptions = {
+      component: ListViewComponent,
+      passProps: {
+        title: "List",
+        latitude:latitude,
+        longitude: longitude
+      }
+    };
+    nav.push(pushOptions);
   }
 
   openURL = url => {

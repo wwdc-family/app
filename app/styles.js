@@ -115,6 +115,88 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#4E6896",
     color: "white"
+  },
+  listView: {
+    paddingTop: 0,
+    backgroundColor: '#F5FCFF',
+  },
+  cellSeparator: {
+    flex: 1,
+    marginLeft: 8,
+    marginRight: 8,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#E5E5E5',
+  },
+  cellContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  rightUpperContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height:25,
+    marginTop: 8,
+  },
+  rightLowerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    height:25,
+    marginBottom: 8,
+  },
+  cellTitle: {
+    fontSize: 16,
+    textAlign: 'left',
+    color: "#292929",
+    marginTop: 4,
+  },
+  cellDate: {
+    fontSize: 12,
+    color: "#939393",
+    textAlign: 'right',
+    marginRight: 8,
+    alignSelf: 'flex-end', 
+    marginBottom: 4,
+  },
+  cellDistance: {
+    fontSize: 12,
+    color: "#4E6896",
+    marginTop: 4,
+    textAlign: 'left',
+  },
+  cellThumbnail: {
+    width: 50,
+    borderRadius: 25,
+    height: 50,
+    margin: 8
+  },
+  navigationView: {
+    paddingTop:0,
+    height:64,
+    backgroundColor:"#4E6896",
+  },
+  navigationBar: {
+    marginTop:20,
+    height:44,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+  },
+  navigationBackButton: {
+    textAlign:"left",
+    alignSelf:"center",
+    color:"white",
+  },
+  navigationTitle: {
+    fontSize: 17,
+    textAlign:"center",
+    alignSelf:"center",
+    color:"white",
   }
 });
 
