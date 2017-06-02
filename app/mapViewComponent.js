@@ -5,6 +5,9 @@ import { DeviceEventEmitter } from "react-native";
 import { RNLocation as Location } from "NativeModules";
 
 import Firestack from "react-native-firestack";
+
+import Moment from 'moment';
+
 const firestack = new Firestack();
 
 const CachedImage = require("react-native-cached-image");
@@ -347,6 +350,12 @@ class MapViewComponent extends Component {
             let current = parties[i];
             // hide events that already happened
             if (new Date(current["endDate"]) > new Date()) {
+              
+              // Create a formatted date string for the event
+              let startDateString = Moment(current["startDate"]).format("ddd, h:mma");
+              let endDateString = Moment(current["endDate"]).format("h:mma");
+              let dateString = startDateString + "-" + endDateString;
+
               // The `Math.random` is needed as Google Maps goes crazy if 2 maps have the exact same location
               this.state.markers.push({
                 coordinate: {
@@ -357,7 +366,7 @@ class MapViewComponent extends Component {
                 },
                 key: current["objectId"],
                 title: current["title"],
-                description: current["address1"],
+                description: current["address1"] + " | " + dateString,
                 profilePicture: current["icon"],
                 url: current["url"],
                 type: "party"
