@@ -20,12 +20,14 @@ end
 
 platform :ios do
   before_all do
-    register_devices(devices: {
-      "Felix Krause's iPhone 7" => "67b49853d5e977446301bfbd2ad2c7dae96dc562"
-    }) unless is_ci
+    unless is_ci
+      register_devices(devices: {
+        "Felix Krause's iPhone 7" => "67b49853d5e977446301bfbd2ad2c7dae96dc562"
+      })
 
-    match(type: "development", readonly: is_ci)
-    match(type: "appstore", readonly: is_ci)
+      match(type: "development")
+      match(type: "appstore")
+    end
   end
 
   private_lane :build_app do
@@ -38,9 +40,11 @@ platform :ios do
   end
 
   lane :beta do |options|
-    build_app
-    testflight(distribute_external: options[:distribute], 
-                         changelog: File.read("changelog.txt"))
+    unless is_ci
+      build_app
+      testflight(distribute_external: options[:distribute], 
+                           changelog: File.read("changelog.txt"))
+    end
   end
 
   lane :screenshots do
