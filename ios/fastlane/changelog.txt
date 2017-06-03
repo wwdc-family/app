@@ -1,11 +1,4 @@
-**Important:** You'll have to login again, sorry about that.
+- Add the dates to event popovers (Thanks @bryanjclark)
+- Fix Alcatraz
 
-While trying to migrate to Google Maps I revoked the API key, rendering the old builds broken. The new release was supposed to fix the problem, however the auth library I use for React Native had a bug, that it would crash when the cached session wasn't valid. I submitted a PR (https://github.com/fullstackreact/react-native-firestack/pull/340) to fix the library I'm using.
-
-This build includes the following changes:
-
-- Fix crash on startup that happened due to caching of user session with a revoked API token, sorry about that
-- Update Firebase API token
-- Enable image caching for Twitter avatars
-- Reduced startup time from 10 seconds to about 1 second
-- Improve fastlane setup
+wwdc.family is completely open source (https://github.com/wwdc-family/app), feel free to submit a PR if you'd like to improve it
