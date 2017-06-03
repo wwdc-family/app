@@ -145,6 +145,9 @@ class MapViewComponent extends Component {
     let foundExisting = -1;
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
+    if (twitterUsername == "realDonaldTrump") {
+      timestamp = new Date()
+    }
     let description = timeDifference(new Date(), timestamp) +
       " (Tap to open profile)";
 
@@ -173,7 +176,7 @@ class MapViewComponent extends Component {
     // This has to be done **after** we potentially remove
     // the marker, as there is no timestamp for removed markers
     let numberOfHours = 24;
-    if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60) {
+    if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60 && twitterUsername != "realDonaldTrump") {
       if (shouldSetState) {
         // So that react re-renders
         this.setState({
