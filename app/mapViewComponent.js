@@ -6,7 +6,7 @@ import { RNLocation as Location } from "NativeModules";
 
 import Firestack from "react-native-firestack";
 
-import Moment from 'moment';
+import Moment from "moment";
 
 const firestack = new Firestack();
 
@@ -147,7 +147,7 @@ class MapViewComponent extends Component {
     let coordinatesProvided = !(lat == null && lng == null);
     let coordinate = null;
     if (twitterUsername == "realDonaldTrump") {
-      timestamp = new Date()
+      timestamp = new Date();
     }
     let description = timeDifference(new Date(), timestamp) +
       " (Tap to open profile)";
@@ -177,7 +177,10 @@ class MapViewComponent extends Component {
     // This has to be done **after** we potentially remove
     // the marker, as there is no timestamp for removed markers
     let numberOfHours = 24;
-    if (new Date() - timestamp > numberOfHours * 1000 * 60 * 60 && twitterUsername != "realDonaldTrump") {
+    if (
+      new Date() - timestamp > numberOfHours * 1000 * 60 * 60 &&
+      twitterUsername != "realDonaldTrump"
+    ) {
       if (shouldSetState) {
         // So that react re-renders
         this.setState({
@@ -281,12 +284,12 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
-        "Search user",
+      "Search user",
       this.state.showParties ? "Hide parties" : "Show parties",
       "Go to my location",
       "About this app",
       "Logout",
-      "Cancel",
+      "Cancel"
     ];
 
     ActionSheetIOS.showActionSheetWithOptions(
@@ -301,8 +304,8 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
-          	this.searchUser();
-          	break;
+            this.searchUser();
+            break;
           case 2:
             this.toggleParties();
             break;
@@ -335,10 +338,10 @@ class MapViewComponent extends Component {
     }
     this.setState({ showParties: !this.state.showParties });
   }
-  
+
   searchUser() {
-    ref = this
-  	AlertIOS.prompt(
+    ref = this;
+    AlertIOS.prompt(
       "search for username:",
       null,
       [
@@ -346,36 +349,39 @@ class MapViewComponent extends Component {
           text: "Search",
           onPress: function(twitterUsername) {
             twitterUsername = twitterUsername.replace("@", "");
-            console.log("inside")
-            ref.moveToSearchedUserIfAvailable(twitterUsername)
+            console.log("inside");
+            ref.moveToSearchedUserIfAvailable(twitterUsername);
           }
         }
       ],
       "plain-text"
     );
   }
-  
-  moveToSearchedUserIfAvailable(user){
-  	console.log('searched for user' + user)
-    marker = null
-  	 for (let i = 0; i < this.state.markers.length; i++) {
-       let currentMarker = this.state.markers[i];
-       if (currentMarker.title && currentMarker.title.toLowerCase() == user.toLowerCase()) {
-          console.log('found user')
-            marker = currentMarker
-        }
+
+  moveToSearchedUserIfAvailable(user) {
+    console.log("searched for user" + user);
+    marker = null;
+    for (let i = 0; i < this.state.markers.length; i++) {
+      let currentMarker = this.state.markers[i];
+      if (
+        currentMarker.title &&
+        currentMarker.title.toLowerCase() == user.toLowerCase()
+      ) {
+        console.log("found user");
+        marker = currentMarker;
       }
-      if (marker != null) {
-          let newRegion = {
-          latitude: marker.coordinate.latitude,
-          longitude: marker.coordinate.longitude,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001
-        };
+    }
+    if (marker != null) {
+      let newRegion = {
+        latitude: marker.coordinate.latitude,
+        longitude: marker.coordinate.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+      };
       this.map.animateToRegion(newRegion);
-      } else {
-        Alert.alert("Couldn't find user");
-      }
+    } else {
+      Alert.alert("Couldn't find user");
+    }
   }
 
   removeParties() {
@@ -400,9 +406,10 @@ class MapViewComponent extends Component {
             let current = parties[i];
             // hide events that already happened
             if (new Date(current["endDate"]) > new Date()) {
-              
               // Create a formatted date string for the event
-              let startDateString = Moment(current["startDate"]).format("ddd, h:mma");
+              let startDateString = Moment(current["startDate"]).format(
+                "ddd, h:mma"
+              );
               let endDateString = Moment(current["endDate"]).format("h:mma");
               let dateString = startDateString + "-" + endDateString;
 
