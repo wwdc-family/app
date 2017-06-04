@@ -30,7 +30,8 @@ import {
   Modal,
   WebView,
   AsyncStorage,
-  Alert
+  Alert,
+  AlertIOS
 } from "react-native";
 
 const {
@@ -280,11 +281,12 @@ class MapViewComponent extends Component {
       this.state.gpsTrackingActive
         ? "Stop sharing location"
         : "Start sharing location",
+        "Search user",
       this.state.showParties ? "Hide parties" : "Show parties",
       "Go to my location",
       "About this app",
       "Logout",
-      "Cancel"
+      "Cancel",
     ];
 
     ActionSheetIOS.showActionSheetWithOptions(
@@ -299,20 +301,23 @@ class MapViewComponent extends Component {
             this.toggleLocationTracking();
             break;
           case 1:
+          	this.searchUser();
+          	break;
+          case 2:
             this.toggleParties();
             break;
-          case 2:
+          case 3:
             this.moveToUsersLocation();
             break;
-          case 3:
+          case 4:
             this.showAboutThisApp();
             break;
-          case 4:
+          case 5:
             this.stopTrackingLocation();
             Database.stopListening();
             this.logout();
             break;
-          case 5:
+          case 6:
             // Cancel, nothing to do here
             break;
         }
@@ -329,6 +334,48 @@ class MapViewComponent extends Component {
       AsyncStorage.setItem(showPartiesKey, "true");
     }
     this.setState({ showParties: !this.state.showParties });
+  }
+  
+  searchUser() {
+    ref = this
+  	AlertIOS.prompt(
+      "search for username:",
+      null,
+      [
+        {
+          text: "Search",
+          onPress: function(twitterUsername) {
+            twitterUsername = twitterUsername.replace("@", "");
+            console.log("inside")
+            ref.moveToSearchedUserIfAvailable(twitterUsername)
+          }
+        }
+      ],
+      "plain-text"
+    );
+  }
+  
+  moveToSearchedUserIfAvailable(user){
+  	console.log('searched for user' + user)
+    marker = null
+  	 for (let i = 0; i < this.state.markers.length; i++) {
+       let currentMarker = this.state.markers[i];
+       if (currentMarker.title && currentMarker.title.toLowerCase() == user.toLowerCase()) {
+          console.log('found user')
+            marker = currentMarker
+        }
+      }
+      if (marker != null) {
+          let newRegion = {
+          latitude: marker.coordinate.latitude,
+          longitude: marker.coordinate.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001
+        };
+      this.map.animateToRegion(newRegion);
+      } else {
+        Alert.alert("Couldn't find user");
+      }
   }
 
   removeParties() {
