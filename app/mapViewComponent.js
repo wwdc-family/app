@@ -342,14 +342,18 @@ class MapViewComponent extends Component {
   searchUser() {
     ref = this;
     AlertIOS.prompt(
-      "search for username:",
+      "Search for username:",
       null,
       [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
         {
           text: "Search",
           onPress: function(twitterUsername) {
             twitterUsername = twitterUsername.replace("@", "");
-            console.log("inside");
             ref.moveToSearchedUserIfAvailable(twitterUsername);
           }
         }
