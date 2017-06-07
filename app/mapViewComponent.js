@@ -20,6 +20,7 @@ const gpsTrackingActiveKey = "@wwdcfamily:gpsTrackingActive";
 const showPartiesKey = "@wwdcfamily:showParties";
 
 let locationTracker = null;
+let hasNotifiedOfSoiree = false;
 
 import {
   View,
@@ -252,6 +253,7 @@ class MapViewComponent extends Component {
           position.coords.longitude + "",
           position.timestamp + ""
         );
+        this.checkForSelfieSoiree(position);
       }
     );
   };
@@ -482,6 +484,32 @@ class MapViewComponent extends Component {
 
   onRegionChange(region) {
     this.setState({ region });
+  }
+
+  
+  checkForSelfieSoiree = (position) => {
+    timeMillis = new Date().getTime();
+
+    // The Glass House: 37.3355139,-121.8925179,18z
+    if (!hasNotifiedOfSoiree
+        && position != null 
+        && timeMillis > 1496887200000 // 7 PM Wednesday
+        && timeMillis < 1496908800000 // 1 AM Thursday
+        && Math.abs(position.coords.latitude - 37.3355139) < 0.01
+        && Math.abs(position.coords.longitude + 121.8925179) < 0.01 ) {
+      AlertIOS.alert(
+       'You\'re at the Soireé!',
+       'Download the Selfie Soirée app to take and share selfies & win prizes!',
+       [
+         {text: 'Cancel', onPress: () => {  }, style: 'cancel'},
+         {text: 'Install', onPress: () => { Linking.openURL("https://www.usebutton.com/get-soiree") }},
+       ],
+      );
+      hasNotifiedOfSoiree = true;
+    }
+    else {
+      // Not at the Soiree SHHHHHHHH
+    }
   }
 
   render() {
