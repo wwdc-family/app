@@ -1,7 +1,8 @@
 This build:
-- Add new search feature to find specific users (Thanks @_Caro_N)
+- Add link to the Selfie Soiree app for tonight
 
 Previously:
+- Add new search feature to find specific users (Thanks @_Caro_N)
 - Add the dates to event popovers (Thanks @bryanjclark)
 - Fix Alcatraz
 
