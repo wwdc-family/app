@@ -8,4 +8,4 @@ dependencies:
     - vendor/bundle
 test:
   override:
-    - bundle exec fastlane beta
+    - cd ios && bundle exec fastlane beta
