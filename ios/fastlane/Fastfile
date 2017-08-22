@@ -2,21 +2,24 @@ fastlane_version "2.28.8"
 
 default_platform :ios
 
-if is_ci
-  password = SecureRandom.base64
-  keychain_name = "fastlane"
-  ENV["MATCH_KEYCHAIN_NAME"] = keychain_name
-  ENV["MATCH_KEYCHAIN_PASSWORD"] = password
+setup_circle
+# setup_travis
 
-  create_keychain(
-    name: keychain_name,
-    default_keychain: true,
-    unlock: true,
-    timeout: 3600,
-    lock_when_sleeps: true,
-    password: password
-  )
-end
+# if is_ci
+#   password = SecureRandom.base64
+#   keychain_name = "fastlane"
+#   ENV["MATCH_KEYCHAIN_NAME"] = keychain_name
+#   ENV["MATCH_KEYCHAIN_PASSWORD"] = password
+
+#   create_keychain(
+#     name: keychain_name,
+#     default_keychain: true,
+#     unlock: true,
+#     timeout: 3600,
+#     lock_when_sleeps: true,
+#     password: password
+#   )
+# end
 
 platform :ios do
   before_all do
@@ -40,11 +43,9 @@ platform :ios do
   end
 
   lane :beta do |options|
-    unless is_ci
-      build_app
-      testflight(distribute_external: options[:distribute], 
-                           changelog: File.read("changelog.txt"))
-    end
+    build_app
+    testflight(distribute_external: options[:distribute], 
+                         changelog: File.read("changelog.txt"))
   end
 
   lane :screenshots do
