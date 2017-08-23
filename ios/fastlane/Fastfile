@@ -2,24 +2,9 @@ fastlane_version "2.28.8"
 
 default_platform :ios
 
+# We run tests on both, the action will skip the setup if there is a mismatch
 setup_circle
-# setup_travis
-
-# if is_ci
-#   password = SecureRandom.base64
-#   keychain_name = "fastlane"
-#   ENV["MATCH_KEYCHAIN_NAME"] = keychain_name
-#   ENV["MATCH_KEYCHAIN_PASSWORD"] = password
-
-#   create_keychain(
-#     name: keychain_name,
-#     default_keychain: true,
-#     unlock: true,
-#     timeout: 3600,
-#     lock_when_sleeps: true,
-#     password: password
-#   )
-# end
+setup_travis
 
 platform :ios do
   before_all do
