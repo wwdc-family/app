@@ -20,7 +20,7 @@ platform :ios do
 
   private_lane :build_app do
     increment_build_number(
-      build_number: latest_testflight_build_number + 1,
+      build_number: latest_testflight_build_number(version: "1.0") + 1,
       xcodeproj: "wwdcfamily.xcodeproj"
     )
 
