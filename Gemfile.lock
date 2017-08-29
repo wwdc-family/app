@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/fastlane/fastlane
-  revision: 47357e4ca2689569d7f04af881304d7c9a4464e3
+  revision: d9201cb25fff22d133999ee26c369a518a92093b
   branch: circle
   specs:
     fastlane (2.54.0)
