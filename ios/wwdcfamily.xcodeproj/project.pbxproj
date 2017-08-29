@@ -1242,10 +1242,9 @@
 			baseConfigurationReference = 206A70BC65B5FC73362B293E /* Pods-wwdcfamily.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Felix Krause (257GJD984M)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 69;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = N8X438SEU2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
@@ -1266,7 +1265,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "b77a9415-b4a0-412a-bac6-6b875dd3400c";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1277,10 +1275,9 @@
 			baseConfigurationReference = DAC82E9A5606594726518EE4 /* Pods-wwdcfamily.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Felix Krause (N8X438SEU2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Felix Krause (N8X438SEU2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 69;
-				DEVELOPMENT_TEAM = N8X438SEU2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
@@ -1301,7 +1298,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = family.wwdc.app;
 				PRODUCT_NAME = wwdcfamily;
-				PROVISIONING_PROFILE = "08af04bb-6d02-4d1a-9cfd-c3648a2c436e";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore family.wwdc.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
