@@ -24,7 +24,12 @@ platform :ios do
       xcodeproj: "wwdcfamily.xcodeproj"
     )
 
-    gym(scheme: "wwdcfamily", export_method: "app-store")
+    gym(
+      scheme: "wwdcfamily", 
+      export_method: "app-store", 
+      xcargs: "CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO",
+      export_team_id: "N8X438SEU2"
+    )
   end
 
   lane :beta do |options|
