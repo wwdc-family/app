@@ -4,7 +4,7 @@ default_platform :ios
 
 # We run tests on both, the action will skip the setup if there is a mismatch
 setup_circle
-setup_travis
+# setup_travis
 
 platform :ios do
   before_all do
