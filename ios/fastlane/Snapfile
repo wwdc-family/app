@@ -2,7 +2,7 @@ languages([
   "en-US"
 ])
 
-devices ["iPhone 5s"]
+devices ["iPhone X"]
 
 scheme "wwdcfamily"
 reinstall_app true
